@@ -1,4 +1,4 @@
-# **IbidEPL**
+# **IbidEPL** :book:
 ![IbidEPL](docs/01.png?raw=true "IbidEPL")
 
 ## **Descripción:**
@@ -62,5 +62,5 @@ Además, mientras no se pulse el botón «Aceptar» (15), la modificación no se
 ---------------------------------------------
 
 Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
-Saludos.
+Saludos.:adult: :thumbsup:
 
