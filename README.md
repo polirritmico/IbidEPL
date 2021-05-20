@@ -4,24 +4,20 @@
 ## **Descripción:**
 Una pequeña herramienta para manejar las notas ibíd.
 
-* Requisitos:
-> Sigil >0.9.8
+* **Requisitos:** _Sigil >0.9.8_
 
-* Instalación:
-Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
+* **Instalación:** Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
 
-* Ejecución:
-Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre la interfaz sin pulsar clic.
+* **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre la interfaz sin pulsar clic.
 
-* Link de descarga:
-[versión 1.0](https://mega.nz)
+* **Link de descarga:** [versión 1.0](https://mega.nz)
 
-**Atajos:**
-Ctrl + Rueda del ratón sobre el ibid o la nota para agrandar o reducir el tamaño del texto.
-Ctrl + AvPág: Abre nota ibid siguiente
-Ctrl + RePág: Abre nota ibid anterior
-Ctrl + Retroceso (Backspace): Procesar Ibid
-Ctrl + Enter: Modificar nota ibid
+* **Atajos:**
+    * Ctrl + Rueda del ratón sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
+    * Ctrl + AvPág: Abre nota ibid siguiente
+    * Ctrl + RePág: Abre nota ibid anterior
+    * Ctrl + Retroceso (Backspace): Procesar Ibid
+    * Ctrl + Enter: Modificar nota ibid
 
 
 ## Pequeño instructivo en el post de abajo.
