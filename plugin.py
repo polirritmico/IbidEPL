@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
-IbidEPL v0.4
+IbidEpl v0.4_beta
+
+Una ayuda para manejar notas ibid.
+Titivillus
+
 """
 
 import sys
