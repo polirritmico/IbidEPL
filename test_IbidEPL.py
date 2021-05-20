@@ -327,7 +327,26 @@ class TestNoteOperations(unittest.TestCase):
             self.assertEqual(len(note.childs), 0, msg)
 
     def test_note_to_xhtml(self):
-        pass
+        regex = ""
+        tag = "Ibíd:"
+        separator = "SEPARADOR:"
+
+        for book in self.compendium:
+            if book.file.name == "testFiles/test_01.xhtml":
+                note = book.notes_index[0]
+                print(note.processIbidem(regex, tag, separator))
+            elif book.file.name == "testFiles/test_02.xhtml":
+                pass
+            elif book.file.name == "testFiles/test_03.xhtml":
+                pass
+            elif book.file.name == "testFiles/test_04.xhtml":
+                pass
+            elif book.file.name == "testFiles/test_05.xhtml":
+                pass
+            elif book.file.name == "testFiles/test_06.xhtml":
+                pass
+            else:
+                self.assertTrue(False, "No open file: " + book.file.name)
 
     def test_book_to_xhtml(self):
         pass
