@@ -48,14 +48,15 @@ Se sugiere utilizar los atajos de teclado disponibles para las tareas más recur
 1. Convierte la nota base a nota ibíd.
 1. Convierte la nota ibíd a nota base.
 1. Muestra la cantidad de notas ibid sin ajuste o revisión (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
-    ![Edit](docs/03.png?raw=true "IbidEPL")
+![Edit](docs/03.png?raw=true "IbidEPL")
 1. Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 1. Restaura todos los cambios a la nota original (la leída del archivo).
 1. Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
 1. Abre la ventana de configuración. Allí podemos:
    - Ajustar la REGEX (avanzado)
    - Cambiar el tag de la nota ibid («<i xml:lang="la">Ibid</i>)
-   - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).[*]Ajusta automáticamente la nota ibid actual en base a la configuración.
+   - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).
+1. Ajusta automáticamente la nota ibid actual en base a la configuración.
 1. Ajusta automáticamente en base a la configuración actual todas las notas ibíd y guarda esos cambios.
 1. Modifica la nota. Si la nota ibid tiene cambios con respecto a la nota ibid original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón.
 Además, mientras no se pulse el botón «Aceptar» (8), la modificación no se verá reflejada en el epub.
