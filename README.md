@@ -19,10 +19,6 @@ Una pequeña herramienta para manejar las notas ibíd.
     * **Ctrl + Retroceso** (Backspace): Procesar Ibid
     * **Ctrl + Enter**: Modificar nota ibid
 
-
----------------------------------------------
-
-
 ## **Funcionamiento:**
 Por defecto el plugin agrega la etiqueta **\<i xml:lang="la">Ibid\</i>** y el Separador **TEXTO_ADICIONAL:** (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
 
@@ -62,6 +58,8 @@ Se sugiere utilizar los atajos de teclado disponibles para las tareas más recur
 Además, mientras no se pulse el botón «Aceptar» (15), la modificación no se verá reflejada en el epub.
 1. Escribe todos las modificaciones en el epub.
 1. Descarta todos los cambios y deja el epub sin modificar.
+
+---------------------------------------------
 
 Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
 Saludos.
