@@ -12,7 +12,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Link de descarga:** [versión 1.0](https://mega.nz)
 
-* **Atajos:**
+* **Atajos:** :keyboard:
     * **Ctrl + Rueda del ratón** sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
     * **Ctrl + AvPág**: Abre nota ibid siguiente
     * **Ctrl + RePág**: Abre nota ibid anterior
@@ -62,5 +62,5 @@ Además, mientras no se pulse el botón «Aceptar» (15), la modificación no se
 ---------------------------------------------
 
 Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
-Saludos.:adult: :thumbsup:
+Saludos. :thumbsup:
 
