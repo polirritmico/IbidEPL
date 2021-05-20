@@ -1,9 +1,5 @@
-# IbidEPL
-Epub Ibid tool
-
-
-## **IbidEPL**
-[imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr]
+# **IbidEPL**
+[img]http://i.imgur.com/tcwJ6wT.png[/img]
 
 ## **Descripción:**
 Una pequeña herramienta para manejar las notas ibíd.
