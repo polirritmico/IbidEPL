@@ -46,10 +46,7 @@ Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». S
 1. Convierte la nota base a nota ibíd.
 1. Convierte la nota ibíd a nota base.
 1. Muestra la cantidad de notas ibid sin ajuste o revisión (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
-
-![Edit](docs/03.png?raw=true "IbidEPL")
-
-{:start="8"}
+    ![Edit](docs/03.png?raw=true "IbidEPL")
 1. Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 1. Restaura todos los cambios a la nota original (la leída del archivo).
 1. Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
