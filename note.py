@@ -1,10 +1,6 @@
-# import sys
-# import os
 import re
-# from plugin import REGEX_IBID
-# from note import Note
-# from book import Book
 
+# Regex para encontrar ibids
 REGEX_IBID = r'(?i)(ib[íi]d(em)?)[;\., (</i>)]'
 
 

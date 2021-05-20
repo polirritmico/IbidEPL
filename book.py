@@ -7,8 +7,7 @@ from note import Note
 # from plugin import REGEX_SPLIT_NOTE
 
 
-# RegExs para detectar ibids y para dividir la info de las notas.
-# (id, llamada, texto y href)
+# RegExs para dividir data de las notas (id, llamada, texto y href)
 REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;&lt;</a></p>'
 
 

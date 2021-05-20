@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import unittest
 import os
-#from plugin import Book, Note
 from book import Book
 from note import Note
 
