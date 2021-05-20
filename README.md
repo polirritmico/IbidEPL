@@ -13,24 +13,24 @@ Una pequeña herramienta para manejar las notas ibíd.
 * **Link de descarga:** [versión 1.0](https://mega.nz)
 
 * **Atajos:**
-    * Ctrl + Rueda del ratón sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
-    * Ctrl + AvPág: Abre nota ibid siguiente
-    * Ctrl + RePág: Abre nota ibid anterior
-    * Ctrl + Retroceso (Backspace): Procesar Ibid
-    * Ctrl + Enter: Modificar nota ibid
+    * **Ctrl + Rueda del ratón** sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
+    * **Ctrl + AvPág**: Abre nota ibid siguiente
+    * **Ctrl + RePág**: Abre nota ibid anterior
+    * **Ctrl + Retroceso** (Backspace): Procesar Ibid
+    * **Ctrl + Enter**: Modificar nota ibid
 
 
 ---------------------------------------------
 
 
 ## **Funcionamiento:**
-Por defecto el plugin agrega la etiqueta '<i xml:lang="la">Ibid</i>' y el Separador «TEXTO_ADICIONAL:» (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
-
+Por defecto el plugin agrega la etiqueta **\<i xml:lang="la">Ibid\</i>** y el Separador **TEXTO_ADICIONAL:** (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
 La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibid, que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Modificar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
 
-Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
+Si son muchas notas se puede utilizar el botón _Procesar y modificar todo_.
+Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
 
-## **Sugerencia de uso:**
+## **Ejemplo de uso:**
 1. Procesar la primera nota ibíd y ajustar manualmente su texto.
 1. Luego presionar **Ctrl + Enter** para modificar la nota.
 1. Pulsar **Ctrl + AvPág** para ir a la siguiente nota íbid.
@@ -52,9 +52,9 @@ Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». S
 1. Restaura todos los cambios a la nota original (la leída del archivo).
 1. Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
 1. Abre la ventana de configuración. Allí podemos:
-   1. Ajustar la REGEX (avanzado)
-   1. Cambiar el tag de la nota ibid («<i xml:lang="la">Ibid</i>)
-   1. Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).[*]Ajusta automáticamente la nota ibid actual en base a la configuración.
+   - Ajustar la REGEX (avanzado)
+   - Cambiar el tag de la nota ibid («<i xml:lang="la">Ibid</i>)
+   - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).[*]Ajusta automáticamente la nota ibid actual en base a la configuración.
 1. Ajusta automáticamente en base a la configuración actual todas las notas ibíd y guarda esos cambios.
 1. Modifica la nota. Si la nota ibid tiene cambios con respecto a la nota ibid original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón.
 Además, mientras no se pulse el botón «Aceptar» (8), la modificación no se verá reflejada en el epub.
