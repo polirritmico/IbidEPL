@@ -3,8 +3,7 @@
 import unittest
 import os
 import re
-from book import Book
-from note import Note
+from plugin import Book, Note
 
 
 class TestInputs(unittest.TestCase):
