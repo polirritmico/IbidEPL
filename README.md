@@ -29,25 +29,27 @@ La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro 
 
 Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
 
-## **Ejemplo de uso:**
-1. Vamos a la primera nota ibíd. y editamos su texto.
-1. **Ctrl + Enter** para modificar la nota
-1. **Ctrl + AvPág** para ir a la siguiente nota íbid.
-1. **Ctrl + Retroceso** para procesar la nota y ajustamos manualmente.
+## **Sugerencia de uso:**
+1. Procesar la primera nota ibíd y ajustar manualmente su texto.
+1. Luego presionar **Ctrl + Enter** para modificar la nota.
+1. Pulsar **Ctrl + AvPág** para ir a la siguiente nota íbid.
+1. Pulsar **Ctrl + Retroceso** para procesar la nota y ajustamos manualmente.
 1. Repetimos 2 y 3 hasta terminar con todas las notas ibíd.
 1. Pulsamos **Aceptar** para confirmar los cambios y sobrescribir el archivo de notas.
 
 ## **Controles:**
 ![Navigation](docs/02.png?raw=true "IbidEPL")
-1. Explorador de notas: Nos muestra la estructura de notas y sus ibid.
-Haciendo clic sobre cualquier ibid o nota nos lleva a ella.
+1. Explorador de notas: Nos muestra la estructura de notas y sus ibid. Haciendo clic sobre cualquier ibid o nota nos lleva a ella.
 1. Avanza o retrocede a la siguiente nota, saltándose las notas ibid.
 1. Avanza o retrocede a la siguiente nota ibid, saltándose las notas base.
 1. Muestra la nota ibíd. y permite editar el texto.
 1. Convierte la nota base a nota ibíd.
 1. Convierte la nota ibíd a nota base.
 1. Muestra la cantidad de notas ibid sin ajuste o revisión (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
+
 ![Edit](docs/03.png?raw=true "IbidEPL")
+
+{:start="8"}
 1. Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 1. Restaura todos los cambios a la nota original (la leída del archivo).
 1. Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
