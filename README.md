@@ -30,11 +30,12 @@ La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro 
 Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
 
 ## **Ejemplo de uso:**
-1. Vamos a la primera nota ibíd. y editamos el texto.
-1. Pulsamos Ctrl + Enter para modificar la nota y presionamos Ctrl + AvPág para ir a la siguiente nota íbid.
-1. Pulsamos Ctrl + Retroceso para procesar la nota y ajustamos manualmente.
+1. Vamos a la primera nota ibíd. y editamos su texto.
+1. **Ctrl + Enter** para modificar la nota
+1. **Ctrl + AvPág** para ir a la siguiente nota íbid.
+1. **Ctrl + Retroceso** para procesar la nota y ajustamos manualmente.
 1. Repetimos 2 y 3 hasta terminar con todas las notas ibíd.
-1. Pulsamos Aceptar para confirmar los cambios y sobrescribir el archivo de notas.
+1. Pulsamos **Aceptar** para confirmar los cambios y sobrescribir el archivo de notas.
 
 ## **Controles:**
 ![Navigation](docs/02.png?raw=true "IbidEPL")
