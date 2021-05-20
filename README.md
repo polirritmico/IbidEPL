@@ -10,7 +10,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre la interfaz sin pulsar clic.
 
-* **Link de descarga:** [versión 1.0](https://mega.nz)
+* **Link de descarga:** [versión 1.0](192.168.0.1)
 
 * **Atajos:** :keyboard:
     * **Ctrl + Rueda del ratón** sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
