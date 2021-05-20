@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 import os
-import re
-from plugin import Book, Note
+#from plugin import Book, Note
+from book import Book
+from note import Note
 
 
 class TestInputs(unittest.TestCase):
