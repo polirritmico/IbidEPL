@@ -1,5 +1,5 @@
 # **IbidEPL**
-[IbidEPL](docs/01.png)
+![IbidEPL](docs/01.png?raw=true "IbidEPL")
 
 ## **Descripción:**
 Una pequeña herramienta para manejar las notas ibíd.
