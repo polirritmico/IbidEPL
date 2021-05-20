@@ -20,12 +20,7 @@ Una pequeña herramienta para manejar las notas ibíd.
     * Ctrl + Enter: Modificar nota ibid
 
 
-## Pequeño instructivo en el post de abajo.
 ---------------------------------------------
-
-Bueno, espero sea de utilidad y nos ayude al proceso de maquetación.
-Saludos  :mrgreen:
-
 
 
 ## **Funcionamiento:**
@@ -64,4 +59,7 @@ Haciendo clic sobre cualquier ibid o nota nos lleva a ella.
 Además, mientras no se pulse el botón «Aceptar» (8), la modificación no se verá reflejada en el epub.
 1. Escribe todos las modificaciones en el epub.
 1. Descarta todos los cambios y deja el epub sin modificar.
+
+Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
+Saludos
 
