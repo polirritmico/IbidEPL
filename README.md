@@ -1,5 +1,5 @@
 # **IbidEPL**
-[img]http://i.imgur.com/tcwJ6wT.png[/img]
+[IbidEPL](docs/01.png)
 
 ## **Descripción:**
 Una pequeña herramienta para manejar las notas ibíd.
