@@ -53,16 +53,16 @@ Se sugiere utilizar los atajos de teclado disponibles para las tareas más recur
 1. Restaura todos los cambios a la nota original (la leída del archivo).
 1. Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
 1. Abre la ventana de configuración. Allí podemos:
-   - Ajustar la REGEX (avanzado)
-   - Cambiar el tag de la nota ibid («<i xml:lang="la">Ibid</i>)
+   - Ajustar la REGEX (avanzado).
+   - Cambiar el tag de la nota ibid (\<i xml:lang="la">Ibid\</i>).
    - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).
 1. Ajusta automáticamente la nota ibid actual en base a la configuración.
 1. Ajusta automáticamente en base a la configuración actual todas las notas ibíd y guarda esos cambios.
 1. Modifica la nota. Si la nota ibid tiene cambios con respecto a la nota ibid original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón.
-Además, mientras no se pulse el botón «Aceptar» (8), la modificación no se verá reflejada en el epub.
+Además, mientras no se pulse el botón «Aceptar» (15), la modificación no se verá reflejada en el epub.
 1. Escribe todos las modificaciones en el epub.
 1. Descarta todos los cambios y deja el epub sin modificar.
 
 Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
-Saludos
+Saludos.
 
