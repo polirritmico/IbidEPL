@@ -25,6 +25,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 ## **Funcionamiento:**
 Por defecto el plugin agrega la etiqueta **\<i xml:lang="la">Ibid\</i>** y el Separador **TEXTO_ADICIONAL:** (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
+
 La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibid, que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Modificar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
 
 Si son muchas notas se puede utilizar el botón _Procesar y modificar todo_.
