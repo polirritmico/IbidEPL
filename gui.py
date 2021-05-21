@@ -1,4 +1,4 @@
-# import sys
+import sys
 # import os
 # import re
 # from note import *
@@ -17,18 +17,19 @@ except Exception as e:
 
 
 class Window(QtWidgets.QDialog):
-	def __init__(self):
-		super(Ui, self).__init__()
-		uic.loadUi("IbidEpl.ui"), self)
-		self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
+    def __init__(self, book):
+        super(Window, self).__init__()
+        uic.loadUi("IbidEpl.ui", self)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
+
+        self.show()
 
 
-def run() -> bool:
-	save_file=False
-    app=QtWidgets.QApplication(sys.argv)
-    theme_color(app)
-    window=Ui(bk, file, note_label_count,
-                ibid_label_count, first_seems_ibid)
+def run(book) -> bool:
+    save_file = False
+    app = QtWidgets.QApplication(sys.argv)
+    # theme_color(app)
+    window = Window(book)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
 
