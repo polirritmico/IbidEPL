@@ -1,10 +1,6 @@
 import sys
 # import os
 # import re
-# from note import *
-# from note import Note
-# from book import Book
-# from plugin import REGEX_SPLIT_NOTE
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
