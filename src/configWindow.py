@@ -9,7 +9,7 @@ except Exception as e:
     sys.exit()
 
 
-class RegexDialog(QtWidgets.QDialog):
+class ConfigWindow(QtWidgets.QDialog):
     def __init__(self, dark_theme):
         pass
 
