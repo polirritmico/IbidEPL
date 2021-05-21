@@ -22,7 +22,103 @@ class Window(QtWidgets.QDialog):
         uic.loadUi("IbidEpl.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
+        # self.max_note_label = str(parent_count)
+        # self.max_ibid_label = str(ibid_count)
+
+        # Set Icons
+        # self.loadIcons(bk)
+
+        # Connect buttons
+        # Dialog confirmation buttons
+        self.AcceptButton.clicked.connect(self.acceptButton_pressed)
+        self.CancelButton.clicked.connect(self.cancelButton_pressed)
+        # Navigation buttons
+        self.NoteNextButton.clicked.connect(self.nextNoteButton_pressed)
+        self.NotePrevButton.clicked.connect(self.prevNoteButton_pressed)
+        self.IbidNextButton.clicked.connect(self.nextIbidButton_pressed)
+        self.IbidPrevButton.clicked.connect(self.nextIbidButton_pressed)
+        # Note/ibid switches buttons
+        self.NoteToIbidButton.clicked.connect(self.noteToIbidButton_pressed)
+        self.IbidToNoteButton.clicked.connect(self.ibidToNoteButton_pressed)
+        # Edit ibid buttons
+        self.IbidUndoButton.clicked.connect(self.undoIbidButton_pressed)
+        self.IbidReplaceButton.clicked.connect(self.ibidReplaceButton_pressed)
+        self.IbidAutoProcButton.clicked.connect(self.processIbidButton_pressed)
+        self.IbidAutoProcAllButton.clicked.connect(
+            self.processAllIbidsButton_pressed)
+        # Aditional buttons
+        self.RegexSelectorButton.clicked.connect(self.configButton_pressed)
+        self.TagButton.clicked.connect(self.showTagButton_pressed)
+        self.ShowOriginalIbid.clicked.connect(
+            self.showOriginalIbidButton_pressed)
+        self.IbidOriginalText.setVisible(False)
+
+        # QtextEdit
+        # self.IbidText.textChanged.connect(self.ibidTextChanged)
+
+        # QTreeWidget: NoteBrowser
+        # self.NoteBrowser.itemClicked.connect(self.BrowserNoteItem_pressed)
+        self.NoteBrowser.setColumnWidth(0, 80)
+        self.NoteBrowser.setColumnWidth(1, 40)
+        self.NoteBrowser.setColumnWidth(2, 120)
+
+        # self.populateNoteBrowser()
+
+        # Regex Dialog
+        # self.options_dialog = RegexDialog(self, self.bk)
+
+        # Run
+        # self.changeToNote(notes_index[0])
+        #self.announce(str(len(notes_index)) + " notas leídas desde " + file)
         self.show()
+        if book.first_seems_ibid:
+            QtWidgets.QMessageBox.warning(self,
+                                          'Advertencia', 'La primera nota parece ser ibid')
+
+    def nextNoteButton_pressed(self):
+        pass
+
+    def prevNoteButton_pressed(self):
+        pass
+
+    def nextIbidButton_pressed(self):
+        pass
+
+    def prevIbidPrevButton_pressed(self):
+        pass
+
+    def noteToIbidButton_pressed(self):
+        pass
+
+    def ibidToNoteButton_pressed(self):
+        pass
+
+    def undoIbidButton_pressed(self):
+        pass
+
+    def showTagButton_pressed(self):
+        pass
+
+    def showOriginalIbidButton_pressed(self):
+        pass
+
+    def configButton_pressed(self):
+        pass
+
+    def processIbidButton_pressed(self):
+        pass
+
+    def processAllIbidsButton_pressed(self):
+        pass
+
+    def ibidReplaceButton_pressed(self):
+        pass
+
+    def acceptButton_pressed(self):
+        pass
+
+    def cancelButton_pressed(self):
+        pass
 
 
 def run(book) -> bool:
