@@ -46,7 +46,7 @@ def main():
 
     print("Archivo \"" + filename + "\" indexado exitosamente.")
     print("Abriendo interfaz QT...")
-    overwrite_xhtml = gui.run()
+    overwrite_xhtml = gui.run(book)
 
     if overwrite_xhtml:
         file = open("outTest_01.xhtml", "w")
