@@ -11,7 +11,6 @@ import sys
 # import os
 # import re
 import src.mainWindow
-# import resources
 from src.book import Book
 
 
@@ -32,7 +31,7 @@ def run(bk):
 def main():
         # print("Error: Ejecutar desde Sigil.\n")
         # return -1
-    filename = "testFiles/test_01.xhtml"
+    filename = "testFiles/test_02.xhtml"
     book = Book()
     book.readFile(filename)
     book.parseNotes()
@@ -40,6 +39,7 @@ def main():
     book.autocheckIbidNotes()
     book.setParentsAndChilds()
     book.updateNextAndPrevNotes()
+    book.updateNotesLabels()
 
     print("Archivo \"" + filename + "\" indexado exitosamente.")
     print("Abriendo interfaz QT...")
@@ -47,7 +47,7 @@ def main():
     overwrite_xhtml = src.mainWindow.run(book, True)
 
     if overwrite_xhtml:
-        file = open("outTest_01.xhtml", "w")
+        file = open("outTest_02.xhtml", "w")
         file.write(book.bookToXHTML())
         file.close()
         print("Archivo escrito correctamente.")
