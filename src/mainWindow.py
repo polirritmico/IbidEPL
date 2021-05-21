@@ -19,6 +19,7 @@ class Window(QtWidgets.QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
         self.book = _book
+        self.notes_index = _book.notes_index
 
         # Set icons
         # if platform.system() != "Linux":#import platform
@@ -69,7 +70,7 @@ class Window(QtWidgets.QDialog):
         self.AcceptButton.clicked.connect(self.acceptButton_pressed)
         self.CancelButton.clicked.connect(self.cancelButton_pressed)
         # QtextEdit
-        # self.IbidText.textChanged.connect(self.ibidTextChanged)
+        self.IbidText.textChanged.connect(self.ibidTextChanged)
         # QTreeWidget: NoteBrowser
         self.NoteBrowser.itemClicked.connect(self.browserNoteItem_pressed)
         self.NoteBrowser.setColumnWidth(0, 80)
@@ -79,10 +80,10 @@ class Window(QtWidgets.QDialog):
         self.populateNoteBrowser()
 
         # Setup Dialog
-        #self.options_dialog = RegexDialog(self, dark_theme)
+        self.config_window = src.configWindow.ConfigWindow(dark_theme)
 
         # Run
-        # self.changeToNote(notes_index[0])
+        self.changeToIbid(self.changeToNote(self.notes_index[0]))
         #self.announce(str(len(notes_index)) + " notas leídas desde " + file)
         self.show()
         if self.book.first_seems_ibid:
@@ -90,6 +91,64 @@ class Window(QtWidgets.QDialog):
                                           'Advertencia', 'La primera nota parece ser ibid')
 
     def populateNoteBrowser(self):
+        self.NoteBrowser.clear()
+
+        # Cabeceras QTreeWidget: Id, Número, Texto, Index (int)
+        for note in self.notes_index:
+            entry = [note.id_tag, note.number, note.text, str(note.index)]
+            note.browserEntry = QTreeWidgetItem(entry)
+            if note.is_ibid:
+                parentEntry.addChild(note.browserEntry)
+            else:
+                parentEntry = note.browserEntry
+                self.NoteBrowser.addTopLevelItem(note.browserEntry)
+
+        self.NoteBrowser.expandAll()
+
+    def changeToNote(self, note):
+        self.current_note = note
+        self.NoteIdEntry.setText(note.id_tag)
+        self.NoteEntry.setText(note.number)
+        current_note_label = note.current_label + \
+            " de " + str(self.book.base_note_count)
+        self.NoteCurrent.setText(current_note_label)
+        self.NoteHrefEntry.setText(note.href)
+        self.NoteText.setPlainText(note.text)
+
+        return note.childs[0] if len(note.childs) > 0 else None
+
+    def changeToIbid(self, ibid):
+        if ibid == None:
+            self.IbidText.setReadOnly(True)
+            self.IbidUndoButton.setEnabled(False)
+
+            self.IbidIdEntry.setText("")
+            self.IbidEntry.setText("")
+            self.IbidCurrent.setText("")
+            self.IbidText.setPlainText("Sin ibid.")
+            self.IbidOriginalText.setPlainText("Sin ibid.")
+            self.IbidHrefEntry.setText("")
+        else:
+            self.IbidText.setReadOnly(False)
+            if ibid.edited or ibid.processed:
+                self.IbidUndoButton.setEnabled(True)
+
+            self.IbidIdEntry.setText(ibid.id_tag)
+            self.IbidEntry.setText(ibid.number)
+            ibid_current = ibid.current_label + " de " + self.ibid_note_count
+            self.IbidCurrent.setText(ibid_current)
+            self.IbidHrefEntry.setText(ibid.href)
+
+            if self.html_tag:
+                self.IbidText.setText(ibid.text)
+                self.IbidOriginalText.setText(ibid.original_text)
+                self.IbidText.setReadOnly(True)
+            else:
+                self.IbidText.setPlainText(ibid.text)
+                self.IbidOriginalText.setPlainText(ibid.original_text)
+                self.IbidText.setReadOnly(False)
+
+    def ibidTextChanged(self):
         pass
 
     def nextNoteButton_pressed(self):
