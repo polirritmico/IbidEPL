@@ -34,11 +34,11 @@ class Window(QtWidgets.QDialog):
         # Edit ibid buttons
         self.IbidUndoButton.clicked.connect(self.undoIbidButton_pressed)
         self.IbidReplaceButton.clicked.connect(self.ibidReplaceButton_pressed)
-        self.IbidAutoProcButton.clicked.connect(self.processIbidButton_pressed)
-        self.IbidAutoProcAllButton.clicked.connect(
+        self.IbidProcessButton.clicked.connect(self.processIbidButton_pressed)
+        self.IbidProcessAllButton.clicked.connect(
             self.processAllIbidsButton_pressed)
         # Aditional buttons
-        self.RegexSelectorButton.clicked.connect(self.configButton_pressed)
+        self.ConfigButton.clicked.connect(self.configButton_pressed)
         self.TagButton.clicked.connect(self.showTagButton_pressed)
         self.ShowOriginalIbid.clicked.connect(
             self.showOriginalIbidButton_pressed)

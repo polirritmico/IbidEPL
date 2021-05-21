@@ -569,7 +569,7 @@
            <item>
             <layout class="QHBoxLayout" name="ModifyLayout">
              <item>
-              <widget class="QToolButton" name="RegexSelectorButton">
+              <widget class="QToolButton" name="ConfigButton">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -592,7 +592,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IbidAutoProcButton">
+              <widget class="QPushButton" name="IbidProcessButton">
                <property name="focusPolicy">
                 <enum>Qt::NoFocus</enum>
                </property>
@@ -609,7 +609,7 @@ Los cambios serán descartados si no se pulsa el botón Modificar.</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="IbidAutoProcAllButton">
+              <widget class="QPushButton" name="IbidProcessAllButton">
                <property name="focusPolicy">
                 <enum>Qt::NoFocus</enum>
                </property>
@@ -617,7 +617,7 @@ Los cambios serán descartados si no se pulsa el botón Modificar.</string>
                 <string>Procesa con la REGEX y las opciones seleccionadas todas las notas.</string>
                </property>
                <property name="text">
-                <string>Procesar y modificar todo</string>
+                <string>Procesar y reemplazar todo</string>
                </property>
               </widget>
              </item>
@@ -631,7 +631,7 @@ Los cambios serán descartados si no se pulsa el botón Modificar.</string>
 Si no se modifica los cambios se descartarán.</string>
                </property>
                <property name="text">
-                <string>Modificar</string>
+                <string>Reemplazar</string>
                </property>
                <property name="shortcut">
                 <string>Ctrl+Return</string>
