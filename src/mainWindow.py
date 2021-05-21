@@ -1,6 +1,7 @@
 import sys
 # import os
 # import re
+import src.configWindow
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
@@ -15,7 +16,7 @@ except Exception as e:
 class Window(QtWidgets.QDialog):
     def __init__(self, book):
         super(Window, self).__init__()
-        uic.loadUi("src/IbidEpl.ui", self)
+        uic.loadUi("src/mainWindow.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
         # Set Icons

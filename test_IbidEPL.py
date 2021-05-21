@@ -396,6 +396,9 @@ class TestNoteOperations(unittest.TestCase):
     #     #     else:
     #     #         self.assertTrue(False, "No open file: " + book.file.name)
 
+class TestQT5(unittest.TestCase):
+    def setUp(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
