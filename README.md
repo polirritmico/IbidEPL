@@ -12,7 +12,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Link de descarga:** [versión 1.0](192.168.0.1)
 
-* **Atajos:** :keyboard:
+* **Atajos:** :keyboard::computer_mouse:
     * **Ctrl + Rueda del ratón** sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
     * **Ctrl + AvPág**: Abre nota ibid siguiente
     * **Ctrl + RePág**: Abre nota ibid anterior
