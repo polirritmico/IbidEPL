@@ -14,6 +14,8 @@ class Book:
         self.notes_index = []
 
         self.first_seems_ibid = False
+        self.ibid_note_count = 0
+        self.base_note_count = 0
 
     def readFile(self, _file):
         self.file = open(_file, "r")
@@ -73,15 +75,15 @@ class Book:
 
     def updateNotesLabels(self):
         # Debe usarse setParentsAndChilds primero
-        note_label_count = 0
-        ibid_label_count = 0
+        self.ibid_note_count = 0
+        self.base_note_count = 0
         for note in self.notes_index:
             if note.is_ibid:
-                ibid_label_count += 1
-                note.current_label = str(ibid_label_count)
+                self.ibid_note_count += 1
+                note.current_label = str(self.ibid_note_count)
             else:
-                note_label_count += 1
-                note.current_label = str(note_label_count)
+                self.base_note_count += 1
+                note.current_label = str(self.base_note_count)
 
     def updateNextAndPrevNotes(self):
         # Obtenemos los next y prev de cada nota
