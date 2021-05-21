@@ -10,8 +10,6 @@ Titivillus
 import sys
 # import os
 # import re
-#import book
-# import note
 import src.mainWindow
 # import resources
 from src.book import Book
