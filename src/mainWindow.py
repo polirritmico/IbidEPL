@@ -14,15 +14,38 @@ except Exception as e:
 
 
 class Window(QtWidgets.QDialog):
-    def __init__(self, book):
+    def __init__(self, _book, dark_theme):
         super(Window, self).__init__()
         uic.loadUi("src/mainWindow.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
-        # Set Icons
-        # self.loadIcons()
+        self.book = _book
 
-        # Connect buttons
+        # Set icons
+        # if platform.system() != "Linux":#import platform
+        # Set dark or light mode
+        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
+        if dark_theme:
+            self.theme = ":/dark-theme/"
+        else:
+            self.theme = ":/light-theme/"
+
+        self.NoteToIbidButton.setIcon(
+            QIcon(self.theme + "format-indent-more.svg"))
+        self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
+        self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.IbidToNoteButton.setIcon(
+            QIcon(self.theme + "format-indent-less.svg"))
+        self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
+        self.IbidUndoButton.setIcon(QIcon(self.theme + "edit-undo.svg"))
+        self.IbidPrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.IbidNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.ConfigButton.setIcon(QIcon(self.theme + "application-menu.svg"))
+        self.AcceptButton.setIcon(QIcon(self.theme + "dialog-ok-apply.svg"))
+        self.CancelButton.setIcon(QIcon(self.theme + "dialog-cancel.svg"))
+
+        # GUI Connections
         # Navigation buttons
         self.NoteNextButton.clicked.connect(self.nextNoteButton_pressed)
         self.NotePrevButton.clicked.connect(self.prevNoteButton_pressed)
@@ -46,10 +69,8 @@ class Window(QtWidgets.QDialog):
         # Dialog confirmation buttons
         self.AcceptButton.clicked.connect(self.acceptButton_pressed)
         self.CancelButton.clicked.connect(self.cancelButton_pressed)
-
         # QtextEdit
         # self.IbidText.textChanged.connect(self.ibidTextChanged)
-
         # QTreeWidget: NoteBrowser
         self.NoteBrowser.itemClicked.connect(self.browserNoteItem_pressed)
         self.NoteBrowser.setColumnWidth(0, 80)
@@ -58,41 +79,16 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
 
-        # Regex Dialog
-        # self.options_dialog = RegexDialog(self, self.bk)
+        # Setup Dialog
+        #self.options_dialog = RegexDialog(self, dark_theme)
 
         # Run
         # self.changeToNote(notes_index[0])
         #self.announce(str(len(notes_index)) + " notas leídas desde " + file)
         self.show()
-        if book.first_seems_ibid:
+        if self.book.first_seems_ibid:
             QtWidgets.QMessageBox.warning(self,
                                           'Advertencia', 'La primera nota parece ser ibid')
-
-    def loadIcons(self, bk):
-        # if platform.system() != "Linux":#import platform
-        # Set dark or light mode
-        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
-        if True:
-            self.theme = ":/dark-theme/"
-        else:
-            self.theme = ":/light-theme/"
-
-        self.NoteToIbidButton.setIcon(
-            QIcon(self.theme + "format-indent-more.svg"))
-        self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
-        self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
-        self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
-        self.IbidToNoteButton.setIcon(
-            QIcon(self.theme + "format-indent-less.svg"))
-        self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
-        self.IbidUndoButton.setIcon(QIcon(self.theme + "edit-undo.svg"))
-        self.IbidPrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
-        self.IbidNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
-        self.RegexSelectorButton.setIcon(
-            QIcon(self.theme + "application-menu.svg"))
-        self.AcceptButton.setIcon(QIcon(self.theme + "dialog-ok-apply.svg"))
-        self.CancelButton.setIcon(QIcon(self.theme + "dialog-cancel.svg"))
 
     def populateNoteBrowser(self):
         pass
@@ -189,11 +185,11 @@ def theme_color(bk, app):
     app.setPalette(dark_theme)
 
 
-def run(book) -> bool:
+def run(book, dark_theme) -> bool:
     save_file = False
     app = QtWidgets.QApplication(sys.argv)
     # theme_color(app)
-    window = Window(book)
+    window = Window(book, dark_theme)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
 

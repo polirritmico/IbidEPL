@@ -25,7 +25,7 @@ class Note:
         self.edited = False
         self.processed = False
 
-        # Ui
+        # Gui
         self.current_label = ""
         self.browserEntry = None
 
