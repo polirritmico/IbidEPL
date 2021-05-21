@@ -9,17 +9,16 @@
 				"plugin.py"
 			],
 			"name": "Run plugin.py",
-
 			"variants":
 			[
 				{
-					"name": "Run tests plugin",
-					"cmd": 
+					"cmd":
 					[
 						"python",
 						"-u",
 						"test_IbidEPL.py"
-					]
+					],
+					"name": "Run tests plugin"
 				}
 			]
 		},
@@ -27,7 +26,13 @@
 			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
 			"name": "Anaconda Python Builder",
 			"selector": "source.python",
-			"shell_cmd": "\"python\" -u \"$file\""			
+			"shell_cmd": "\"python\" -u \"$file\""
+		}
+	],
+	"folders":
+	[
+		{
+			"path": "."
 		}
 	]
 }
