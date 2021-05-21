@@ -15,7 +15,6 @@ import sys
 import src.mainWindow
 # import resources
 from src.book import Book
-# from note import Note
 
 
 def run(bk):
