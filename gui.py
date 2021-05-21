@@ -26,17 +26,14 @@ class Window(QtWidgets.QDialog):
         # self.max_ibid_label = str(ibid_count)
 
         # Set Icons
-        # self.loadIcons(bk)
+        #self.loadIcons()
 
         # Connect buttons
-        # Dialog confirmation buttons
-        self.AcceptButton.clicked.connect(self.acceptButton_pressed)
-        self.CancelButton.clicked.connect(self.cancelButton_pressed)
         # Navigation buttons
         self.NoteNextButton.clicked.connect(self.nextNoteButton_pressed)
         self.NotePrevButton.clicked.connect(self.prevNoteButton_pressed)
         self.IbidNextButton.clicked.connect(self.nextIbidButton_pressed)
-        self.IbidPrevButton.clicked.connect(self.nextIbidButton_pressed)
+        self.IbidPrevButton.clicked.connect(self.prevIbidButton_pressed)
         # Note/ibid switches buttons
         self.NoteToIbidButton.clicked.connect(self.noteToIbidButton_pressed)
         self.IbidToNoteButton.clicked.connect(self.ibidToNoteButton_pressed)
@@ -52,6 +49,9 @@ class Window(QtWidgets.QDialog):
         self.ShowOriginalIbid.clicked.connect(
             self.showOriginalIbidButton_pressed)
         self.IbidOriginalText.setVisible(False)
+        # Dialog confirmation buttons
+        self.AcceptButton.clicked.connect(self.acceptButton_pressed)
+        self.CancelButton.clicked.connect(self.cancelButton_pressed)
 
         # QtextEdit
         # self.IbidText.textChanged.connect(self.ibidTextChanged)
@@ -84,7 +84,7 @@ class Window(QtWidgets.QDialog):
     def nextIbidButton_pressed(self):
         pass
 
-    def prevIbidPrevButton_pressed(self):
+    def prevIbidButton_pressed(self):
         pass
 
     def noteToIbidButton_pressed(self):
@@ -119,6 +119,74 @@ class Window(QtWidgets.QDialog):
 
     def cancelButton_pressed(self):
         pass
+
+    def loadIcons(self, bk):
+        # if platform.system() != "Linux":#import platform
+        # Set dark or light mode
+        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
+        if True:
+            self.theme = ":/dark-theme/"
+        else:
+            self.theme = ":/light-theme/"
+
+        self.NoteToIbidButton.setIcon(
+            QIcon(self.theme + "format-indent-more.svg"))
+        self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
+        self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.IbidToNoteButton.setIcon(
+            QIcon(self.theme + "format-indent-less.svg"))
+        self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
+        self.IbidUndoButton.setIcon(QIcon(self.theme + "edit-undo.svg"))
+        self.IbidPrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.IbidNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.RegexSelectorButton.setIcon(
+            QIcon(self.theme + "application-menu.svg"))
+        self.AcceptButton.setIcon(QIcon(self.theme + "dialog-ok-apply.svg"))
+        self.CancelButton.setIcon(QIcon(self.theme + "dialog-cancel.svg"))
+
+
+def theme_color(bk, app):
+    # supports_theming = (bk.launcher_version() >= 20200117)
+    # if not supports_theming:
+    #     return
+    # if bk.colorMode() != "dark":
+        # return
+    try:
+        from PyQt5.QtGui import QColor, QPalette
+        from PyQt5.QtWidgets import QStyleFactory
+    except ImportError:
+        return
+
+    dark_theme = QPalette()
+    sigil_colors = bk.color
+    dark_color = QColor(sigil_colors("Window"))
+    disabled_color = QColor(127, 127, 127)
+    dark_link_color = QColor(108, 180, 238)
+    text_color = QColor(sigil_colors("Text"))
+    dark_theme.setColor(dark_theme.Window, dark_color)
+    dark_theme.setColor(dark_theme.WindowText, text_color)
+    dark_theme.setColor(dark_theme.Base, QColor(sigil_colors("Base")))
+    dark_theme.setColor(dark_theme.AlternateBase, dark_color)
+    dark_theme.setColor(dark_theme.ToolTipBase, dark_color)
+    dark_theme.setColor(dark_theme.ToolTipText, text_color)
+    dark_theme.setColor(dark_theme.Text, text_color)
+    dark_theme.setColor(dark_theme.Disabled, dark_theme.Text, disabled_color)
+    dark_theme.setColor(dark_theme.Button, dark_color)
+    dark_theme.setColor(dark_theme.ButtonText, text_color)
+    dark_theme.setColor(dark_theme.Disabled,
+                        dark_theme.ButtonText, disabled_color)
+    dark_theme.setColor(dark_theme.BrightText, Qt.red)
+    dark_theme.setColor(dark_theme.Link, dark_link_color)
+    dark_theme.setColor(dark_theme.Highlight,
+                        QColor(sigil_colors("Highlight")))
+    dark_theme.setColor(dark_theme.HighlightedText,
+                        QColor(sigil_colors("HighlightedText")))
+    dark_theme.setColor(dark_theme.Disabled,
+                        dark_theme.HighlightedText, disabled_color)
+
+    app.setStyle(QStyleFactory.create("Fusion"))
+    app.setPalette(dark_theme)
 
 
 def run(book) -> bool:
