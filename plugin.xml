@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+<name>IbidEPL</name>
+<type>edit</type>
+<author>ePubLibre</author>
+<description>Ayuda para trabajar los Ibid en las notas</description>
+<engine>python3.4</engine>
+<engine>python2.7</engine>
+<version>0.4.0</version>
+<oslist>osx,unx,win</oslist>
+<autostart>True</autostart>
+<autoclose>True</autoclose>
+</plugin>
