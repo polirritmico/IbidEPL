@@ -22,11 +22,8 @@ class Window(QtWidgets.QDialog):
         uic.loadUi("IbidEpl.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
-        # self.max_note_label = str(parent_count)
-        # self.max_ibid_label = str(ibid_count)
-
         # Set Icons
-        #self.loadIcons()
+        # self.loadIcons()
 
         # Connect buttons
         # Navigation buttons
@@ -57,12 +54,12 @@ class Window(QtWidgets.QDialog):
         # self.IbidText.textChanged.connect(self.ibidTextChanged)
 
         # QTreeWidget: NoteBrowser
-        # self.NoteBrowser.itemClicked.connect(self.BrowserNoteItem_pressed)
+        self.NoteBrowser.itemClicked.connect(self.browserNoteItem_pressed)
         self.NoteBrowser.setColumnWidth(0, 80)
         self.NoteBrowser.setColumnWidth(1, 40)
         self.NoteBrowser.setColumnWidth(2, 120)
 
-        # self.populateNoteBrowser()
+        self.populateNoteBrowser()
 
         # Regex Dialog
         # self.options_dialog = RegexDialog(self, self.bk)
@@ -74,6 +71,34 @@ class Window(QtWidgets.QDialog):
         if book.first_seems_ibid:
             QtWidgets.QMessageBox.warning(self,
                                           'Advertencia', 'La primera nota parece ser ibid')
+
+    def loadIcons(self, bk):
+        # if platform.system() != "Linux":#import platform
+        # Set dark or light mode
+        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
+        if True:
+            self.theme = ":/dark-theme/"
+        else:
+            self.theme = ":/light-theme/"
+
+        self.NoteToIbidButton.setIcon(
+            QIcon(self.theme + "format-indent-more.svg"))
+        self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
+        self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.IbidToNoteButton.setIcon(
+            QIcon(self.theme + "format-indent-less.svg"))
+        self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
+        self.IbidUndoButton.setIcon(QIcon(self.theme + "edit-undo.svg"))
+        self.IbidPrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
+        self.IbidNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
+        self.RegexSelectorButton.setIcon(
+            QIcon(self.theme + "application-menu.svg"))
+        self.AcceptButton.setIcon(QIcon(self.theme + "dialog-ok-apply.svg"))
+        self.CancelButton.setIcon(QIcon(self.theme + "dialog-cancel.svg"))
+
+    def populateNoteBrowser(self):
+        pass
 
     def nextNoteButton_pressed(self):
         pass
@@ -120,30 +145,8 @@ class Window(QtWidgets.QDialog):
     def cancelButton_pressed(self):
         pass
 
-    def loadIcons(self, bk):
-        # if platform.system() != "Linux":#import platform
-        # Set dark or light mode
-        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
-        if True:
-            self.theme = ":/dark-theme/"
-        else:
-            self.theme = ":/light-theme/"
-
-        self.NoteToIbidButton.setIcon(
-            QIcon(self.theme + "format-indent-more.svg"))
-        self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
-        self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
-        self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
-        self.IbidToNoteButton.setIcon(
-            QIcon(self.theme + "format-indent-less.svg"))
-        self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
-        self.IbidUndoButton.setIcon(QIcon(self.theme + "edit-undo.svg"))
-        self.IbidPrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
-        self.IbidNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
-        self.RegexSelectorButton.setIcon(
-            QIcon(self.theme + "application-menu.svg"))
-        self.AcceptButton.setIcon(QIcon(self.theme + "dialog-ok-apply.svg"))
-        self.CancelButton.setIcon(QIcon(self.theme + "dialog-cancel.svg"))
+    def browserNoteItem_pressed(self):
+        pass
 
 
 def theme_color(bk, app):
