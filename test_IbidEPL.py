@@ -50,7 +50,7 @@ class TestProcess(unittest.TestCase):
             book.parseNotes()
             book.setParentsAndChilds()
             book.updateNextAndPrevNotes()
-            # book.setNotesLabels()
+
             self.compendium.append(book)
 
     def test_notes_processed_count(self):

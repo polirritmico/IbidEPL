@@ -7,13 +7,15 @@ Una ayuda para manejar notas ibid.
 Titivillus
 """
 
-# import sys
+import sys
 # import os
 # import re
-# import book
+#import book
 # import note
-# import gui
+import gui
 # import resources
+from book import Book
+# from note import Note
 
 
 def run(bk):
@@ -29,8 +31,15 @@ def run(bk):
 
 
 def main():
-    print("Error: Ejecutar desde Sigil.\n")
-    return -1
+    # print("Error: Ejecutar desde Sigil.\n")
+    # return -1
+
+    book = Book()
+    book.readFile("testFiles/test_01.xhtml")
+    book.parseNotes()
+    book.autocheckIbidNotes()
+    book.setParentsAndChilds()
+    book.updateNextAndPrevNotes()
 
 
 if __name__ == "__main__":

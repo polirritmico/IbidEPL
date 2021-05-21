@@ -1,10 +1,5 @@
-# import sys
-# import os
 import re
-# from note import *
 from note import Note
-# from book import Book
-# from plugin import REGEX_SPLIT_NOTE
 
 
 # RegExs para dividir data de las notas (id, llamada, texto y href)
@@ -77,7 +72,7 @@ class Book:
                 note.setParent(None)
 
     def updateNotesLabels(self):
-        # Debe usarse setPArentsAndChilds primero
+        # Debe usarse setParentsAndChilds primero
         note_label_count = 0
         ibid_label_count = 0
         for note in self.notes_index:
