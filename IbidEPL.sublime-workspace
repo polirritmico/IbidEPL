@@ -1,0 +1,771 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"IBID",
+				"REGEX_IBID\tstatement"
+			],
+			[
+				"asser",
+				"assertEqual\tfunction"
+			],
+			[
+				"ex",
+				"expected_xhtml\tstatement"
+			],
+			[
+				"book",
+				"bookToXHTML\tfunction"
+			],
+			[
+				"assertNot",
+				"assertIsNotNone\tfunction"
+			],
+			[
+				"set",
+				"setParentsAndChilds\tfunction"
+			],
+			[
+				"parent",
+				"setParent"
+			],
+			[
+				"update",
+				"updateNextAndPrevNotes\tfunction"
+			],
+			[
+				"nex",
+				"next_note\tstatement"
+			],
+			[
+				"assertEq",
+				"assertEqual"
+			],
+			[
+				"assert",
+				"assertIsNone\tfunction"
+			],
+			[
+				"id",
+				"id_tag"
+			],
+			[
+				"inde",
+				"notes_index"
+			],
+			[
+				"ibid",
+				"ibid_count\tstatement"
+			],
+			[
+				"current",
+				"current_label"
+			],
+			[
+				"ch",
+				"ibidCheck"
+			],
+			[
+				"first",
+				"first_seems_ibid\tstatement"
+			],
+			[
+				"ibi",
+				"ibidCheck"
+			],
+			[
+				"html",
+				"html_body\tstatement"
+			],
+			[
+				"read",
+				"reading_header\tstatement"
+			],
+			[
+				"rea",
+				"reading_header\tstatement"
+			],
+			[
+				"to",
+				"toXHTML\tfunction"
+			],
+			[
+				"note",
+				"note_mid"
+			],
+			[
+				"firs",
+				"first_note_parsed\tstatement"
+			],
+			[
+				"parse",
+				"parseNotes\tfunction"
+			],
+			[
+				"fir",
+				"first_seems_ibid\tstatement"
+			],
+			[
+				"el",
+				"elif\tkeyword"
+			],
+			[
+				"asserIs",
+				"assertIsNotNone\tfunction"
+			],
+			[
+				"notes",
+				"notes_index\tstatement"
+			],
+			[
+				"index",
+				"notes_index\tstatement"
+			],
+			[
+				"pr",
+				"prueba\tstatement"
+			],
+			[
+				"lis",
+				"test_lists_of_lists"
+			],
+			[
+				"ass",
+				"assertFalse\tfunction"
+			],
+			[
+				"assertT",
+				"assertTrue\tfunction"
+			],
+			[
+				"comp",
+				"compendium"
+			],
+			[
+				"text",
+				"original_text"
+			],
+			[
+				"asset",
+				"assertEquals\tfunction"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "plugin.py",
+			"settings":
+			{
+				"buffer_size": 1383,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "IbidEPL.sublime-project",
+			"settings":
+			{
+				"buffer_size": 103,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "book.py",
+			"settings":
+			{
+				"buffer_size": 4540,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "note.py",
+			"settings":
+			{
+				"buffer_size": 2116,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "gui.py",
+			"settings":
+			{
+				"buffer_size": 1012,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/IbidEPL/plugin.py",
+			"settings":
+			{
+				"buffer_size": 38426,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test_IbidEPL.py",
+			"settings":
+			{
+				"buffer_size": 22149,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"packa re",
+				"Package Control: Remove Package"
+			],
+			[
+				"packe insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package re",
+				"Package Control: Remove Package"
+			],
+			[
+				"package instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"test",
+				"Snippet: testclass"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"package control remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"unittest",
+				"Pyunit: Run Test for Source"
+			],
+			[
+				"Packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"UnitTesting",
+				"UnitTesting"
+			],
+			[
+				"Uni",
+				"UnitTesting: Test Current File"
+			],
+			[
+				"Unit",
+				"UnitTesting: Test Current File"
+			],
+			[
+				"",
+				"Install Package Control"
+			],
+			[
+				"inst",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 213.0,
+		"history":
+		[
+			"ls",
+			"UnitTesting"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/IbidEPL/test_IbidEPL.py",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/IbidEPL/README.md",
+		"/home/eduardo/.config/sublime-text-3/Packages/User/MultiMarkdown.sublime-settings",
+		"/home/eduardo/.config/sublime-text-3/Packages/MarkdownEditing/MultiMarkdown.sublime-settings",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/IbidEPL/HomePage.md",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/test_IbidEPL.py",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/plugin.py",
+		"/home/eduardo/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/home/eduardo/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
+		"/home/eduardo/.config/sublime-text-3/Packages/Anaconda/README.md",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_06.xhtml",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_05.xhtml",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_04.xhtml",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_03.xhtml",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_02.xhtml",
+		"/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/Ibid/testFiles/test_01.xhtml"
+	],
+	"find":
+	{
+		"height": 44.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"print(\"Error: Ejecutar desde Sigil.\\n\")\n    return -1",
+			"book",
+			"REGEX",
+			"REGEX_IBID",
+			"child_count",
+			"case",
+			"self",
+			"autocheckIbidNotes",
+			"count",
+			"text",
+			"base_note",
+			"file",
+			"pass",
+			"# for book in self.compendium:\n        #     if book.file == \"testFiles/test_01.xhtml\":\n        #         pass\n        #     elif book.file == \"testFiles/test_02.xhtml\":\n        #         pass\n        #     elif book.file == \"testFiles/test_03.xhtml\":\n        #         pass\n        #     elif book.file == \"testFiles/test_04.xhtml\":\n        #         pass\n        #     elif book.file == \"testFiles/test_05.xhtml\":\n        #         pass\n        #     elif book.file == \"testFiles/test_06.xhtml\":\n        #         pass",
+			"first_ibid",
+			"assertEqual",
+			"first",
+			"getNotesData",
+			"len(book.html_body)",
+			"len",
+			"lines_count",
+			"book",
+			"compendium",
+			"file",
+			"File",
+			"file",
+			"compendium",
+			"File",
+			"file",
+			"book.file",
+			"child_count",
+			"note",
+			"ibid",
+			"self.assertEqual(\"nt1\", self.compendium[0].notes_index[0].id_tag)\n        self.assertEqual(\"1\", self.compendium[0].notes_index[0].number)\n        self.assertEqual(\"Nota 1. <cite>Esta es una cita</cite>\",\n                         self.compendium[0].notes_index[0].original_text)\n        self.assertEqual(\"Section0001.xhtml#rf1\",\n                         self.compendium[0].notes_index[0].href)\n        self.assertEqual(0, self.compendium[0].notes_index[0].index)\n\n\n        self.assertEqual(\"nt1\", self.compendium[0].notes_index[0].id_tag)\n        self.assertEqual(\"1\", self.compendium[0].notes_index[0].number)\n        self.assertEqual(\"Nota 1. <cite>Esta es una cita</cite>\",\n                         self.compendium[0].notes_index[0].original_text)\n        self.assertEqual(\"Section0001.xhtml#rf1\",\n                         self.compendium[0].notes_index[0].href)\n        self.assertEqual(0, self.compendium[0].notes_index[0].index)\n\n\n        self.assertEqual(\"nt1\", self.compendium[0].notes_index[0].id_tag)\n        self.assertEqual(\"1\", self.compendium[0].notes_index[0].number)\n        self.assertEqual(\"Nota 1. <cite>Esta es una cita</cite>\",\n                         self.compendium[0].notes_index[0].original_text)\n        self.assertEqual(\"Section0001.xhtml#rf1\",\n                         self.compendium[0].notes_index[0].href)\n        self.assertEqual(0, self.compendium[0].notes_index[0].index)\n\n\n        self.assertEqual(\"nt1\", self.compendium[0].notes_index[0].id_tag)\n        self.assertEqual(\"1\", self.compendium[0].notes_index[0].number)\n        self.assertEqual(\"Nota 1. <cite>Esta es una cita</cite>\",\n                         self.compendium[0].notes_index[0].original_text)\n        self.assertEqual(\"Section0001.xhtml#rf1\",\n                         self.compendium[0].notes_index[0].href)\n        self.assertEqual(0, self.compendium[0].notes_index[0].index)",
+			"import resources",
+			"selected_files",
+			"):\n",
+			"if not bk.launcher_version() >= 20170115:",
+			"file = selected_files[0][1]"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "plugin.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1383,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1011,
+								1011
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 339.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "IbidEPL.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 103,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								79,
+								79
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "book.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4540,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4312,
+								4312
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 132.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "note.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								497,
+								497
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 528.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "gui.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1012,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								672,
+								672
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 176.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/eduardo/Documentos/Maquetación eBooks/Plugins/sigil/IbidEPL/plugin.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 38426,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1192,
+								1192
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 69.0,
+						"translation.y": 449.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "test_IbidEPL.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13250,
+								13250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4724.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 47.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.UnitTesting":
+	{
+		"height": 215.0
+	},
+	"output.exec":
+	{
+		"height": 245.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "IbidEPL.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		]
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 187.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
