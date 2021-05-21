@@ -2,6 +2,7 @@ import sys
 # import os
 # import re
 import src.configWindow
+import src.resources
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
