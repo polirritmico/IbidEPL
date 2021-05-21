@@ -1,13 +1,11 @@
 import sys
-# import os
-# import re
 import src.configWindow
 import src.resources
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
-    from PyQt5.QtWidgets import QTreeWidgetItem
-    from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor, QIcon
+    from PyQt5.QtWidgets import QTreeWidgetItem, QStyleFactory
+    from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor, QIcon, QPalette
 except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
         e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 o PyQt5.")
@@ -143,27 +141,25 @@ class Window(QtWidgets.QDialog):
         pass
 
 
-def theme_color(bk, app):
+def theme_color(app):
     # supports_theming = (bk.launcher_version() >= 20200117)
     # if not supports_theming:
     #     return
     # if bk.colorMode() != "dark":
         # return
-    try:
-        from PyQt5.QtGui import QColor, QPalette
-        from PyQt5.QtWidgets import QStyleFactory
-    except ImportError:
-        return
 
     dark_theme = QPalette()
-    sigil_colors = bk.color
-    dark_color = QColor(sigil_colors("Window"))
+    # sigil_colors = bk.color
+    # dark_color = QColor(sigil_colors("Window"))
+    dark_color = QColor("#31363b")
     disabled_color = QColor(127, 127, 127)
     dark_link_color = QColor(108, 180, 238)
-    text_color = QColor(sigil_colors("Text"))
+    # text_color = QColor(sigil_colors("Text"))
+    text_color = QColor("#eff0f1")
     dark_theme.setColor(dark_theme.Window, dark_color)
     dark_theme.setColor(dark_theme.WindowText, text_color)
-    dark_theme.setColor(dark_theme.Base, QColor(sigil_colors("Base")))
+    # dark_theme.setColor(dark_theme.Base, QColor(sigil_colors("Base")))
+    dark_theme.setColor(dark_theme.Base, QColor("#232629"))
     dark_theme.setColor(dark_theme.AlternateBase, dark_color)
     dark_theme.setColor(dark_theme.ToolTipBase, dark_color)
     dark_theme.setColor(dark_theme.ToolTipText, text_color)
@@ -175,10 +171,10 @@ def theme_color(bk, app):
                         dark_theme.ButtonText, disabled_color)
     dark_theme.setColor(dark_theme.BrightText, Qt.red)
     dark_theme.setColor(dark_theme.Link, dark_link_color)
-    dark_theme.setColor(dark_theme.Highlight,
-                        QColor(sigil_colors("Highlight")))
-    dark_theme.setColor(dark_theme.HighlightedText,
-                        QColor(sigil_colors("HighlightedText")))
+    # dark_theme.setColor(dark_theme.Highlight,QColor(sigil_colors("Highlight")))
+    dark_theme.setColor(dark_theme.Highlight, QColor("#3daee9"))
+    # dark_theme.setColor(dark_theme.HighlightedText,QColor(sigil_colors("HighlightedText")))
+    dark_theme.setColor(dark_theme.HighlightedText, QColor("#eff0f1"))
     dark_theme.setColor(dark_theme.Disabled,
                         dark_theme.HighlightedText, disabled_color)
 
@@ -189,7 +185,7 @@ def theme_color(bk, app):
 def run(book, dark_theme) -> bool:
     save_file = False
     app = QtWidgets.QApplication(sys.argv)
-    # theme_color(app)
+    theme_color(app)
     window = Window(book, dark_theme)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
