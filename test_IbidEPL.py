@@ -204,6 +204,27 @@ class TestProcess(unittest.TestCase):
                 self.assertNotEqual("", note.current_label, "\nError en libro: " +
                                     book.file.name + "\nNota: " + str(note.id_tag))
 
+    def test_count_total_ibid(self):
+        for book in self.compendium:
+            book.updateNotesLabels()
+            if book.file.name == "testFiles/test_01.xhtml":
+                expected = 1
+            elif book.file.name == "testFiles/test_02.xhtml":
+                expected = 5
+            elif book.file.name == "testFiles/test_03.xhtml":
+                expected = 29
+            elif book.file.name == "testFiles/test_04.xhtml":
+                expected = 60
+            elif book.file.name == "testFiles/test_05.xhtml":
+                # 21 pero primera nota es ibid
+                expected = 20
+            elif book.file.name == "testFiles/test_06.xhtml":
+                expected = 11
+            else:
+                self.assertTrue(False, "No open file: " + book.file.name)
+
+            self.assertEqual(expected, book.ibid_note_count)
+
 
 class TestNoteOperations(unittest.TestCase):
     def setUp(self):
