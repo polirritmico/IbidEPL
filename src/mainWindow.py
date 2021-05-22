@@ -85,7 +85,7 @@ class Window(QtWidgets.QDialog):
 
         # Run
         self.changeToIbid(self.changeToNote(self.current_note))
-        # self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
         msg = str(len(self.notes_index)) + \
             " notas leídas desde " + self.book.file.name
         self.announce(msg)
@@ -194,7 +194,10 @@ class Window(QtWidgets.QDialog):
         pass
 
     def nextNoteButton_pressed(self):
-        pass
+        target = self.current_note.next_note
+        if target != None:
+            self.changeToNote(target)
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def prevNoteButton_pressed(self):
         pass
