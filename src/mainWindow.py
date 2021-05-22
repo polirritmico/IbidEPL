@@ -82,12 +82,8 @@ class Window(QtWidgets.QDialog):
         self.populateNoteBrowser()
 
         self.current_note = self.notes_index[0]
-        if len(self.current_note.childs) == 0:
-            self.current_ibid = None
-        else:
-            self.current_ibid = self.current_note.childs[0]
-
         self.changeToNote(self.current_note)
+        self.changeToIbid(self.current_note.getChild())
 
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
@@ -134,8 +130,6 @@ class Window(QtWidgets.QDialog):
 
     def changeToNote(self, note):
         self.current_note = note
-        # ibid = note.childs[0] if len(note.childs) > 0 else None
-        # self.changeToIbid(ibid)
 
         self.NoteIdEntry.setText(note.id_tag)
         self.NoteEntry.setText(note.number)
@@ -146,10 +140,11 @@ class Window(QtWidgets.QDialog):
         self.NoteText.setPlainText(note.text)
 
         # Select QTreeWidgetItem
-        self.NoteBrowser.setCurrentItem(note.browserEntry)
+        # self.NoteBrowser.setCurrentItem(note.browserEntry)
 
-    def changeToIbid(self, ibid):
-        if ibid == None:
+    def changeToIbid(self, note):
+        # pass
+        if note == None:
             self.current_ibid = None
             self.IbidIdEntry.setText("")
             self.IbidEntry.setText("")
@@ -158,20 +153,17 @@ class Window(QtWidgets.QDialog):
             self.IbidOriginalText.setPlainText("Sin ibid.")
             self.IbidHrefEntry.setText("")
         else:
-            # if self.current_note != ibid.parent:
-            #     self.changeToNote(ibid.parent)
-
-            self.current_ibid = ibid
+            self.current_ibid = note
             self.IbidText.setReadOnly(False)
-            self.IbidIdEntry.setText(ibid.id_tag)
-            self.IbidEntry.setText(ibid.number)
-            ibid_current = ibid.current_label + \
+            self.IbidIdEntry.setText(note.id_tag)
+            self.IbidEntry.setText(note.number)
+            ibid_current = note.current_label + \
                 " de " + str(self.book.ibid_note_count)
             self.IbidCurrent.setText(ibid_current)
-            self.IbidHrefEntry.setText(ibid.href)
-            self.IbidText.setPlainText(ibid.text)
+            self.IbidHrefEntry.setText(note.href)
+            self.IbidText.setPlainText(note.text)
 
-            self.NoteBrowser.setCurrentItem(ibid.browserEntry)
+        # self.NoteBrowser.setCurrentItem(note.browserEntry)
 
     def browserNoteItem_pressed(self, item):
         # item.text es un array: 0 Id, 1 Número, 2 Texto, 3 Index
@@ -179,9 +171,10 @@ class Window(QtWidgets.QDialog):
         target_note = self.notes_index[target_index]
 
         if target_note.is_ibid:
-            # self.changeToIbid(target_note)
-            pass
+            self.changeToNote(target_note.parent)
+            self.changeToIbid(target_note)
         else:
+            self.changeToIbid(target_note.getChild())
             self.changeToNote(target_note)
 
     def ibidTextChanged(self):
@@ -190,20 +183,30 @@ class Window(QtWidgets.QDialog):
     def nextNoteButton_pressed(self):
         target = self.current_note.next_note
         if target != None:
+            self.changeToIbid(target.getChild())
             self.changeToNote(target)
-        # self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def prevNoteButton_pressed(self):
         target = self.current_note.prev_note
         if target != None:
+            self.changeToIbid(target.getChild())
             self.changeToNote(target)
-        # self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def nextIbidButton_pressed(self):
-        pass
+        target = self.book.getNextIbid(self.current_note, self.current_ibid)
+        if target != None:
+            self.changeToNote(target.parent)
+            self.changeToIbid(target)
+            self.NoteBrowser.setCurrentItem(target.browserEntry)
 
     def prevIbidButton_pressed(self):
-        pass
+        target = self.book.getPrevIbid(self.current_note, self.current_ibid)
+        if target != None:
+            self.changeToNote(target.parent)
+            self.changeToIbid(target)
+            self.NoteBrowser.setCurrentItem(target.browserEntry)
 
     def noteToIbidButton_pressed(self):
         pass
