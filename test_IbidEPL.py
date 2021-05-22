@@ -391,7 +391,7 @@ class TestNoteOperations(unittest.TestCase):
                 expected = book.notes_index[2]
             elif book.file.name == "testFiles/test_03.xhtml":
                 base_note = book.notes_index[71]
-                expected = book.notes_index[71]
+                expected = None
             elif book.file.name == "testFiles/test_04.xhtml":
                 base_note = book.notes_index[95]
                 expected = book.notes_index[98]
@@ -404,9 +404,35 @@ class TestNoteOperations(unittest.TestCase):
             else:
                 self.assertTrue(False, "No open file: " + book.file.name)
 
-            test_outcome = book.getNextIbidFromBaseNote(base_note)
-            msg = "\nBook: " + book.file.name + "\nNote: " + \
-                base_note.id_tag + "\nExpected: " + expected.id_tag
+            test_outcome = book.getNextIbidfromNote(base_note)
+            msg = "\nBook: " + book.file.name + "\nNote: " + base_note.id_tag
+            self.assertEqual(test_outcome, expected, msg)
+
+    def test_get_next_ibid_from_ibid(self):
+        for book in self.compendium:
+            if book.file.name == "testFiles/test_01.xhtml":
+                base_ibid = book.notes_index[1]
+                expected = book.notes_index[1]
+            elif book.file.name == "testFiles/test_02.xhtml":
+                base_ibid = book.notes_index[2]
+                expected = book.notes_index[3]
+            elif book.file.name == "testFiles/test_03.xhtml":
+                base_ibid = book.notes_index[70]
+                expected = book.notes_index[70]
+            elif book.file.name == "testFiles/test_04.xhtml":
+                base_ibid = book.notes_index[94]
+                expected = book.notes_index[98]
+            elif book.file.name == "testFiles/test_05.xhtml":
+                base_ibid = book.notes_index[78]
+                expected = book.notes_index[93]
+            elif book.file.name == "testFiles/test_06.xhtml":
+                base_ibid = book.notes_index[112]
+                expected = None
+            else:
+                self.assertTrue(False, "No open file: " + book.file.name)
+
+            test_outcome = book.getNextIbidfromNote(base_note)
+            msg = "\nBook: " + book.file.name + "\nNote: " + base_note.id_tag
             self.assertEqual(test_outcome, expected, msg)
 
         # for book in self.compendium:

@@ -137,6 +137,18 @@ class Book:
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
 
+    def getNext(self, note) -> Note:
+        pass
+
+    def getPrev(self, note) -> Note:
+        pass
+
+    def getNextIbidfromNote(self, note) -> Note:
+        pass
+
+    def getPrevIbidfromNote(self, note) -> Note:
+        pass
+
     def bookToXHTML(self) -> str:
         head = "\n".join(self.html_head)
         body = "\n"
