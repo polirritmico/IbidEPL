@@ -18,10 +18,6 @@ class Window(QtWidgets.QDialog):
         uic.loadUi("src/mainWindow.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
-        self.book = _book
-        self.notes_index = _book.notes_index
-        self.current_note = self.notes_index[0]
-
         # Set icons
         # if platform.system() != "Linux":#import platform
         # Set dark or light mode
@@ -77,15 +73,19 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setColumnWidth(0, 80)
         self.NoteBrowser.setColumnWidth(1, 40)
         self.NoteBrowser.setColumnWidth(2, 120)
-
-        self.populateNoteBrowser()
-
         # Setup Dialog
         self.config_window = src.configWindow.ConfigWindow(dark_theme)
 
         # Run
-        self.changeToIbid(self.changeToNote(self.current_note))
+        self.book = _book
+        self.notes_index = _book.notes_index
+        self.populateNoteBrowser()
+
+        self.current_note = self.notes_index[0]
+        self.current_ibid = self.changeToNote(self.current_note)
+        self.changeToIbid(self.current_ibid)
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
+
         msg = str(len(self.notes_index)) + \
             " notas leídas desde " + self.book.file.name
         self.announce(msg)
@@ -206,7 +206,11 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def nextIbidButton_pressed(self):
-        pass
+        if current_ibid != None:
+            pass
+        else:
+            if self.current_ibid.next_note != None:
+                pass
 
     def prevIbidButton_pressed(self):
         pass
