@@ -35,6 +35,11 @@ class Note:
         else:
             self.parent = None
 
+    def getChild(self) -> Note:
+        if len(self.childs) > 0:
+            return self.childs[0]
+        return None
+
     def toXHTML(self) -> str:
         note_top = '  <div class="nota">\n    <p id="'
         note_mid = self.id_tag + '"><sup>[' + self.number + ']</sup> ' + \
