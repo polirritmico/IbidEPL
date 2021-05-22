@@ -131,24 +131,25 @@ class Window(QtWidgets.QDialog):
             return
 
         self.IbidText.setReadOnly(False)
-        if ibid.edited or ibid.processed:
-            self.IbidUndoButton.setEnabled(True)
+        # if ibid.edited or ibid.processed:
+        # self.IbidUndoButton.setEnabled(True)
 
         self.IbidIdEntry.setText(ibid.id_tag)
         self.IbidEntry.setText(ibid.number)
-        ibid_current = ibid.current_label + " de " +\
-            self.ibid_note_count
+        ibid_current = ibid.current_label + \
+            " de " + str(self.book.ibid_note_count)
         self.IbidCurrent.setText(ibid_current)
         self.IbidHrefEntry.setText(ibid.href)
 
-        if self.html_tag:
-            self.IbidText.setText(ibid.text)
-            self.IbidOriginalText.setText(ibid.original_text)
-            self.IbidText.setReadOnly(True)
-        else:
-            self.IbidText.setPlainText(ibid.text)
-            self.IbidOriginalText.setPlainText(ibid.original_text)
-            self.IbidText.setReadOnly(False)
+        self.IbidText.setPlainText(ibid.text)
+        # if self.html_tag:
+        #     self.IbidText.setText(ibid.text)
+        #     self.IbidOriginalText.setText(ibid.original_text)
+        #     self.IbidText.setReadOnly(True)
+        # else:
+        #     self.IbidText.setPlainText(ibid.text)
+        #     self.IbidOriginalText.setPlainText(ibid.original_text)
+        #     self.IbidText.setReadOnly(False)
 
     def browserNoteItem_pressed(self, item):
         # item.text es un array: 0 Id, 1 Número, 2 Texto, 3 Index
