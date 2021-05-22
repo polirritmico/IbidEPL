@@ -84,8 +84,12 @@ class Window(QtWidgets.QDialog):
 
         # Run
         self.changeToIbid(self.changeToNote(self.notes_index[0]))
-        #self.announce(str(len(notes_index)) + " notas leídas desde " + file)
+        self.NoteBrowser.setCurrentItem(self.notes_index[0].browserEntry)
+        msg = str(len(self.notes_index)) + \
+            " notas leídas desde " + self.book.file.name
+        self.announce(msg)
         self.show()
+
         if self.book.first_seems_ibid:
             QtWidgets.QMessageBox.warning(self,
                                           'Advertencia', 'La primera nota parece ser ibid')
@@ -105,6 +109,24 @@ class Window(QtWidgets.QDialog):
 
         self.NoteBrowser.expandAll()
 
+    def announce(self, message):
+        self.Messenger.setText(message)
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.updateMessenger)
+        if len(message) > 30:
+            self.timer.start(3000)
+        else:
+            self.timer.start(2000)
+
+    def updateMessenger(self):
+        tag_count = "Ibid sin ajustar: "
+        unedited_ibid_count = 0
+        for note in self.notes_index:
+            if note.is_ibid and not note.edited:
+                unedited_ibid_count += 1
+
+        self.Messenger.setText(tag_count + str(unedited_ibid_count))
+
     def changeToNote(self, note):
         self.current_note = note
         self.NoteIdEntry.setText(note.id_tag)
@@ -114,6 +136,9 @@ class Window(QtWidgets.QDialog):
         self.NoteCurrent.setText(current_note_label)
         self.NoteHrefEntry.setText(note.href)
         self.NoteText.setPlainText(note.text)
+
+        # Select QTreeWidgetItem
+        self.NoteBrowser.setCurrentItem(note.browserEntry)
 
         return note.childs[0] if len(note.childs) > 0 else None
 
@@ -150,6 +175,8 @@ class Window(QtWidgets.QDialog):
         #     self.IbidText.setPlainText(ibid.text)
         #     self.IbidOriginalText.setPlainText(ibid.original_text)
         #     self.IbidText.setReadOnly(False)
+
+        self.NoteBrowser.setCurrentItem(ibid.browserEntry)
 
     def browserNoteItem_pressed(self, item):
         # item.text es un array: 0 Id, 1 Número, 2 Texto, 3 Index
