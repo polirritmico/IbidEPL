@@ -384,72 +384,35 @@ class TestNoteOperations(unittest.TestCase):
     def test_get_next_ibid_from_base_note(self):
         for book in self.compendium:
             if book.file.name == "testFiles/test_01.xhtml":
-                base_note = book.notes_index[0]
-                expected = book.notes_index[1]
+                current_note = book.notes_index[0]
+                current_ibid = book.notes_index[1]
+                expected = None
             elif book.file.name == "testFiles/test_02.xhtml":
-                base_note = book.notes_index[0]
+                current_note = book.notes_index[0]
+                current_ibid = None
                 expected = book.notes_index[2]
             elif book.file.name == "testFiles/test_03.xhtml":
-                base_note = book.notes_index[71]
+                current_note = book.notes_index[67]
+                current_ibid = book.notes_index[70]
                 expected = None
             elif book.file.name == "testFiles/test_04.xhtml":
-                base_note = book.notes_index[95]
-                expected = book.notes_index[98]
+                current_note = book.notes_index[62]
+                current_ibid = None
+                expected = book.notes_index[65]
             elif book.file.name == "testFiles/test_05.xhtml":
-                base_note = book.notes_index[44]
-                expected = book.notes_index[60]
+                current_note = book.notes_index[59]
+                current_ibid = book.notes_index[60]
+                expected = book.notes_index[78]
             elif book.file.name == "testFiles/test_06.xhtml":
-                base_note = book.notes_index[129]
-                expected = book.notes_index[129]
-            else:
-                self.assertTrue(False, "No open file: " + book.file.name)
-
-            test_outcome = book.getNextIbidfromNote(base_note)
-            msg = "\nBook: " + book.file.name + "\nNote: " + base_note.id_tag
-            self.assertEqual(test_outcome, expected, msg)
-
-    def test_get_next_ibid_from_ibid(self):
-        for book in self.compendium:
-            if book.file.name == "testFiles/test_01.xhtml":
-                base_ibid = book.notes_index[1]
-                expected = book.notes_index[1]
-            elif book.file.name == "testFiles/test_02.xhtml":
-                base_ibid = book.notes_index[2]
-                expected = book.notes_index[3]
-            elif book.file.name == "testFiles/test_03.xhtml":
-                base_ibid = book.notes_index[70]
-                expected = book.notes_index[70]
-            elif book.file.name == "testFiles/test_04.xhtml":
-                base_ibid = book.notes_index[94]
-                expected = book.notes_index[98]
-            elif book.file.name == "testFiles/test_05.xhtml":
-                base_ibid = book.notes_index[78]
-                expected = book.notes_index[93]
-            elif book.file.name == "testFiles/test_06.xhtml":
-                base_ibid = book.notes_index[112]
+                current_note = book.notes_index[111]
+                current_ibid = book.notes_index[112]
                 expected = None
             else:
                 self.assertTrue(False, "No open file: " + book.file.name)
 
-            test_outcome = book.getNextIbidfromNote(base_note)
-            msg = "\nBook: " + book.file.name + "\nNote: " + base_note.id_tag
+            test_outcome = book.getNextIbid(current_note, current_ibid)
+            msg = "\nBook: " + book.file.name + "\nNote: " + current_note.id_tag
             self.assertEqual(test_outcome, expected, msg)
-
-        # for book in self.compendium:
-        #     if book.file.name == "testFiles/test_01.xhtml":
-        #         pass
-        #     elif book.file.name == "testFiles/test_02.xhtml":
-        #         pass
-        #     elif book.file.name == "testFiles/test_03.xhtml":
-        #         pass
-        #     elif book.file.name == "testFiles/test_04.xhtml":
-        #         pass
-        #     elif book.file.name == "testFiles/test_05.xhtml":
-        #         pass
-        #     elif book.file.name == "testFiles/test_06.xhtml":
-        #         pass
-        #     else:
-        #         self.assertTrue(False, "No open file: " + book.file.name)
 
 
 class TestQT5(unittest.TestCase):
