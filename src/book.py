@@ -137,17 +137,27 @@ class Book:
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
 
-    def getNext(self, note) -> Note:
-        pass
+    def getNextIbid(self, current_note, current_ibid):
+        if current_ibid != None:
+            return current_ibid.next_note
 
-    def getPrev(self, note) -> Note:
-        pass
+        index = current_note.index
+        while index < len(self.notes_index):
+            if self.notes_index[index].is_ibid:
+                return self.notes_index[index]
+            index += 1
+        return None
 
-    def getNextIbidfromNote(self, note) -> Note:
-        pass
+    def getPrevIbid(self, current_note, current_ibid):
+        if current_ibid != None:
+            return current_ibid.prev_note
 
-    def getPrevIbidfromNote(self, note) -> Note:
-        pass
+        index = current_note.index
+        while index > 0:
+            if self.notes_index[index].is_ibid:
+                return self.notes_index[index]
+            index -= 1
+        return None
 
     def bookToXHTML(self) -> str:
         head = "\n".join(self.html_head)
