@@ -381,7 +381,7 @@ class TestNoteOperations(unittest.TestCase):
                 xhtml = book.bookToXHTML()
                 self.assertEqual(xhtml, expected_xhtml)
 
-    def test_get_next_ibid_from_base_note(self):
+    def test_get_next_ibid(self):
         for book in self.compendium:
             if book.file.name == "testFiles/test_01.xhtml":
                 current_note = book.notes_index[0]
