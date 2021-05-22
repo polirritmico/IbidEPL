@@ -20,6 +20,7 @@ class Window(QtWidgets.QDialog):
 
         self.book = _book
         self.notes_index = _book.notes_index
+        self.current_note = self.notes_index[0]
 
         # Set icons
         # if platform.system() != "Linux":#import platform
@@ -83,8 +84,8 @@ class Window(QtWidgets.QDialog):
         self.config_window = src.configWindow.ConfigWindow(dark_theme)
 
         # Run
-        self.changeToIbid(self.changeToNote(self.notes_index[0]))
-        self.NoteBrowser.setCurrentItem(self.notes_index[0].browserEntry)
+        self.changeToIbid(self.changeToNote(self.current_note))
+        # self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
         msg = str(len(self.notes_index)) + \
             " notas leídas desde " + self.book.file.name
         self.announce(msg)
@@ -138,7 +139,7 @@ class Window(QtWidgets.QDialog):
         self.NoteText.setPlainText(note.text)
 
         # Select QTreeWidgetItem
-        self.NoteBrowser.setCurrentItem(note.browserEntry)
+        # self.NoteBrowser.setCurrentItem(note.browserEntry)
 
         return note.childs[0] if len(note.childs) > 0 else None
 
@@ -176,7 +177,7 @@ class Window(QtWidgets.QDialog):
         #     self.IbidOriginalText.setPlainText(ibid.original_text)
         #     self.IbidText.setReadOnly(False)
 
-        self.NoteBrowser.setCurrentItem(ibid.browserEntry)
+        # self.NoteBrowser.setCurrentItem(ibid.browserEntry)
 
     def browserNoteItem_pressed(self, item):
         # item.text es un array: 0 Id, 1 Número, 2 Texto, 3 Index
@@ -187,7 +188,7 @@ class Window(QtWidgets.QDialog):
             self.changeToNote(target_note.parent)
             self.changeToIbid(target_note)
         else:
-            self.changeToNote(target_note)
+            self.changeToIbid(self.changeToNote(target_note))
 
     def ibidTextChanged(self):
         pass
@@ -235,7 +236,7 @@ class Window(QtWidgets.QDialog):
         pass
 
     def cancelButton_pressed(self):
-        pass
+        self.close()
 
 
 def theme_color(app):
@@ -280,11 +281,11 @@ def theme_color(app):
 
 
 def run(book, dark_theme) -> bool:
-    save_file = False
+    overwrite = False
     app = QtWidgets.QApplication(sys.argv)
     theme_color(app)
     window = Window(book, dark_theme)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
 
-    return save_file
+    return overwrite
