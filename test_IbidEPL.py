@@ -380,6 +380,9 @@ class TestNoteOperations(unittest.TestCase):
                 xhtml = book.bookToXHTML()
                 self.assertEqual(xhtml, expected_xhtml)
 
+    def test_get_next_ibid_from_base_note(self):
+        pass
+
     #     # for book in self.compendium:
     #     #     if book.file.name == "testFiles/test_01.xhtml":
     #     #         pass
@@ -396,9 +399,11 @@ class TestNoteOperations(unittest.TestCase):
     #     #     else:
     #     #         self.assertTrue(False, "No open file: " + book.file.name)
 
+
 class TestQT5(unittest.TestCase):
     def setUp(self):
         pass
+
 
 if __name__ == '__main__':
     unittest.main()

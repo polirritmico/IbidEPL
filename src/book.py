@@ -119,6 +119,9 @@ class Book:
                 current_note.next_note = None
                 prev_note = current_note
 
+    def fromParentGetNextIbid(self, base_note):
+        pass
+
     def ibidToNote(self, note):
         if note.is_ibid == False:
             return
