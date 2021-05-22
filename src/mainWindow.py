@@ -200,7 +200,10 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def prevNoteButton_pressed(self):
-        pass
+        target = self.current_note.prev_note
+        if target != None:
+            self.changeToNote(target)
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def nextIbidButton_pressed(self):
         pass
