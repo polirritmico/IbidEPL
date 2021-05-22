@@ -35,7 +35,7 @@ class Note:
         else:
             self.parent = None
 
-    def getChild(self) -> Note:
+    def getChild(self):
         if len(self.childs) > 0:
             return self.childs[0]
         return None
