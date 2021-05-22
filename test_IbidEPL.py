@@ -403,7 +403,7 @@ class TestNoteOperations(unittest.TestCase):
             else:
                 self.assertTrue(False, "No open file: " + book.file.name)
 
-            test_outcome = book.getNextIbidFromBaseNote(current_note)
+            test_outcome = book.getNextIbidFromBaseNote(base_note)
             self.assertEqual(test_outcome, expected)
 
         # for book in self.compendium:
