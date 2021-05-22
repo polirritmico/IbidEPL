@@ -119,7 +119,7 @@ class Window(QtWidgets.QDialog):
             self.timer.start(2000)
 
     def updateMessenger(self):
-        tag_count = "Ibid sin ajustar: "
+        tag_count = "Ibíd. sin ajustar: "
         unedited_ibid_count = 0
         for note in self.notes_index:
             if note.is_ibid and not note.edited:
@@ -142,7 +142,6 @@ class Window(QtWidgets.QDialog):
         # self.NoteBrowser.setCurrentItem(note.browserEntry)
 
     def changeToIbid(self, note):
-        # pass
         if note == None:
             self.current_ibid = None
             self.IbidIdEntry.setText("")
@@ -225,9 +224,20 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
+        self.announce("Nota \"" + str(current.id_tag) + "\" cambiada a ibíd.")
 
     def ibidToNoteButton_pressed(self):
-        pass
+        current = self.current_ibid
+        if not current.is_ibid:
+            return
+
+        self.book.ibidToNote(current)
+        self.changeToNote(current)
+        self.changeToIbid(current.getChild())
+
+        self.populateNoteBrowser()
+        self.NoteBrowser.setCurrentItem(current.browserEntry)
+        self.announce("Ibíd. \"" + str(current.id_tag) + "\" cambiado a nota.")
 
     def undoIbidButton_pressed(self):
         pass
