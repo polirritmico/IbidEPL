@@ -31,7 +31,7 @@ def run(bk):
 def main():
         # print("Error: Ejecutar desde Sigil.\n")
         # return -1
-    filename = "testFiles/test_02.xhtml"
+    filename = "testFiles/test_04.xhtml"
     book = Book()
     book.readFile(filename)
     book.parseNotes()
@@ -47,7 +47,7 @@ def main():
     overwrite_xhtml = src.mainWindow.run(book, True)
 
     if overwrite_xhtml:
-        file = open("outTest_02.xhtml", "w")
+        file = open("outTest_04.xhtml", "w")
         file.write(book.bookToXHTML())
         file.close()
         print("Archivo escrito correctamente.")
