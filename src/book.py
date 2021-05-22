@@ -120,7 +120,7 @@ class Book:
                 prev_note = current_note
 
     def ibidToNote(self, note):
-        if note.is_ibid == False:
+        if not note.is_ibid:
             return
 
         note.is_ibid = False
