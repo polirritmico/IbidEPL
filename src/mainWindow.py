@@ -76,17 +76,16 @@ class Window(QtWidgets.QDialog):
         # Setup Dialog
         self.config_window = src.configWindow.ConfigWindow(dark_theme)
 
-        # Run
+        # Set init state
         self.book = _book
         self.notes_index = _book.notes_index
         self.populateNoteBrowser()
-
         self.current_note = self.notes_index[0]
         self.changeToNote(self.current_note)
         self.changeToIbid(self.current_note.getChild())
-
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
+        # Run
         self.announce(str(len(self.notes_index)) +
                       " notas leídas desde " + self.book.file.name)
         self.show()
@@ -185,6 +184,8 @@ class Window(QtWidgets.QDialog):
         if target != None:
             self.changeToIbid(target.getChild())
             self.changeToNote(target)
+        else:
+            self.changeToIbid(self.current_note.getChild())
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def prevNoteButton_pressed(self):
@@ -192,6 +193,8 @@ class Window(QtWidgets.QDialog):
         if target != None:
             self.changeToIbid(target.getChild())
             self.changeToNote(target)
+        else:
+            self.changeToIbid(self.current_note.getChild())
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
     def nextIbidButton_pressed(self):
@@ -200,6 +203,8 @@ class Window(QtWidgets.QDialog):
             self.changeToNote(target.parent)
             self.changeToIbid(target)
             self.NoteBrowser.setCurrentItem(target.browserEntry)
+        elif self.current_ibid is not None:
+            self.NoteBrowser.setCurrentItem(self.current_ibid.browserEntry)
 
     def prevIbidButton_pressed(self):
         target = self.book.getPrevIbid(self.current_note, self.current_ibid)
@@ -207,9 +212,19 @@ class Window(QtWidgets.QDialog):
             self.changeToNote(target.parent)
             self.changeToIbid(target)
             self.NoteBrowser.setCurrentItem(target.browserEntry)
+        elif self.current_ibid is not None:
+            self.NoteBrowser.setCurrentItem(self.current_ibid.browserEntry)
 
     def noteToIbidButton_pressed(self):
-        pass
+        current = self.current_note
+        if current.index == 0:
+            return
+        self.book.noteToIbid(current)
+        self.changeToNote(current.parent)
+        self.changeToIbid(current)
+
+        self.populateNoteBrowser()
+        self.NoteBrowser.setCurrentItem(current.browserEntry)
 
     def ibidToNoteButton_pressed(self):
         pass
