@@ -236,6 +236,7 @@ class TestNoteOperations(unittest.TestCase):
             book.autocheckIbidNotes()
             book.setParentsAndChilds()
             book.updateNextAndPrevNotes()
+            book.updateNotesLabels()
             self.compendium.append(book)
 
     def test_case_process_ibidem(self):
@@ -383,28 +384,30 @@ class TestNoteOperations(unittest.TestCase):
     def test_get_next_ibid_from_base_note(self):
         for book in self.compendium:
             if book.file.name == "testFiles/test_01.xhtml":
-                base_note = book.notes_index[1]
+                base_note = book.notes_index[0]
                 expected = book.notes_index[1]
             elif book.file.name == "testFiles/test_02.xhtml":
                 base_note = book.notes_index[0]
                 expected = book.notes_index[2]
             elif book.file.name == "testFiles/test_03.xhtml":
-                base_note = book.notes_index[70]
-                expected = book.notes_index[70]
+                base_note = book.notes_index[71]
+                expected = book.notes_index[71]
             elif book.file.name == "testFiles/test_04.xhtml":
-                base_note = book.notes_index[94]
+                base_note = book.notes_index[95]
                 expected = book.notes_index[98]
             elif book.file.name == "testFiles/test_05.xhtml":
-                base_note = book.notes_index[60]
-                expected = book.notes_index[78]
+                base_note = book.notes_index[44]
+                expected = book.notes_index[60]
             elif book.file.name == "testFiles/test_06.xhtml":
-                base_note = book.notes_index[32]
-                expected = book.notes_index[33]
+                base_note = book.notes_index[129]
+                expected = book.notes_index[129]
             else:
                 self.assertTrue(False, "No open file: " + book.file.name)
 
             test_outcome = book.getNextIbidFromBaseNote(base_note)
-            self.assertEqual(test_outcome, expected)
+            msg = "\nBook: " + book.file.name + "\nNote: " + \
+                base_note.id_tag + "\nExpected: " + expected.id_tag
+            self.assertEqual(test_outcome, expected, msg)
 
         # for book in self.compendium:
         #     if book.file.name == "testFiles/test_01.xhtml":
