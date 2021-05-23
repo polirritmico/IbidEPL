@@ -158,8 +158,9 @@ class Window(QtWidgets.QDialog):
             ibid_current = note.current_label + \
                 " de " + str(self.book.ibid_note_count)
             self.IbidCurrent.setText(ibid_current)
-            self.IbidHrefEntry.setText(note.href)
             self.IbidText.setPlainText(note.text)
+            self.IbidOriginalText.setPlainText(note.original_text)
+            self.IbidHrefEntry.setText(note.href)
 
         # self.NoteBrowser.setCurrentItem(note.browserEntry)
 
