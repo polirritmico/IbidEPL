@@ -250,7 +250,7 @@ class Window(QtWidgets.QDialog):
             self.changeToIbid(self.current_ibid)
             self.announce("Restaurado ibid. " + self.current_ibid.id_tag)
         else:
-            self.announce("El ibid no ha sido alterado.")
+            self.announce("La nota ibíd. no ha sido alterada.")
 
     def showTagButton_pressed(self):
         pass
