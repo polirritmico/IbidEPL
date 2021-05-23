@@ -245,8 +245,15 @@ class Window(QtWidgets.QDialog):
     def showTagButton_pressed(self):
         pass
 
-    def showOriginalIbidButton_pressed(self):
-        pass
+    def showOriginalIbidButton_pressed(self, checked):
+        if checked:
+            self.IbidOriginalText.setVisible(True)
+            self.ShowOriginalIbid.setIcon(
+                QIcon(self.theme + "view-hidden.svg"))
+        else:
+            self.IbidOriginalText.setVisible(False)
+            self.ShowOriginalIbid.setIcon(
+                QIcon(self.theme + "view-visible.svg"))
 
     def configButton_pressed(self):
         pass
