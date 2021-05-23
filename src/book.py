@@ -119,6 +119,16 @@ class Book:
                 current_note.next_note = None
                 prev_note = current_note
 
+    def processAllIbids(self, regex, ibid_tag, separator):
+        proc_count = 0
+        for note in self.notes_index:
+            if note.is_ibid:
+                note.text = note.processIbidem(regex, ibid_tag, separator)
+                note.processed = True
+                proc_count += 1
+
+        return str(proc_count)
+
     def ibidToNote(self, note):
         if not note.is_ibid:
             return
