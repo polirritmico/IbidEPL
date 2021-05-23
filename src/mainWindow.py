@@ -307,13 +307,22 @@ class Window(QtWidgets.QDialog):
         self.announce("Se han modificado " + proc_count + " notas")
 
     def ibidReplaceButton_pressed(self):
-        pass
+        if self.current_ibid is None:
+            return
+        self.current_ibid.changeText(self.IbidText.toPlainText())
+        self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
+
+        self.announce("Modificada la nota ibíd. " + self.current_ibid.id_tag)
 
     def acceptButton_pressed(self):
-        pass
+        global overwrite
+        overwrite = True
+        self.accept()
 
     def cancelButton_pressed(self):
-        self.close()
+        global overwrite
+        overwrite = False
+        self.reject()
 
 
 def theme_color(app):
@@ -358,6 +367,7 @@ def theme_color(app):
 
 
 def run(book, dark_theme) -> bool:
+    global overwrite
     overwrite = False
     app = QtWidgets.QApplication(sys.argv)
     theme_color(app)

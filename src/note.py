@@ -53,6 +53,12 @@ class Note:
             self.is_ibid = True
         return self.is_ibid
 
+    def changeText(self, new_text):
+        self.text = new_text
+        self.edited = True
+
+        return self.text
+
     def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
