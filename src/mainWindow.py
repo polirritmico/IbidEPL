@@ -257,10 +257,26 @@ class Window(QtWidgets.QDialog):
                 QIcon(self.theme + "view-visible.svg"))
 
     def configButton_pressed(self):
+        # self.config_window.showDialog()
         pass
 
     def processIbidButton_pressed(self):
-        pass
+        if self.current_ibid is None:
+            return
+        self.current_ibid.text = self.current_ibid.processIbidem(
+            self.config_window.regex, self.config_window.ibid_tag,
+            self.config_window.separator)
+
+        self.changeToIbid(current_ibid)
+
+        self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
+
+        self.current_ibid.processed = True
+        self.has_change = True
+        # self.IbidUndoButton.setEnabled(True)
+
+        # self.IbidText.setStyleSheet("")
+        self.announce("Ibid procesado sin guardar")
 
     def processAllIbidsButton_pressed(self):
         pass
