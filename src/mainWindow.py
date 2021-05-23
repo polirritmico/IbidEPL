@@ -127,6 +127,13 @@ class Window(QtWidgets.QDialog):
 
         self.Messenger.setText(tag_count + str(unedited_ibid_count))
 
+    def wheelEvent(self, e):
+        # FIX soltar ctrl poder escribir
+        modifiers = QtWidgets.QApplication.keyboardModifiers()
+        if modifiers == Qt.ControlModifier:
+            self.NoteText.setReadOnly(True)
+            self.IbidText.setReadOnly(True)
+
     def changeToNote(self, note):
         self.current_note = note
 
