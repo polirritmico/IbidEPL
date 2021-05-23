@@ -123,7 +123,7 @@ class Book:
         proc_count = 0
         for note in self.notes_index:
             if note.is_ibid:
-                note.text = note.processIbidem(regex, ibid_tag, separator)
+                note.text = note.processIbid(regex, ibid_tag, separator)
                 note.processed = True
                 proc_count += 1
 

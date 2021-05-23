@@ -267,10 +267,10 @@ class Window(QtWidgets.QDialog):
 
         if self.current_ibid is None:
             return
-        # self.current_ibid.text = self.current_ibid.processIbidem(
+        # self.current_ibid.text = self.current_ibid.processIbid(
         #     self.config_window.regex, self.config_window.ibid_tag,
         #     self.config_window.separator)
-        self.current_ibid.text = self.current_ibid.processIbidem(
+        self.current_ibid.text = self.current_ibid.processIbid(
             regex, ibid_tag, separator)
 
         self.changeToIbid(self.current_ibid)

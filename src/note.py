@@ -53,7 +53,7 @@ class Note:
             self.is_ibid = True
         return self.is_ibid
 
-    def processIbidem(self, regex, ibid_tag, separator) -> str:
+    def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
         if regex == "":
