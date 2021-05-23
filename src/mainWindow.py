@@ -241,7 +241,16 @@ class Window(QtWidgets.QDialog):
         self.announce("Ibíd. \"" + str(current.id_tag) + "\" cambiado a nota.")
 
     def undoIbidButton_pressed(self):
-        pass
+        if self.current_ibid is None:
+            return
+
+        if self.current_ibid.edited or self.current_ibid.processed:
+            self.current_ibid.browserEntry.setText(
+                2, self.current_ibid.restore())
+            self.changeToIbid(self.current_ibid)
+            self.announce("Restaurado ibid. " + self.current_ibid.id_tag)
+        else:
+            self.announce("El ibid no ha sido alterado.")
 
     def showTagButton_pressed(self):
         pass
