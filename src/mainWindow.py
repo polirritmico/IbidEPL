@@ -74,7 +74,7 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setColumnWidth(1, 40)
         self.NoteBrowser.setColumnWidth(2, 120)
         # Setup Dialog
-        self.config_window = src.configWindow.ConfigWindow(dark_theme)
+        # self.config_window = src.configWindow.ConfigWindow(dark_theme, prefs)
 
         # Set init state
         self.book = _book
@@ -263,17 +263,23 @@ class Window(QtWidgets.QDialog):
     def processIbidButton_pressed(self):
         if self.current_ibid is None:
             return
-        self.current_ibid.text = self.current_ibid.processIbidem(
-            self.config_window.regex, self.config_window.ibid_tag,
-            self.config_window.separator)
+        # self.current_ibid.text = self.current_ibid.processIbidem(
+        #     self.config_window.regex, self.config_window.ibid_tag,
+        #     self.config_window.separator)
 
-        self.changeToIbid(current_ibid)
+        regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+        ibid_tag = '<i xml:lang="la">Ibid</i>.'
+        separator = "TEXTO_ADICIONAL:"
+        self.current_ibid.text = self.current_ibid.processIbidem(
+            regex, ibid_tag, separator)
+
+        self.changeToIbid(self.current_ibid)
 
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
 
         self.current_ibid.processed = True
         self.has_change = True
-        # self.IbidUndoButton.setEnabled(True)
+        self.IbidUndoButton.setEnabled(True)
 
         # self.IbidText.setStyleSheet("")
         self.announce("Ibid procesado sin guardar")
