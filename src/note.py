@@ -73,3 +73,10 @@ class Note:
             self.text = ibid_tag + " " + self.parent.text
 
         return self.text
+
+    def restore(self):
+        self.text = self.original_text
+        self.edited = False
+        self.processed = False
+
+        return self.text
