@@ -228,7 +228,7 @@ class Window(QtWidgets.QDialog):
 
     def ibidToNoteButton_pressed(self):
         current = self.current_ibid
-        if not current.is_ibid:
+        if current is None:
             return
 
         self.book.ibidToNote(current)
