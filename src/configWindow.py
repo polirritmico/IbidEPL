@@ -1,3 +1,4 @@
+from src.note import Note
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
@@ -128,7 +129,15 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator_label_entries[index])
 
     def testButton_pressed(self):
-        pass
+        #nota parent y child
+        parent = Note("nt1", "1", self.demo_base_note, "href", 1)
+        child = Note("nt2", "2", self.demo_nota, "href", 2)
+        child.parent = parent
+        child.is_ibid = True
+
+        test = child.processIbid(self.RegexEntry.text(), 
+                self.IbidLabelEntry.text(), self.SeparatorEntry.text())
+        self.ProccesedNote.setPlainText(test)
 
     def acceptButton_pressed(self):
         self.accept()
