@@ -263,7 +263,8 @@ class TestNoteOperations(unittest.TestCase):
             else:
                 self.assertTrue(False, "No open file: " + book.file.name)
 
-            out = book.notes_index[index].processIbid("", "Ibíd:", "SEPARADOR")
+            regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+            out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
             self.assertEqual(
                 expected, out, "\nError nota: " + book.notes_index[index].id_tag)
 
@@ -373,9 +374,10 @@ class TestNoteOperations(unittest.TestCase):
             self.assertEqual(note.toXHTML(), out)
 
     def test_book_to_xhtml(self):
+        regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
         for book in self.compendium:
             if book.file.name == "testFiles/test_01.xhtml":
-                book.notes_index[1].processIbid("", "Ibíd:", "SEPARADOR:")
+                book.notes_index[1].processIbid(regex, "Ibíd:", "SEPARADOR:")
                 expected_xhtml = """<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n\n<html xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">\n<head>\n  <title>Notas</title>\n  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>\n  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>\n</head>\n\n<!-- este documento es opcional, debe eliminarse de ser innecesario--><!-- para vincular cada nota («nt1», «nt2»… «ntX»), debe adaptarse la numeración consecutiva de las referencias («rf1», «rf2»… «rfX»), así como el nombre del archivo en el que se encuentran (Section0001.xhtml, Section0002.xhtml, etc.)--><!-- en caso de libros con gran cantidad de notas, se recomienda dividirlas en varios archivos (título sólo en el primero)-->\n<body>\n  <h1>Notas</h1>\n\n  <div class="nota">\n    <p id="nt1"><sup>[1]</sup> Nota 1. <cite>Esta es una cita</cite> <a href="Section0001.xhtml#rf1">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt2"><sup>[2]</sup> Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR: 1.1 <a href="Section0001.xhtml#rf2">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt3"><sup>[3]</sup> Nota 2 <a href="Section0001.xhtml#rf3">&lt;&lt;</a></p>\n  </div>\n\n</body>\n</html>"""
                 xhtml = book.bookToXHTML()
                 self.assertEqual(xhtml, expected_xhtml)
