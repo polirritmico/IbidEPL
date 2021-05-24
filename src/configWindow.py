@@ -129,7 +129,7 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator_label_entries[index])
 
     def testButton_pressed(self):
-        #nota parent y child
+        #setup simple test enviroment
         parent = Note("nt1", "1", self.demo_base_note, "href", 1)
         child = Note("nt2", "2", self.demo_nota, "href", 2)
         child.parent = parent
@@ -140,7 +140,12 @@ class ConfigWindow(QtWidgets.QDialog):
         self.ProccesedNote.setPlainText(test)
 
     def acceptButton_pressed(self):
-        self.accept()
+        self.regex = self.RegexEntry.text()
+        self.ibid_label = self.IbidLabelEntry.text()
+        self.separator = self.SeparatorEntry.text()
+
+        self.close()
+
 
     def defaultButton_pressed(self):
         pass
