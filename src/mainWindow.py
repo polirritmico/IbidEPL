@@ -276,17 +276,18 @@ class Window(QtWidgets.QDialog):
         self.config_window.showDialog()
 
     def processIbidButton_pressed(self):
-        regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
-        ibid_tag = '<i xml:lang="la">Ibid</i>.'
-        separator = "TEXTO_ADICIONAL:"
+        # regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+        # ibid_label = '<i xml:lang="la">Ibid</i>.'
+        # separator = "TEXTO_ADICIONAL:"
 
         if self.current_ibid is None:
             return
-        # self.current_ibid.text = self.current_ibid.processIbid(
-        #     self.config_window.regex, self.config_window.ibid_tag,
-        #     self.config_window.separator)
+        
         self.current_ibid.text = self.current_ibid.processIbid(
-            regex, ibid_tag, separator)
+            self.config_window.regex, self.config_window.ibid_label,
+            self.config_window.separator)
+        # self.current_ibid.text = self.current_ibid.processIbid(
+            # regex, ibid_label, separator)
 
         self.changeToIbid(self.current_ibid)
 
@@ -301,10 +302,10 @@ class Window(QtWidgets.QDialog):
 
     def processAllIbidsButton_pressed(self):
         regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
-        ibid_tag = '<i xml:lang="la">Ibid</i>.'
+        ibid_label = '<i xml:lang="la">Ibid</i>.'
         separator = "TEXTO_ADICIONAL:"
 
-        proc_count = self.book.processAllIbids(regex, ibid_tag, separator)
+        proc_count = self.book.processAllIbids(regex, ibid_label, separator)
 
         self.populateNoteBrowser()
         self.changeToNote(self.notes_index[0])
