@@ -74,7 +74,7 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setColumnWidth(1, 40)
         self.NoteBrowser.setColumnWidth(2, 120)
         # Setup Dialog
-        # self.config_window = src.configWindow.ConfigWindow(dark_theme, prefs)
+        self.config_window = src.configWindow.ConfigWindow(dark_theme)
 
         # Set init state
         self.book = _book
@@ -273,8 +273,7 @@ class Window(QtWidgets.QDialog):
                 QIcon(self.theme + "view-visible.svg"))
 
     def configButton_pressed(self):
-        # self.config_window.showDialog()
-        pass
+        self.config_window.showDialog()
 
     def processIbidButton_pressed(self):
         regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
