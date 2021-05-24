@@ -62,8 +62,6 @@ class Note:
     def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
-        if regex == "":
-            regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
 
         splited_note = re.split(regex, self.text)
         splited_note = list(filter(None, splited_note))
