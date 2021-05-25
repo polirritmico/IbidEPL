@@ -8,21 +8,22 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Instalación:** Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
 
-* **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre la interfaz sin pulsar clic.
+* **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre los elementos de la interfaz sin pulsar clic.
 
 * **Link de descarga:** [versión 1.0](192.168.0.1)
 
-* **Atajos:** :keyboard::computer_mouse:
-    * **Ctrl + Rueda del ratón** sobre el ibid o la nota: Agrandar o reducir el tamaño del texto.
-    * **Ctrl + AvPág**: Abre nota ibid siguiente
-    * **Ctrl + RePág**: Abre nota ibid anterior
-    * **Ctrl + Retroceso** (Backspace): Procesar Ibid
-    * **Ctrl + Enter**: Modificar nota ibid
+* **Atajos de teclado:** :keyboard::computer_mouse:
+    * **Ctrl + AvPág**: Abre nota ibid siguiente.
+    * **Ctrl + RePág**: Abre nota ibid anterior.
+    * **Ctrl + Retroceso** (Backspace): Procesar Ibid.
+    * **Ctrl + Enter**: Reemplazar nota ibid.
+    * **Ctrl + +**: Agrandar el tamaño del texto.
+    * **Ctrl + -**: Reduce el tamaño del texto.
 
 ## **Funcionamiento:**
-Por defecto el plugin agrega la etiqueta **\<i xml:lang="la">Ibid\</i>** y el Separador **TEXTO_ADICIONAL:** (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
+Por defecto el plugin agrega la etiqueta **\<i xml:lang="la">Ibíd\</i>** y el Separador **TEXTO_ADICIONAL:** (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibíd. (e incluso para hacer búsquedas desde Sigil).
 
-La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibid, que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Modificar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
+La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibid, que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Reemplazar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
 
 Si son muchas notas se puede utilizar el botón _Procesar y modificar todo_.
 Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
