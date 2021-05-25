@@ -52,7 +52,8 @@ class Book:
                         raw_note[2], raw_note[3], index)
             self.notes_index.append(note)
 
-        self.autocheckIbidNotes()
+            self.autocheckIbidNotes()
+
 
     def autocheckIbidNotes(self):
         for note in self.notes_index:

@@ -23,8 +23,6 @@ class Window(QtWidgets.QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
         # Set icons
-        # if platform.system() != "Linux":#import platform
-        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
         if dark_mode:
             self.theme = ":/dark-theme/"
         else:
@@ -58,6 +56,8 @@ class Window(QtWidgets.QDialog):
         self.IbidProcessButton.clicked.connect(self.processIbidButton_pressed)
         self.IbidProcessAllButton.clicked.connect(self.processAllIbidsButton_pressed)
         # Aditional buttons
+        self.FontIncreaseSizeButton.clicked.connect(self.increaseFontSizeButton_pressed)
+        self.FontDecreaseSizeButton.clicked.connect(self.decreaseFontSizeButton_pressed)
         self.ConfigButton.clicked.connect(self.configButton_pressed)
         self.TagButton.clicked.connect(self.showTagButton_pressed)
         self.ShowOriginalIbid.clicked.connect(self.showOriginalIbidButton_pressed)
@@ -127,13 +127,6 @@ class Window(QtWidgets.QDialog):
                 unedited_ibid_count += 1
         self.Messenger.setText(tag_count + str(unedited_ibid_count))
 
-    def wheelEvent(self, e):
-        # FIX soltar ctrl poder escribir
-        modifiers = QtWidgets.QApplication.keyboardModifiers()
-        if modifiers == Qt.ControlModifier:
-            self.NoteText.setReadOnly(True)
-            self.IbidText.setReadOnly(True)
-
     def changeToNote(self, note):
         self.current_note = note
         self.NoteIdEntry.setText(note.id_tag)
@@ -141,7 +134,10 @@ class Window(QtWidgets.QDialog):
         self.NoteCurrent.setText(note.current_label + " de " +
                 str(self.book.base_note_count))
         self.NoteHrefEntry.setText(note.href)
-        self.NoteText.setPlainText(note.text)
+        if self.tag_html:
+            self.NoteText.setText(note.text)
+        else:
+            self.NoteText.setPlainText(note.text)
 
     def changeToIbid(self, note):
         # Restaura el borde al color original
@@ -168,13 +164,12 @@ class Window(QtWidgets.QDialog):
         self.IbidHrefEntry.setText(note.href)
 
         if self.tag_html:
-            self.IbidText.setReadOnly(True)
             self.IbidText.setText(note.text)
+            self.IbidText.setReadOnly(True)
         else:
             self.IbidText.setReadOnly(False)
             self.IbidText.setPlainText(note.text)
-
-        highlight(self.IbidText, self.config_window.separator)
+            highlight(self.IbidText, self.config_window.separator)
 
     def ibidTextChanged(self):
         if self.current_ibid is None:
@@ -265,6 +260,16 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setCurrentItem(current.browserEntry)
         self.announce("Ibíd. \"" + str(current.id_tag) + "\" cambiado a nota.")
 
+    def increaseFontSizeButton_pressed(self):
+        self.NoteText.zoomIn(1)
+        self.IbidOriginalText.zoomIn(1)
+        self.IbidText.zoomIn(1)
+
+    def decreaseFontSizeButton_pressed(self):
+        self.NoteText.zoomOut(1)
+        self.IbidOriginalText.zoomOut(1)
+        self.IbidText.zoomOut(1)
+
     def undoIbidButton_pressed(self):
         if self.current_ibid is None:
             return
@@ -341,52 +346,55 @@ class Window(QtWidgets.QDialog):
         self.reject()
 
 
-def theme_color(app, bk):
-    dark_mode = QPalette()
-    if bk is None:
-        dark_color = QColor("#31363b")
-        text_color = QColor("#eff0f1")
-        base_color = QColor("#232629")
-        highlight_color = QColor("#3daee9")
-        highlight_text_color = QColor("#eff0f1")
-    else:
+def theme_color(app, bk, dark_mode):
+    if not dark_mode:
+        return
+    
+    dark_theme = QPalette()
+    if bk is not None and bk.launcher_version() >= 20200117:
         sigil_colors = bk.color
         dark_color = QColor(sigil_colors("Window"))
         text_color = QColor(sigil_colors("Text"))
         base_color = QColor(sigil_colors("Base"))
         highlight_color = QColor(sigil_colors("Highlight"))
         highlight_text_color = QColor(sigil_colors("HighlightedText"))
+    else:
+        dark_color = QColor("#31363b")
+        text_color = QColor("#eff0f1")
+        base_color = QColor("#232629")
+        highlight_color = QColor("#3daee9")
+        highlight_text_color = QColor("#eff0f1")
 
     disabled_color = QColor(127, 127, 127)
     dark_link_color = QColor(108, 180, 238)
-    dark_mode.setColor(dark_mode.Window, dark_color)
-    dark_mode.setColor(dark_mode.WindowText, text_color)
-    dark_mode.setColor(dark_mode.Base, base_color)
-    dark_mode.setColor(dark_mode.AlternateBase, dark_color)
-    dark_mode.setColor(dark_mode.ToolTipBase, dark_color)
-    dark_mode.setColor(dark_mode.ToolTipText, text_color)
-    dark_mode.setColor(dark_mode.Text, text_color)
-    dark_mode.setColor(dark_mode.Disabled, dark_mode.Text, disabled_color)
-    dark_mode.setColor(dark_mode.Button, dark_color)
-    dark_mode.setColor(dark_mode.ButtonText, text_color)
-    dark_mode.setColor(dark_mode.Disabled, dark_mode.ButtonText, disabled_color)
-    dark_mode.setColor(dark_mode.BrightText, Qt.red)
-    dark_mode.setColor(dark_mode.Link, dark_link_color)
-    dark_mode.setColor(dark_mode.Highlight, highlight_color)
-    dark_mode.setColor(dark_mode.HighlightedText, highlight_text_color)
-    dark_mode.setColor(dark_mode.Disabled, dark_mode.HighlightedText, disabled_color)
+    dark_theme.setColor(dark_theme.Window, dark_color)
+    dark_theme.setColor(dark_theme.WindowText, text_color)
+    dark_theme.setColor(dark_theme.Base, base_color)
+    dark_theme.setColor(dark_theme.AlternateBase, dark_color)
+    dark_theme.setColor(dark_theme.ToolTipBase, dark_color)
+    dark_theme.setColor(dark_theme.ToolTipText, text_color)
+    dark_theme.setColor(dark_theme.Text, text_color)
+    dark_theme.setColor(dark_theme.Disabled, dark_theme.Text, disabled_color)
+    dark_theme.setColor(dark_theme.Button, dark_color)
+    dark_theme.setColor(dark_theme.ButtonText, text_color)
+    dark_theme.setColor(dark_theme.Disabled, dark_theme.ButtonText, disabled_color)
+    dark_theme.setColor(dark_theme.BrightText, Qt.red)
+    dark_theme.setColor(dark_theme.Link, dark_link_color)
+    dark_theme.setColor(dark_theme.Highlight, highlight_color)
+    dark_theme.setColor(dark_theme.HighlightedText, highlight_text_color)
+    dark_theme.setColor(dark_theme.Disabled, dark_theme.HighlightedText, disabled_color)
 
     app.setStyle(QStyleFactory.create("Fusion"))
-    app.setPalette(dark_mode)
+    app.setPalette(dark_theme)
 
 
 def run(book, dark_mode, path, bk) -> bool:
     global overwrite
     overwrite = False
+    
     app = QtWidgets.QApplication(sys.argv)
-    theme_color(app, bk)
+    theme_color(app, bk, dark_mode)
     window = Window(book, dark_mode, path, bk)
-    # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
 
     return overwrite

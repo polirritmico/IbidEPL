@@ -35,8 +35,12 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+    try:
+        test = book.notes_index[0]
+    except:
+        print("ERROR: El archivo seleccionado no parece ser un archivo de notas.")
+        return -1
 
-    book.autocheckIbidNotes()
     book.setParentsAndChilds()
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
@@ -74,7 +78,6 @@ def main():
     book.readHTML(html)
     book.parseNotes()
 
-    book.autocheckIbidNotes()
     book.setParentsAndChilds()
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
@@ -92,8 +95,6 @@ def main():
         print("Archivo escrito correctamente.")
     else:
         print("No se han escrito cambios.")
-
-    print("Pulse OK para volver a Sigil.")
     return 0
 
 

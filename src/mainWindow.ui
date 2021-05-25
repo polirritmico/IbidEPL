@@ -219,6 +219,9 @@
                 <iconset theme="format-font-size-more">
                  <normaloff>.</normaloff>.</iconset>
                </property>
+               <property name="shortcut">
+                <string>Ctrl++</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -232,6 +235,9 @@
                <property name="icon">
                 <iconset theme="format-font-size-less">
                  <normaloff>.</normaloff>.</iconset>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+-</string>
                </property>
               </widget>
              </item>
