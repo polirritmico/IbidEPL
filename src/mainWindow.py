@@ -341,25 +341,27 @@ class Window(QtWidgets.QDialog):
         self.reject()
 
 
-def theme_color(app):
-    # supports_theming = (bk.launcher_version() >= 20200117)
-    # if not supports_theming:
-    #     return
-    # if bk.colorMode() != "dark":
-    #     return
-
+def theme_color(app, bk):
     dark_mode = QPalette()
-    # sigil_colors = bk.color
-    # dark_color = QColor(sigil_colors("Window"))
-    dark_color = QColor("#31363b")
+    if bk is None:
+        dark_color = QColor("#31363b")
+        text_color = QColor("#eff0f1")
+        base_color = QColor("#232629")
+        highlight_color = QColor("#3daee9")
+        highlight_text_color = QColor("#eff0f1")
+    else:
+        sigil_colors = bk.color
+        dark_color = QColor(sigil_colors("Window"))
+        text_color = QColor(sigil_colors("Text"))
+        base_color = QColor(sigil_colors("Base"))
+        highlight_color = QColor(sigil_colors("Highlight"))
+        highlight_text_color = QColor(sigil_colors("HighlightedText"))
+
     disabled_color = QColor(127, 127, 127)
     dark_link_color = QColor(108, 180, 238)
-    # text_color = QColor(sigil_colors("Text"))
-    text_color = QColor("#eff0f1")
     dark_mode.setColor(dark_mode.Window, dark_color)
     dark_mode.setColor(dark_mode.WindowText, text_color)
-    # dark_mode.setColor(dark_mode.Base, QColor(sigil_colors("Base")))
-    dark_mode.setColor(dark_mode.Base, QColor("#232629"))
+    dark_mode.setColor(dark_mode.Base, base_color)
     dark_mode.setColor(dark_mode.AlternateBase, dark_color)
     dark_mode.setColor(dark_mode.ToolTipBase, dark_color)
     dark_mode.setColor(dark_mode.ToolTipText, text_color)
@@ -367,16 +369,12 @@ def theme_color(app):
     dark_mode.setColor(dark_mode.Disabled, dark_mode.Text, disabled_color)
     dark_mode.setColor(dark_mode.Button, dark_color)
     dark_mode.setColor(dark_mode.ButtonText, text_color)
-    dark_mode.setColor(dark_mode.Disabled,
-                       dark_mode.ButtonText, disabled_color)
+    dark_mode.setColor(dark_mode.Disabled, dark_mode.ButtonText, disabled_color)
     dark_mode.setColor(dark_mode.BrightText, Qt.red)
     dark_mode.setColor(dark_mode.Link, dark_link_color)
-    # dark_mode.setColor(dark_mode.Highlight,QColor(sigil_colors("Highlight")))
-    dark_mode.setColor(dark_mode.Highlight, QColor("#3daee9"))
-    # dark_mode.setColor(dark_mode.HighlightedText,QColor(sigil_colors("HighlightedText")))
-    dark_mode.setColor(dark_mode.HighlightedText, QColor("#eff0f1"))
-    dark_mode.setColor(dark_mode.Disabled,
-                       dark_mode.HighlightedText, disabled_color)
+    dark_mode.setColor(dark_mode.Highlight, highlight_color)
+    dark_mode.setColor(dark_mode.HighlightedText, highlight_text_color)
+    dark_mode.setColor(dark_mode.Disabled, dark_mode.HighlightedText, disabled_color)
 
     app.setStyle(QStyleFactory.create("Fusion"))
     app.setPalette(dark_mode)
@@ -386,7 +384,7 @@ def run(book, dark_mode, path, bk) -> bool:
     global overwrite
     overwrite = False
     app = QtWidgets.QApplication(sys.argv)
-    theme_color(app)
+    theme_color(app, bk)
     window = Window(book, dark_mode, path, bk)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()

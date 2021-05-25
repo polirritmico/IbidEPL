@@ -183,7 +183,7 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Pasar nota a ibid.</string>
+                <string>Pasar nota a ibíd.</string>
                </property>
                <property name="text">
                 <string>A ibid</string>
@@ -206,6 +206,34 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QToolButton" name="FontIncreaseSizeButton">
+               <property name="toolTip">
+                <string>Aumenta el tamaño del texto.</string>
+               </property>
+               <property name="text">
+                <string>+</string>
+               </property>
+               <property name="icon">
+                <iconset theme="format-font-size-more">
+                 <normaloff>.</normaloff>.</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="FontDecreaseSizeButton">
+               <property name="toolTip">
+                <string>Disminuye el tamaño del texto.</string>
+               </property>
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="icon">
+                <iconset theme="format-font-size-less">
+                 <normaloff>.</normaloff>.</iconset>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QToolButton" name="TagButton">
@@ -288,7 +316,7 @@
               </font>
              </property>
              <property name="toolTip">
-              <string>Nota base. «Ctrl + Rueda del ratón» para agrandar o achicar el texto.</string>
+              <string>Texto de la nota base.</string>
              </property>
              <property name="tabChangesFocus">
               <bool>true</bool>
@@ -396,7 +424,7 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Pasar ibid. a nota.</string>
+                <string>Pasar ibíd. a nota.</string>
                </property>
                <property name="text">
                 <string>A  nota</string>
@@ -476,7 +504,7 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Retrocede a la nota ibid anterior.</string>
+                <string>Retrocede a la nota ibíd. anterior.</string>
                </property>
                <property name="text">
                 <string>Anterior</string>
@@ -496,7 +524,7 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Avanza a la siguiente nota ibid.</string>
+                <string>Avanza a la siguiente nota ibíd.</string>
                </property>
                <property name="text">
                 <string>Siguiente</string>
@@ -523,7 +551,7 @@
               </font>
              </property>
              <property name="toolTip">
-              <string>Ibid original. «Ctrl + Rueda del ratón» para agrandar o achicar el texto.</string>
+              <string>Texto de la nota ibíd. original.</string>
              </property>
              <property name="undoRedoEnabled">
               <bool>false</bool>
@@ -541,7 +569,7 @@
               </font>
              </property>
              <property name="toolTip">
-              <string>«Ctrl + Rueda del ratón» para agrandar o achicar el texto.</string>
+              <string>Texto de la nota ibíd.</string>
              </property>
              <property name="tabChangesFocus">
               <bool>true</bool>
@@ -580,7 +608,7 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Opciones del procesado</string>
+                <string>Configuración del procesado.</string>
                </property>
                <property name="text">
                 <string>Conf.</string>
@@ -597,11 +625,11 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Aplica la REGEX y las opciones seleccionadas a la nota.
-Los cambios serán descartados si no se pulsa el botón Modificar.</string>
+                <string>Aplica la RegEx y las opciones seleccionadas a la nota.
+Los cambios serán descartados si no se pulsa el botón Reemplazar.</string>
                </property>
                <property name="text">
-                <string>Procesar Ibid</string>
+                <string>Procesar Ibíd</string>
                </property>
                <property name="shortcut">
                 <string>Ctrl+Backspace</string>
@@ -614,7 +642,7 @@ Los cambios serán descartados si no se pulsa el botón Modificar.</string>
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Procesa con la REGEX y las opciones seleccionadas todas las notas.</string>
+                <string>Procesa todas las notas y las reemplaza.</string>
                </property>
                <property name="text">
                 <string>Procesar y reemplazar todo</string>
@@ -627,8 +655,8 @@ Los cambios serán descartados si no se pulsa el botón Modificar.</string>
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Reemplaza la información de la nota.
-Si no se modifica los cambios se descartarán.</string>
+                <string>Reemplaza el texto de la nota.
+Si no se reemplaza los cambios en la nota se descartarán.</string>
                </property>
                <property name="text">
                 <string>Reemplazar</string>
@@ -659,7 +687,7 @@ Si no se modifica los cambios se descartarán.</string>
         <string>Ibid que no han sido modificados</string>
        </property>
        <property name="text">
-        <string>Ibid sin modificar: </string>
+        <string>Ibíd sin modificar: </string>
        </property>
       </widget>
      </item>

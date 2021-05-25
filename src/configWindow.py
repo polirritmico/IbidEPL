@@ -249,17 +249,3 @@ class Prefs(dict):
             return dict.__getitem__(self, key)
         except KeyError:
             return self.defaults[key]
-
-
-
-    # def get(self, key, default=None):
-    #         return dict.__getitem__(self, key)
-    #     except KeyError:
-    #         return self.defaults.get(key, default)
-
-    # def __setitem__(self, key, val):
-    #     dict.__setitem__(self, key, val)
-    
-    # def set(self, key, val):
-    #     self.__setitem__(self, key, val)
-

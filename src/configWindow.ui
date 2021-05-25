@@ -233,7 +233,7 @@ Anteponer ?: al principio de un paréntesis descarta su contenido</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../../../../.local/share/sigil-ebook/sigil/plugins/IbidEPL/resources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
