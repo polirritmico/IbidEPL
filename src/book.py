@@ -10,8 +10,8 @@ REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;
 
 
 class Book:
-    def __init__(self):
-        self.file = None
+    def __init__(self, name):
+        self.filename = name
         self.html_head = []
         self.html_body = []
         self.notes_index = []
@@ -20,10 +20,7 @@ class Book:
         self.ibid_note_count = 0
         self.base_note_count = 0
 
-    def readFile(self, _file):
-        self.file = open(_file, "r")
-        html = self.file.read()
-        self.file.close()
+    def readHTML(self, html):
         html = html.split('\n')
 
         reading_header = True

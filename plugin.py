@@ -25,8 +25,15 @@ def run(bk):
         selected_files.append(i)
     filename = selected_files[0][1]
 
-    book = Book()
-    book.readFile(filename)
+    try:
+        print("Leyendo archivo seleccionado...")
+        html = bk.readfile(file)
+    except:
+        print("ERROR: No se puede abrir el archivo seleccionado.")
+        return -1
+
+    book = Book(filename)
+    book.readHTML(html)
     book.parseNotes()
 
     book.autocheckIbidNotes()
@@ -56,11 +63,16 @@ def run(bk):
 
 
 def main():
-        # print("Error: Ejecutar desde Sigil.\n")
-        # return -1
+    # print("Error: Ejecutar desde Sigil.\n")
+    # return -1
     filename = "testFiles/test_04.xhtml"
-    book = Book()
-    book.readFile(filename)
+
+    file = open(filename, "r")
+    html = file.read()
+    file.close()
+
+    book = Book(filename)
+    book.readHTML(html)
     book.parseNotes()
 
     book.autocheckIbidNotes()
