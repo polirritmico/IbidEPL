@@ -17,7 +17,7 @@ except Exception as e:
 
 
 class Window(QtWidgets.QDialog):
-    def __init__(self, _book, dark_mode, path):
+    def __init__(self, _book, dark_mode, path, bk):
         super(Window, self).__init__()
         uic.loadUi(path + "mainWindow.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
@@ -74,7 +74,7 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setColumnWidth(2, 120)
 
         # Setup Dialog
-        self.config_window = src.configWindow.ConfigWindow(dark_mode, path)
+        self.config_window = src.configWindow.ConfigWindow(dark_mode, path, bk)
 
         # Setup
         self.book = _book
@@ -382,12 +382,12 @@ def theme_color(app):
     app.setPalette(dark_mode)
 
 
-def run(book, dark_mode, path) -> bool:
+def run(book, dark_mode, path, bk) -> bool:
     global overwrite
     overwrite = False
     app = QtWidgets.QApplication(sys.argv)
     theme_color(app)
-    window = Window(book, dark_mode, path)
+    window = Window(book, dark_mode, path, bk)
     # Mostramos la GUI y esperamos Aceptar o Cancelar
     app.exec_()
 

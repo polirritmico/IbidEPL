@@ -3,6 +3,7 @@
 
 from src.note import Note
 from src.highlight import highlight
+from collections import OrderedDict
 try:
     from PyQt5 import uic, QtWidgets
     from PyQt5.QtCore import QEvent, QTimer
@@ -15,12 +16,16 @@ except Exception as e:
 
 
 class ConfigWindow(QtWidgets.QDialog):
-    def __init__(self, dark_theme, path):
+    def __init__(self, dark_theme, path, bk):
         super(ConfigWindow, self).__init__()
-        #uic.loadUi(os.path.join(bk._w.plugin_dir, bk._w.plugin_name, "Regex_dialog.ui"), self)
         uic.loadUi(path + "configWindow.ui", self)
+
+        if bk is None:
+            self.bk = CopyBK()
+        else:
+            self.bk = bk
+
         # Set Icons
-        # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
         if dark_theme:
             theme = ":/dark-theme/"
         else:
@@ -79,15 +84,26 @@ class ConfigWindow(QtWidgets.QDialog):
         # Texts
         self.OriginalNote.setText(self.demo_nota)
 
+        # Load Prefs
+        self.prefs = self.bk.getPrefs()
+
+        # Set Defaults
+        self.prefs.defaults["RegEx_combobox"] = "0"
+        self.prefs.defaults["RegEx"] = self.regex_search_entries[0]
+        self.prefs.defaults["Ibid_combobox"] = "0"
+        self.prefs.defaults["Ibid"] = self.ibid_label_entries[0]
+        self.prefs.defaults["Separator_combobox"] = "0"
+        self.prefs.defaults["Separator"] = self.separator_label_entries[0]
+
         # Load Values
-        self.regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
-        self.ibid_label = '<i xml:lang="la">Ibid</i>.'
-        self.separator = 'TEXTO_ADICIONAL:'
+        self.regex = self.prefs["RegEx"]
+        self.ibid_label = self.prefs["Ibid"]
+        self.separator = self.prefs["Separator"]
 
         # Set Currents
-        # self.RegexComboBox.setCurrentIndex(self.prefs["RegEx_combobox"])
-        # self.IbidLabelComboBox.setCurrentIndex(self.prefs["Ibid_combobox"])
-        # self.SeparatorComboBox.setCurrentIndex(self.prefs["Separator_combobox"])
+        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
+        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
+        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
 
         self.regexComboBox_newValue(self.RegexComboBox.currentIndex())
         self.ibidLabelComboBox_newValue(self.IbidLabelComboBox.currentIndex())
@@ -146,17 +162,104 @@ class ConfigWindow(QtWidgets.QDialog):
         highlight(self.ProccesedNote, self.SeparatorEntry.text())
 
     def acceptButton_pressed(self):
-        self.regex = self.RegexEntry.text()
-        self.ibid_label = self.IbidLabelEntry.text()
-        self.separator = self.SeparatorEntry.text()
+        # Get updated values from the entries
+        self.prefs["RegEx_combobox"] = self.RegexComboBox.currentIndex()
+        self.prefs["Ibid_combobox"] = self.IbidLabelComboBox.currentIndex()
+        self.prefs["Separator_combobox"] = self.SeparatorComboBox.currentIndex()
+        self.prefs["RegEx"] = self.RegexEntry.text()
+        self.prefs["Ibid"] = self.IbidLabelEntry.text()
+        self.prefs["Separator"] = self.SeparatorEntry.text()
+
+        self.regex = self.prefs["RegEx"]
+        self.ibid_label = self.prefs["Ibid"]
+        self.separator = self.prefs["Separator"]
+
+        self.bk.savePrefs(self.prefs)
+        self.saveCancelValues()
 
         self.close()
 
     def defaultButton_pressed(self):
-        pass
+        # Set defaults
+        self.prefs["RegEx_combobox"] = self.prefs.defaults["RegEx_combobox"]
+        self.prefs["Ibid_combobox"] = self.prefs.defaults["Ibid_combobox"]
+        self.prefs["Separator_combobox"] = self.prefs.defaults["Separator_combobox"]
+        self.prefs["RegEx"] = self.prefs.defaults["RegEx"]
+        self.prefs["Ibid"] = self.prefs.defaults["Ibid"]
+        self.prefs["Separator"] = self.prefs.defaults["Separator"]
+        
+        # Restauramos los valores
+        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
+        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
+        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
+        self.regex = self.prefs["RegEx"]
+        self.ibid_label = self.prefs["Ibid"]
+        self.separator = self.prefs["Separator"]
+        
+        # Actualizamos
+        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
+        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
+        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
+        
+        self.regexComboBox_newValue(self.RegexComboBox.currentIndex())
+        self.ibidLabelComboBox_newValue(self.IbidLabelComboBox.currentIndex())
+        self.separatorComboBox_newValue(self.SeparatorComboBox.currentIndex())
+        
+        self.RegexEntry.setText(self.regex)
+        self.IbidLabelEntry.setText(self.ibid_label)
+        self.SeparatorEntry.setText(self.separator)
+        
+        self.bk.savePrefs(self.prefs)
 
     def cancelButton_pressed(self):
+        # Restauramos los valores guardados
+        self.RegexComboBox.setCurrentIndex(self.cancel_regex_idx)
+        self.IbidLabelComboBox.setCurrentIndex(self.cancel_ibid_label_idx)
+        self.SeparatorComboBox.setCurrentIndex(self.cancel_separator_idx)
+        self.regex = self.cancel_regex
+        self.ibid_label = self.cancel_ibid_label
+        self.separator = self.cancel_separator
+        
+        self.RegexEntry.setText(self.regex)
+        self.IbidLabelEntry.setText(self.ibid_label)
+        self.SeparatorEntry.setText(self.separator)
+
         self.reject()
 
     def showDialog(self):
         self.show()
+
+class CopyBK():
+    def __init__(self):
+        self.prefs = Prefs()
+
+    def getPrefs(self):
+        return self.prefs
+
+    def savePrefs(self, preferences):
+        pass
+
+class Prefs(dict):
+    def __init__(self):
+        dict.__init__(self)
+        self.defaults = OrderedDict()
+
+    def __getitem__(self, key):
+        try:
+            return dict.__getitem__(self, key)
+        except KeyError:
+            return self.defaults[key]
+
+
+
+    # def get(self, key, default=None):
+    #         return dict.__getitem__(self, key)
+    #     except KeyError:
+    #         return self.defaults.get(key, default)
+
+    # def __setitem__(self, key, val):
+    #     dict.__setitem__(self, key, val)
+    
+    # def set(self, key, val):
+    #     self.__setitem__(self, key, val)
+
