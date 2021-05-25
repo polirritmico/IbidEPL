@@ -23,9 +23,36 @@ def run(bk):
     selected_files = []
     for i in bk.selected_iter():
         selected_files.append(i)
-    file = selected_files[0][1]
+    filename = selected_files[0][1]
 
-    bk.writefile(file, html_header + html_body + html_foot)
+    book = Book()
+    book.readFile(filename)
+    book.parseNotes()
+
+    book.autocheckIbidNotes()
+    book.setParentsAndChilds()
+    book.updateNextAndPrevNotes()
+    book.updateNotesLabels()
+
+    print("Archivo \"" + filename + "\" indexado exitosamente.")
+    print("Abriendo interfaz QT...")
+
+    dark_theme = False
+    if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
+        dark_theme = True
+
+    overwrite_xhtml = src.mainWindow.run(book, dark_theme)
+
+    if overwrite_xhtml:
+        bk.writefile(book.bookToXHTML())
+        print("Archivo escrito correctamente.")
+    else:
+        print("No se han escrito cambios.")
+
+    print("Pulse OK para volver a Sigil.")
+    return 0
+
+
 
 
 def main():
