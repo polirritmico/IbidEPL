@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from src.note import Note
 from src.highlight import highlight
 try:
@@ -7,7 +10,7 @@ try:
     from PyQt5.QtGui import QIcon
 except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
-        e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 o PyQt5.")
+        e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 y PyQt5.")
     sys.exit()
 
 

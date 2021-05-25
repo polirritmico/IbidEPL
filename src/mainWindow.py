@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 import src.configWindow
 import src.resources
@@ -249,7 +252,7 @@ class Window(QtWidgets.QDialog):
 
         if self.current_ibid.edited or self.current_ibid.processed:
             self.current_ibid.browserEntry.setText(
-                2, self.current_ibid.restore())
+                2, self.current_ibid.restoreOriginalText())
             self.changeToIbid(self.current_ibid)
             self.announce("Restaurado ibid. " + self.current_ibid.id_tag)
         else:

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import re
 
 # Regex para encontrar ibids
@@ -82,7 +85,7 @@ class Note:
 
         return self.text
 
-    def restore(self):
+    def restoreOriginalText(self):
         self.text = self.original_text
         self.edited = False
         self.processed = False
