@@ -89,7 +89,7 @@ class Window(QtWidgets.QDialog):
 
         # Run
         self.announce(str(len(self.notes_index)) +
-                " notas leídas desde " + self.book.file.name)
+                " notas leídas desde " + self.book.filename)
         self.show()
 
         if self.book.first_seems_ibid:
@@ -144,7 +144,11 @@ class Window(QtWidgets.QDialog):
         self.NoteText.setPlainText(note.text)
 
     def changeToIbid(self, note):
+        # Restaura el borde al color original
+        self.IbidText.setStyleSheet("")
+
         if note is None:
+            self.IbidText.setReadOnly(True)
             self.current_ibid = None
             self.IbidIdEntry.setText("")
             self.IbidEntry.setText("")
@@ -173,7 +177,19 @@ class Window(QtWidgets.QDialog):
         highlight(self.IbidText, self.config_window.separator)
 
     def ibidTextChanged(self):
-        pass
+        if self.current_ibid is None:
+            return
+        if self.tag_html:
+            return
+        text = self.IbidText.toPlainText()
+        if text == "Sin ibid." or text == self.current_ibid.text:
+            return
+
+        color = "#f67400" if self.theme == ":/dark-theme/" else "#ff0000"
+        self.IbidText.setStyleSheet("border: 2px solid " + color)
+            
+        self.current_ibid.edited = True
+        self.IbidUndoButton.setEnabled(True)
 
     def browserNoteItem_pressed(self, item):
         # item.text es un array: 0 Id, 1 Número, 2 Texto, 3 Index
@@ -291,7 +307,6 @@ class Window(QtWidgets.QDialog):
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
         self.IbidUndoButton.setEnabled(True)
 
-        # self.IbidText.setStyleSheet("")
         self.announce("Ibid procesado sin guardar")
 
     def processAllIbidsButton_pressed(self):
