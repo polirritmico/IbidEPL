@@ -3,9 +3,9 @@ import src.configWindow
 import src.resources
 try:
     from PyQt5 import uic, QtWidgets
-    from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
+    from PyQt5.QtCore import Qt, QEvent, QTimer
     from PyQt5.QtWidgets import QTreeWidgetItem, QStyleFactory
-    from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor, QIcon, QPalette
+    from PyQt5.QtGui import QColor, QIcon, QPalette
 except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
         e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 o PyQt5.")
@@ -68,7 +68,7 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setColumnWidth(0, 80)
         self.NoteBrowser.setColumnWidth(1, 40)
         self.NoteBrowser.setColumnWidth(2, 120)
-        
+
         # Setup Dialog
         self.config_window = src.configWindow.ConfigWindow(dark_mode)
 
@@ -77,7 +77,7 @@ class Window(QtWidgets.QDialog):
         self.notes_index = _book.notes_index
         self.current_note = self.notes_index[0]
         self.tag_html = False
-        
+
         self.populateNoteBrowser()
         self.changeToNote(self.current_note)
         self.changeToIbid(self.current_note.getChild())
@@ -89,12 +89,11 @@ class Window(QtWidgets.QDialog):
         self.show()
 
         if self.book.first_seems_ibid:
-            QtWidgets.QMessageBox.warning(self,
-                    'Advertencia','La primera nota parece ser ibid')
+            QtWidgets.QMessageBox.warning(
+                self, 'Advertencia', 'La primera nota parece ser ibid')
 
     def populateNoteBrowser(self):
         self.NoteBrowser.clear()
-
         # Cabeceras QTreeWidget: Id, Número, Texto, Index (int)
         for note in self.notes_index:
             entry = [note.id_tag, note.number, note.text, str(note.index)]
@@ -122,7 +121,6 @@ class Window(QtWidgets.QDialog):
         for note in self.notes_index:
             if note.is_ibid and not note.edited:
                 unedited_ibid_count += 1
-
         self.Messenger.setText(tag_count + str(unedited_ibid_count))
 
     def wheelEvent(self, e):
@@ -134,20 +132,15 @@ class Window(QtWidgets.QDialog):
 
     def changeToNote(self, note):
         self.current_note = note
-
         self.NoteIdEntry.setText(note.id_tag)
         self.NoteEntry.setText(note.number)
-        current_note_label = note.current_label + \
-            " de " + str(self.book.base_note_count)
-        self.NoteCurrent.setText(current_note_label)
+        self.NoteCurrent.setText(note.current_label + " de " +
+                str(self.book.base_note_count))
         self.NoteHrefEntry.setText(note.href)
         self.NoteText.setPlainText(note.text)
 
-        # Select QTreeWidgetItem
-        # self.NoteBrowser.setCurrentItem(note.browserEntry)
-
     def changeToIbid(self, note):
-        if note == None:
+        if note is None:
             self.current_ibid = None
             self.IbidIdEntry.setText("")
             self.IbidEntry.setText("")
@@ -156,7 +149,7 @@ class Window(QtWidgets.QDialog):
             self.IbidOriginalText.setPlainText("Sin ibid.")
             self.IbidHrefEntry.setText("")
             return
-        
+
         self.current_ibid = note
         self.IbidIdEntry.setText(note.id_tag)
         self.IbidEntry.setText(note.number)
@@ -165,7 +158,7 @@ class Window(QtWidgets.QDialog):
         self.IbidCurrent.setText(ibid_current)
         self.IbidOriginalText.setPlainText(note.original_text)
         self.IbidHrefEntry.setText(note.href)
-        
+
         if self.tag_html:
             self.IbidText.setReadOnly(True)
             self.IbidText.setText(note.text)
@@ -190,7 +183,7 @@ class Window(QtWidgets.QDialog):
 
     def nextNoteButton_pressed(self):
         target = self.current_note.next_note
-        if target != None:
+        if target is not None:
             self.changeToIbid(target.getChild())
             self.changeToNote(target)
         else:
@@ -199,7 +192,7 @@ class Window(QtWidgets.QDialog):
 
     def prevNoteButton_pressed(self):
         target = self.current_note.prev_note
-        if target != None:
+        if target is not None:
             self.changeToIbid(target.getChild())
             self.changeToNote(target)
         else:
@@ -208,7 +201,7 @@ class Window(QtWidgets.QDialog):
 
     def nextIbidButton_pressed(self):
         target = self.book.getNextIbid(self.current_note, self.current_ibid)
-        if target != None:
+        if target is not None:
             self.changeToNote(target.parent)
             self.changeToIbid(target)
             self.NoteBrowser.setCurrentItem(target.browserEntry)
@@ -217,7 +210,7 @@ class Window(QtWidgets.QDialog):
 
     def prevIbidButton_pressed(self):
         target = self.book.getPrevIbid(self.current_note, self.current_ibid)
-        if target != None:
+        if target is not None:
             self.changeToNote(target.parent)
             self.changeToIbid(target)
             self.NoteBrowser.setCurrentItem(target.browserEntry)
@@ -234,7 +227,8 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
-        self.announce("Nota \"" + str(current.id_tag) + "\" cambiada a ibíd.")
+
+        self.announce('Nota \"' + str(current.id_tag) + '\" cambiada a ibíd.')
 
     def ibidToNoteButton_pressed(self):
         current = self.current_ibid
@@ -269,12 +263,10 @@ class Window(QtWidgets.QDialog):
     def showOriginalIbidButton_pressed(self, checked):
         if checked:
             self.IbidOriginalText.setVisible(True)
-            self.ShowOriginalIbid.setIcon(
-                QIcon(self.theme + "view-hidden.svg"))
+            self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-hidden.svg"))
         else:
             self.IbidOriginalText.setVisible(False)
-            self.ShowOriginalIbid.setIcon(
-                QIcon(self.theme + "view-visible.svg"))
+            self.ShowOriginalIbid.setIcon(QIcon(self.theme + "view-visible.svg"))
 
     def configButton_pressed(self):
         self.config_window.showDialog()
@@ -282,13 +274,13 @@ class Window(QtWidgets.QDialog):
     def processIbidButton_pressed(self):
         if self.current_ibid is None:
             return
-        
-        self.current_ibid.text = self.current_ibid.processIbid(
-            self.config_window.regex, self.config_window.ibid_label,
-            self.config_window.separator)
 
+        self.current_ibid.processIbid(self.config_window.regex,
+                                      self.config_window.ibid_label,
+                                      self.config_window.separator)
         self.current_ibid.processed = True
         self.has_change = True
+
         self.changeToIbid(self.current_ibid)
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
         self.IbidUndoButton.setEnabled(True)
@@ -297,12 +289,14 @@ class Window(QtWidgets.QDialog):
         self.announce("Ibid procesado sin guardar")
 
     def processAllIbidsButton_pressed(self):
-        proc_count = self.book.processAllIbids(self.config_window.regex,
-                self.config_window.ibid_label, self.config_window.separator)
+        proc_count = self.book.processAllIbids(
+            self.config_window.regex, self.config_window.ibid_label,
+            self.config_window.separator)
 
         self.populateNoteBrowser()
         self.changeToNote(self.notes_index[0])
-        self.changeToIbid(self.current_note.getChild())
+        self.changeToIbid(self.notes_index[0].getChild())
+        self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
         self.announce("Se han modificado " + proc_count + " notas")
 
@@ -330,7 +324,7 @@ def theme_color(app):
     # if not supports_theming:
     #     return
     # if bk.colorMode() != "dark":
-        # return
+    #     return
 
     dark_mode = QPalette()
     # sigil_colors = bk.color
@@ -352,7 +346,7 @@ def theme_color(app):
     dark_mode.setColor(dark_mode.Button, dark_color)
     dark_mode.setColor(dark_mode.ButtonText, text_color)
     dark_mode.setColor(dark_mode.Disabled,
-                        dark_mode.ButtonText, disabled_color)
+                       dark_mode.ButtonText, disabled_color)
     dark_mode.setColor(dark_mode.BrightText, Qt.red)
     dark_mode.setColor(dark_mode.Link, dark_link_color)
     # dark_mode.setColor(dark_mode.Highlight,QColor(sigil_colors("Highlight")))
@@ -360,7 +354,7 @@ def theme_color(app):
     # dark_mode.setColor(dark_mode.HighlightedText,QColor(sigil_colors("HighlightedText")))
     dark_mode.setColor(dark_mode.HighlightedText, QColor("#eff0f1"))
     dark_mode.setColor(dark_mode.Disabled,
-                        dark_mode.HighlightedText, disabled_color)
+                       dark_mode.HighlightedText, disabled_color)
 
     app.setStyle(QStyleFactory.create("Fusion"))
     app.setPalette(dark_mode)

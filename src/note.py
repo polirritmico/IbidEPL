@@ -62,6 +62,10 @@ class Note:
     def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
+        # Si no restauramos al original se repite el mismo string
+        if self.processed:
+            self.text = self.original_text
+        self.processed = True
 
         splited_note = re.split(regex, self.text)
         splited_note = list(filter(None, splited_note))

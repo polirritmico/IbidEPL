@@ -123,6 +123,7 @@ class Book:
         proc_count = 0
         for note in self.notes_index:
             if note.is_ibid:
+                note.text = note.original_text
                 note.text = note.processIbid(regex, ibid_tag, separator)
                 note.processed = True
                 proc_count += 1
@@ -141,14 +142,14 @@ class Book:
     def noteToIbid(self, note):
         if note.is_ibid:
             return
-
         note.is_ibid = True
+
         self.setParentsAndChilds()
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
 
     def getNextIbid(self, current_note, current_ibid):
-        if current_ibid != None:
+        if current_ibid is not None:
             return current_ibid.next_note
 
         index = current_note.index

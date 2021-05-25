@@ -1,9 +1,10 @@
 from src.note import Note
+from src.highlight import highlight
 try:
     from PyQt5 import uic, QtWidgets
-    from PyQt5.QtCore import Qt, QEvent, QTimer, QRegExp
+    from PyQt5.QtCore import QEvent, QTimer
     from PyQt5.QtWidgets import QTreeWidgetItem
-    from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor, QIcon
+    from PyQt5.QtGui import QIcon
 except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
         e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 o PyQt5.")
@@ -129,15 +130,17 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator_label_entries[index])
 
     def testButton_pressed(self):
-        #setup simple test enviroment
+        # setup simple test enviroment
         parent = Note("nt1", "1", self.demo_base_note, "href", 1)
         child = Note("nt2", "2", self.demo_nota, "href", 2)
         child.parent = parent
         child.is_ibid = True
 
-        test = child.processIbid(self.RegexEntry.text(), 
+        test = child.processIbid(self.RegexEntry.text(),
                 self.IbidLabelEntry.text(), self.SeparatorEntry.text())
         self.ProccesedNote.setPlainText(test)
+
+        highlight(self.ProccesedNote, self.SeparatorEntry.text())
 
     def acceptButton_pressed(self):
         self.regex = self.RegexEntry.text()
@@ -145,7 +148,6 @@ class ConfigWindow(QtWidgets.QDialog):
         self.separator = self.SeparatorEntry.text()
 
         self.close()
-
 
     def defaultButton_pressed(self):
         pass
