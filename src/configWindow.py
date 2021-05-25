@@ -15,10 +15,10 @@ except Exception as e:
 
 
 class ConfigWindow(QtWidgets.QDialog):
-    def __init__(self, dark_theme):
+    def __init__(self, dark_theme, path):
         super(ConfigWindow, self).__init__()
         #uic.loadUi(os.path.join(bk._w.plugin_dir, bk._w.plugin_name, "Regex_dialog.ui"), self)
-        uic.loadUi("src/configWindow.ui", self)
+        uic.loadUi(path + "configWindow.ui", self)
         # Set Icons
         # if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
         if dark_theme:
