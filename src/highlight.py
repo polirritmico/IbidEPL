@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# from: https://github.com/PyQt5/PyQt/blob/master/QTextEdit/HighlightText.py
 
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor
