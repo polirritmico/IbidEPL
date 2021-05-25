@@ -4,9 +4,10 @@
 import sys
 import src.configWindow
 import src.resources
+from src.highlight import highlight
 try:
     from PyQt5 import uic, QtWidgets
-    from PyQt5.QtCore import Qt, QEvent, QTimer
+    from PyQt5.QtCore import Qt, QTimer
     from PyQt5.QtWidgets import QTreeWidgetItem, QStyleFactory
     from PyQt5.QtGui import QColor, QIcon, QPalette
 except Exception as e:
@@ -168,6 +169,8 @@ class Window(QtWidgets.QDialog):
         else:
             self.IbidText.setReadOnly(False)
             self.IbidText.setPlainText(note.text)
+
+        highlight(self.IbidText, self.config_window.separator)
 
     def ibidTextChanged(self):
         pass
