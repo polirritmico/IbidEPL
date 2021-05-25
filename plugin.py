@@ -8,7 +8,7 @@ Titivillus
 """
 
 import sys
-# import os
+import os
 # import re
 import src.mainWindow
 from src.book import Book
@@ -27,7 +27,7 @@ def run(bk):
 
     try:
         print("Leyendo archivo seleccionado...")
-        html = bk.readfile(file)
+        html = bk.readfile(filename)
     except:
         print("ERROR: No se puede abrir el archivo seleccionado.")
         return -1
@@ -48,7 +48,8 @@ def run(bk):
     if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
         dark_theme = True
 
-    overwrite_xhtml = src.mainWindow.run(book, dark_theme)
+    path = os.path.join(bk._w.plugin_dir, bk._w.plugin_name) + "/src/"
+    overwrite_xhtml = src.mainWindow.run(book, dark_theme, path)
 
     if overwrite_xhtml:
         bk.writefile(book.bookToXHTML())
@@ -58,8 +59,6 @@ def run(bk):
 
     print("Pulse OK para volver a Sigil.")
     return 0
-
-
 
 
 def main():
@@ -82,8 +81,9 @@ def main():
 
     print("Archivo \"" + filename + "\" indexado exitosamente.")
     print("Abriendo interfaz QT...")
-
-    overwrite_xhtml = src.mainWindow.run(book, True)
+    dark_theme = True
+    path = "src/"
+    overwrite_xhtml = src.mainWindow.run(book, dark_theme, path)
 
     if overwrite_xhtml:
         file = open("outTest_04.xhtml", "w")
