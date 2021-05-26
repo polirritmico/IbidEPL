@@ -55,6 +55,7 @@ class TestProcess(unittest.TestCase):
             book = Book("testFiles/" + filename)
             book.readHTML(html)
             book.parseNotes()
+            book.autocheckIbidNotes()
             book.setParentsAndChilds()
             book.updateNextAndPrevNotes()
 

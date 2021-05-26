@@ -34,6 +34,7 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+    book.autocheckIbidNotes()
 
     try:
         _test = book.notes_index[0]
@@ -78,6 +79,7 @@ def main():
     book.readHTML(html)
     book.parseNotes()
 
+    book.autocheckIbidNotes()
     book.setParentsAndChilds()
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()

@@ -45,8 +45,6 @@ class Book:
                         raw_note[2], raw_note[3], index)
             self.notes_index.append(note)
 
-            self.autocheckIbidNotes()
-
     def getNotesFromHtml(self) -> list:
         notes_raw = []
         for line in self.html_body:
@@ -74,21 +72,9 @@ class Book:
                 parent = note
                 note.setParent(None)
 
-    def updateNotesLabels(self):
-        # Debe usarse setParentsAndChilds primero
-        self.ibid_note_count = 0
-        self.base_note_count = 0
-        for note in self.notes_index:
-            if note.is_ibid:
-                self.ibid_note_count += 1
-                note.current_label = str(self.ibid_note_count)
-            else:
-                self.base_note_count += 1
-                note.current_label = str(self.base_note_count)
-
     def updateNextAndPrevNotes(self):
         # Obtenemos los next y prev de cada nota
-        # (prev/next ibid, o prev/next nota segun corresponda)
+        # (notas e ibíd. tienen cadenas independientes)
         prev_note = None
         prev_ibid = None
 
@@ -119,6 +105,18 @@ class Book:
                 current_note.prev_note = prev_note
                 current_note.next_note = None
                 prev_note = current_note
+
+    def updateNotesLabels(self):
+        # Debe usarse setParentsAndChilds primero
+        self.ibid_note_count = 0
+        self.base_note_count = 0
+        for note in self.notes_index:
+            if note.is_ibid:
+                self.ibid_note_count += 1
+                note.current_label = str(self.ibid_note_count)
+            else:
+                self.base_note_count += 1
+                note.current_label = str(self.base_note_count)
 
     def processAllIbids(self, regex, ibid_tag, separator):
         proc_count = 0
