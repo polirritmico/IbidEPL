@@ -9,13 +9,12 @@ Titivillus
 
 import sys
 import os
-# import re
 import src.mainWindow
 from src.book import Book
 
 
 def run(bk):
-    if not bk.launcher_version() >= 20170115:
+    if bk.launcher_version() < 20170115:
         print("Este plugin requiere Sigil >0.9.8 \
         \n\nHaga clic en Aceptar para cerrar.")
         return -1
@@ -35,9 +34,10 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+
     try:
-        test = book.notes_index[0]
-    except:
+        _test = book.notes_index[0]
+    except IndexError:
         print("ERROR: El archivo seleccionado no parece ser un archivo de notas.")
         return -1
 

@@ -29,6 +29,8 @@ class Window(QtWidgets.QDialog):
             self.theme = ":/light-theme/"
 
         self.NoteToIbidButton.setIcon(QIcon(self.theme + "format-indent-more.svg"))
+        self.FontIncreaseSizeButton.setIcon(QIcon(self.theme + "format-font-size-more.svg"))
+        self.FontDecreaseSizeButton.setIcon(QIcon(self.theme + "format-font-size-less.svg"))
         self.TagButton.setIcon(QIcon(self.theme + "format-text-code.svg"))
         self.NotePrevButton.setIcon(QIcon(self.theme + "go-previous.svg"))
         self.NoteNextButton.setIcon(QIcon(self.theme + "go-next.svg"))
@@ -391,7 +393,7 @@ def theme_color(app, bk, dark_mode):
 def start(book, dark_mode, path, bk) -> bool:
     global overwrite
     overwrite = False
-    
+
     app = QtWidgets.QApplication(sys.argv)
     theme_color(app, bk, dark_mode)
     window = Window(book, dark_mode, path, bk)

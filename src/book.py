@@ -12,6 +12,7 @@ REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;
 class Book:
     def __init__(self, name):
         self.filename = name
+
         self.html_head = []
         self.html_body = []
         self.notes_index = []
@@ -53,7 +54,6 @@ class Book:
             self.notes_index.append(note)
 
             self.autocheckIbidNotes()
-
 
     def autocheckIbidNotes(self):
         for note in self.notes_index:
