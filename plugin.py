@@ -12,9 +12,8 @@
 # This file is part of IbidEPL.
 #
 # IbidEPL is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation version 2 of the License.
 #
 # IbidEPL is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,10 +21,23 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 #########################################################################
 
+""" 
+En términos generales el plugin genera un objeto Book por cada
+archivo leído, que contiene una lista de todas las notas en
+notes_index[]. Cada nota contiene en primera instancia el id, el 
+numero de llamado, el href y el texto extraídos desde el xhtml,
+además de referencias a la nota siguiente y la anterior.
+Las notas ibid solo referencian a notas ibid y las notas base
+solo a notas base, para referencia a todas las notas está la
+lista notes_index. Además las notas ibíd. referencian a su nota
+base (parent).
+Book además contiene funciones para manipular la estructura de
+las notas.
+"""
 
 import sys
 import os
