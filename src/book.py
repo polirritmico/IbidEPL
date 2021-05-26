@@ -34,14 +34,6 @@ class Book:
             elif line != "</body>" and line != "</html>":
                 self.html_body.append(line)
 
-    def getNotesFromHtml(self) -> list:
-        notes_raw = []
-        for line in self.html_body:
-            # find() tiene output -1 cuando es not found
-            if line.find("<p id") != -1:
-                notes_raw.append(line.lstrip())
-        return notes_raw
-
     def parseNotes(self):
         notes_raw = self.getNotesFromHtml()
 
@@ -54,6 +46,14 @@ class Book:
             self.notes_index.append(note)
 
             self.autocheckIbidNotes()
+
+    def getNotesFromHtml(self) -> list:
+        notes_raw = []
+        for line in self.html_body:
+            # find() tiene output -1 cuando es not found
+            if line.find("<p id") != -1:
+                notes_raw.append(line.lstrip())
+        return notes_raw
 
     def autocheckIbidNotes(self):
         for note in self.notes_index:
