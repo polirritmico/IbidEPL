@@ -52,8 +52,8 @@ def run(bk):
     if (bk.launcher_version() >= 20200117) and bk.colorMode() == "dark":
         dark_theme = True
 
-    path = os.path.join(bk._w.plugin_dir, bk._w.plugin_name) + "/src/"
-    overwrite_xhtml = src.mainWindow.run(book, dark_theme, path, bk)
+    path = os.path.join(bk._w.plugin_dir, bk._w.plugin_name, "src/")
+    overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, bk)
 
     if overwrite_xhtml:
         bk.writefile(filename, book.bookToXHTML())
@@ -86,7 +86,7 @@ def main():
     print("Abriendo interfaz QT...")
     dark_theme = True
     path = "src/"
-    overwrite_xhtml = src.mainWindow.run(book, dark_theme, path, None)
+    overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
 
     if overwrite_xhtml:
         file = open("outTest_04.xhtml", "w")

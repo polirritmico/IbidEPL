@@ -388,7 +388,7 @@ def theme_color(app, bk, dark_mode):
     app.setPalette(dark_theme)
 
 
-def run(book, dark_mode, path, bk) -> bool:
+def start(book, dark_mode, path, bk) -> bool:
     global overwrite
     overwrite = False
     

@@ -21,7 +21,7 @@ class Book:
         self.base_note_count = 0
 
     def readHTML(self, html):
-        html = html.split('\n')
+        html = html.splitlines()
 
         reading_header = True
         for line in html:
