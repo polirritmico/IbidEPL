@@ -1,5 +1,6 @@
 # Sublime Text project files
 *.sublime*
+testFiles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

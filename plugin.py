@@ -3,7 +3,7 @@
 
 #########################################################################
 #
-# IbidEpl v0.4_beta
+# IbidEpl v0.4
 # Una ayuda para manejar notas ibid.
 #
 # Copyright (C) 2021 Titivillus
@@ -28,12 +28,12 @@
 # En términos generales el plugin genera un objeto Book (desde el archivo
 # xhtml) que contiene una lista de todas las notas en notes_index[]. Cada
 # nota contiene parseados los datos del texto además de referencias a la
-# nota siguiente y la anterior. Las notas ibid solo referencian a notas
-# ibid y las notas base solo a notas base. Para referencia a todas las 
+# nota siguiente y la anterior. Las notas ibíd. solo referencian a notas
+# ibíd. y las notas base solo a notas base. Para referencia a todas las
 # notas está la lista notes_index.
 # 
 # Además, las notas tienen una referencia parent que apunta a None en las
-# notas que no son ibíd y a la nota base en las ibíd.
+# notas que no son ibíd. y a la nota base en las ibíd.
 # Book contiene funciones para manipular la estructura de las notas (nota
 # a ibíd. o viceversa) y Note funciones para cambiar su propia data.
 # 
@@ -104,37 +104,37 @@ def run(bk):
 
 
 def main():
-    # print("Error: Ejecutar desde Sigil.\n")
-    # return -1
-    filename = "testFiles/test_04.xhtml"
+    print("Error: Ejecutar desde Sigil.\n")
+    return -1
+    # filename = "testFiles/test_04.xhtml"
 
-    file = open(filename, "r")
-    html = file.read()
-    file.close()
+    # file = open(filename, "r")
+    # html = file.read()
+    # file.close()
 
-    book = Book(filename)
-    book.readHTML(html)
-    book.parseNotes()
+    # book = Book(filename)
+    # book.readHTML(html)
+    # book.parseNotes()
 
-    book.autocheckIbidNotes()
-    book.setParentsAndChilds()
-    book.updateNextAndPrevNotes()
-    book.updateNotesLabels()
+    # book.autocheckIbidNotes()
+    # book.setParentsAndChilds()
+    # book.updateNextAndPrevNotes()
+    # book.updateNotesLabels()
 
-    print("Archivo \"" + filename + "\" indexado exitosamente.")
-    print("Abriendo interfaz QT...")
-    dark_theme = True
-    path = "src/"
-    overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
+    # print("Archivo \"" + filename + "\" indexado exitosamente.")
+    # print("Abriendo interfaz QT...")
+    # dark_theme = True
+    # path = "src/"
+    # overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
 
-    if overwrite_xhtml:
-        file = open("outTest_04.xhtml", "w")
-        file.write(book.bookToXHTML())
-        file.close()
-        print("Archivo escrito correctamente.")
-    else:
-        print("No se han escrito cambios.")
-    return 0
+    # if overwrite_xhtml:
+    #     file = open("outTest_04.xhtml", "w")
+    #     file.write(book.bookToXHTML())
+    #     file.close()
+    #     print("Archivo escrito correctamente.")
+    # else:
+    #     print("No se han escrito cambios.")
+    # return 0
 
 
 if __name__ == "__main__":

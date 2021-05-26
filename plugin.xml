@@ -3,7 +3,7 @@
 <name>IbidEPL</name>
 <type>edit</type>
 <author>ePubLibre</author>
-<description>Ayuda para trabajar los Ibíd. en las notas</description>
+<description>Ayuda para ajustar notas ibíd.</description>
 <engine>python3.4</engine>
 <engine>python2.7</engine>
 <version>0.4.0</version>
