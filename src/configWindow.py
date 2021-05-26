@@ -1,6 +1,31 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+#########################################################################
+#
+# IbidEpl v0.4_beta
+# Una ayuda para manejar notas ibid.
+#
+# Copyright (C) 2021 Titivillus
+# www.epublibre.org
+#
+# This file is part of IbidEPL.
+#
+# IbidEPL is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# IbidEPL is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#########################################################################
+
 from src.note import Note
 from src.highlight import highlight
 from collections import OrderedDict
@@ -39,6 +64,7 @@ class ConfigWindow(QtWidgets.QDialog):
         self.DialogCancelButton.clicked.connect(self.cancelButton_pressed)
         self.TestButton.clicked.connect(self.testButton_pressed)
 
+        # Preferences
         self.regex_search_list = ["Default", "Personalizada"]
         self.regex_search_entries = [r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?',
                                      r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?']
@@ -61,10 +87,6 @@ class ConfigWindow(QtWidgets.QDialog):
         self.demo_nota = "Esto es una nota de texto; ibíd., texto posterior: menciona págs. 116-119"
         self.demo_base_note = "Esta es la nota base, pág. 75"
 
-        self.regex = ""
-        self.ibid_label = ""
-        self.separator = ""
-
         self.cancel_regex = ""
         self.cancel_ibid_label = ""
         self.cancel_separator = ""
@@ -72,11 +94,16 @@ class ConfigWindow(QtWidgets.QDialog):
         self.cancel_ibid_label_idx = 0
         self.cancel_separator_idx = 0
 
+        # Variables usadas por book.processIbid() para procesar los ibíd.
+        self.regex = ""
+        self.ibid_label = ""
+        self.separator = ""
+
         # Populate ComboBoxes
         self.RegexComboBox.addItems(self.regex_search_list)
         self.IbidLabelComboBox.addItems(self.ibid_label_list)
         self.SeparatorComboBox.addItems(self.separator_label_list)
-
+        # Concect ComboBoxes
         self.RegexComboBox.currentIndexChanged.connect(self.regexComboBox_newValue)
         self.IbidLabelComboBox.currentIndexChanged.connect(self.ibidLabelComboBox_newValue)
         self.SeparatorComboBox.currentIndexChanged.connect(self.separatorComboBox_newValue)
@@ -116,7 +143,7 @@ class ConfigWindow(QtWidgets.QDialog):
         self.saveCancelValues()
 
     def saveCancelValues(self):
-        # Set cancel values
+        # Seteamos los valores a restaurar para el botón cancelar
         self.cancel_regex_idx = self.RegexComboBox.currentIndex()
         self.cancel_ibid_label_idx = self.IbidLabelComboBox.currentIndex()
         self.cancel_separator_idx = self.SeparatorComboBox.currentIndex()
@@ -149,7 +176,7 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator_label_entries[index])
 
     def testButton_pressed(self):
-        # setup simple test enviroment
+        # Preparamos los objetos para la prueba
         parent = Note("nt1", "1", self.demo_base_note, "href", 1)
         child = Note("nt2", "2", self.demo_nota, "href", 2)
         child.parent = parent
@@ -162,7 +189,7 @@ class ConfigWindow(QtWidgets.QDialog):
         highlight(self.ProccesedNote, self.SeparatorEntry.text())
 
     def acceptButton_pressed(self):
-        # Get updated values from the entries
+        # Obtenemos los valores actualizados desde la interfaz
         self.prefs["RegEx_combobox"] = self.RegexComboBox.currentIndex()
         self.prefs["Ibid_combobox"] = self.IbidLabelComboBox.currentIndex()
         self.prefs["Separator_combobox"] = self.SeparatorComboBox.currentIndex()
