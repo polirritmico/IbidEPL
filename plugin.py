@@ -25,19 +25,24 @@
 #
 #########################################################################
 
-""" 
-En términos generales el plugin genera un objeto Book por cada
-archivo leído, que contiene una lista de todas las notas en
-notes_index[]. Cada nota contiene en primera instancia el id, el 
-numero de llamado, el href y el texto extraídos desde el xhtml,
-además de referencias a la nota siguiente y la anterior.
-Las notas ibid solo referencian a notas ibid y las notas base
-solo a notas base, para referencia a todas las notas está la
-lista notes_index. Además las notas ibíd. referencian a su nota
-base (parent).
-Book además contiene funciones para manipular la estructura de
-las notas.
-"""
+# En términos generales el plugin genera un objeto Book (desde el archivo
+# xhtml) que contiene una lista de todas las notas en notes_index[]. Cada
+# nota contiene parseados los datos del texto además de referencias a la
+# nota siguiente y la anterior. Las notas ibid solo referencian a notas
+# ibid y las notas base solo a notas base. Para referencia a todas las 
+# notas está la lista notes_index.
+# 
+# Además, las notas tienen una referencia parent que apunta a None en las
+# notas que no son ibíd y a la nota base en las ibíd.
+# Book contiene funciones para manipular la estructura de las notas (nota
+# a ibíd. o viceversa) y Note funciones para cambiar su propia data.
+# 
+# Para probar el código se ha separado su dependencia a Sigil creando la
+# clase CopyBK que imita los métodos y variables que el plugin necesita de
+# bookcontainer. A futuro se podría implementar una versión standalone
+# implementando la clase e integrando una librería para seleccionar,
+# extraer y modificar archivos del epub.
+
 
 import sys
 import os
