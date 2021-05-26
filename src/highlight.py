@@ -1,31 +1,35 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# from: https://github.com/PyQt5/PyQt/blob/master/QTextEdit/HighlightText.py
+
+# Copyright © 2021 Titivillus
+# www.epublibre.org
+# Distributed under the terms of the GNU General Public License v2
+
+# Adaptado desde:
+# https://github.com/PyQt5/PyQt/blob/master/QTextEdit/HighlightText.py
 
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QTextCharFormat, QTextCursor, QColor
 
 
 def highlight(qtextedit, separator):
-    separator_highlight = separator
-
-    if separator_highlight == "":
+    if separator == "":
         return
 
-    # Definimos el color
-    fmt = QTextCharFormat()
-    fmt.setForeground(QColor("black"))
-    fmt.setBackground(QColor("darkCyan"))
-
-    # Restablecemos el color
+    # Restablecemos el formato del texto
     cursor = qtextedit.textCursor()
     cursor.select(QTextCursor.Document)
     cursor.setCharFormat(QTextCharFormat())
     cursor.clearSelection()
     qtextedit.setTextCursor(cursor)
 
+    # Definimos el color
+    fmt = QTextCharFormat()
+    fmt.setForeground(QColor("black"))
+    fmt.setBackground(QColor("darkCyan"))
+
     # RegEx
-    expression = QRegExp(separator_highlight)
+    expression = QRegExp(separator)
     qtextedit.moveCursor(QTextCursor.Start)
     cursor = qtextedit.textCursor()
 
@@ -35,7 +39,7 @@ def highlight(qtextedit, separator):
     while index >= 0:
         cursor.setPosition(index)
         cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor,
-                            len(separator_highlight))
+                            len(separator))
         cursor.mergeCharFormat(fmt)
         pos = index + expression.matchedLength()
         index = expression.indexIn(qtextedit.toPlainText(), pos)
