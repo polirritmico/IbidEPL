@@ -2,20 +2,20 @@
 [imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr]
 
 [size=150][b][color=#008000]Descripción:[/color][/b][/size]
-Una pequeña herramienta para manejar las notas ibíd.
+Una pequeña herramienta para ajustar las notas ibíd.
 
 [b][color=#BF8000]Requisitos[/color]:[/b] Sigil >0.9.8
 [b][color=#BF8000]Instalación[/color]:[/b] Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
-[b][color=#BF8000]Ejecución:[/color][/b] Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre la interfaz sin pulsar clic.
-[b][color=#BF8000]Link de descarga:[/color][/b] [url=https://mega.nz]versión 1.0[/url]
+[b][color=#BF8000]Ejecución:[/color][/b] Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre los elementos de la interfaz sin pulsar clic.
+[b][color=#BF8000]Link de descarga:[/color][/b] [url=https://mega.nz/file/jB0TmaiK#CpQclwjboUlc9DT2irU3McT_o6iznjXF-zOpskX0FsU]versión 0.4[/url]
 
-[b][color=#BF8000]Atajos:[/color][/b]
-Ctrl + Rueda del ratón sobre el ibid o la nota para agrandar o reducir el tamaño del texto.
-Ctrl + AvPág: Abre nota ibid siguiente
-Ctrl + RePág: Abre nota ibid anterior
-Ctrl + Retroceso (Backspace): Procesar Ibid
-Ctrl + Enter: Modificar nota ibid
-
+[b][color=#BF8000]Atajos de teclado:[/color][/b]
+[list][*]Ctrl + AvPág: Abre nota ibid siguiente.
+[*][b]Ctrl + RePág[/b]: Abre nota ibid anterior.
+[*][b]Ctrl + Retroceso[/b] (Backspace): Procesar Ibid.
+[*][b]Ctrl + Enter[/b]: Reemplazar nota ibid.
+[*][b]Ctrl + +[/b]: Agrandar el tamaño del texto.
+[*][b]Ctrl + -[/b]: Reduce el tamaño del texto.[/list]
 
 [size=150][color=#BF4000]Pequeño instructivo en el post de abajo.[/color][/size]
 ---------------------------------------------
@@ -26,38 +26,40 @@ Saludos  :mrgreen:
 
 
 [size=150][b][color=#008000]Funcionamiento:[/color][/b][/size]
-Por defecto el plugin agrega la etiqueta «<i xml:lang="la">Ibid</i>» y el Separador «TEXTO_ADICIONAL:» (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibid (e incluso para hacer búsquedas desde Sigil).
-La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibid, que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Modificar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
+Por defecto el plugin agrega la etiqueta [b]<i xml:lang="la">Ibíd\</i>[/b] y el Separador [b]TEXTO_ADICIONAL:[/b] (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibíd. (e incluso para hacer búsquedas desde Sigil).
 
-Si son muchas notas se puede utilizar el botón «Procesar y modificar todo». Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
+La idea es procesar la nota y luego hacer el ajuste manual en el mismo recuadro del ibíd., que nos deja modificar el texto como queramos. El borde cambiará de color recordándonos que lo hemos editado pero que todavía no hemos guardado esas modificaciones. Cuando presionemos el botón Reemplazar estaremos realmente modificando la nota y luego cuando le demos a Aceptar se escribirán todos las modificaciones en el xhtml.
+
+Si son muchas notas se puede utilizar el botón [i]Procesar y modificar todo[/i]. Se sugiere utilizar los atajos de teclado disponibles para las tareas más recurrentes.
 
 [size=150][b][color=#008000]Ejemplo de uso:[/color][/b][/size]
-[list=1][*]Vamos a la primera nota ibíd. y editamos el texto.
-[*]Pulsamos Ctrl + Enter para modificar la nota y presionamos Ctrl + AvPág para ir a la siguiente nota íbid.
-[*]Pulsamos Ctrl + Retroceso para procesar la nota y ajustamos manualmente.
+[list=1][*]Procesar la primera nota ibíd y editar manualmente el texto.
+[*]Luego presionar [b]Ctrl + Enter[/b] para modificar la nota.
+[*]Pulsar [b]Ctrl + AvPág[/b] para ir a la siguiente nota íbid.
+[*]Pulsar [b]Ctrl + Retroceso[/b] para procesar la nota y ajustamos manualmente.
 [*]Repetimos 2 y 3 hasta terminar con todas las notas ibíd.
-[*]Pulsamos Aceptar para confirmar los cambios y sobrescribir el archivo de notas.[/list]
+[*]Pulsamos [b]Aceptar[/b] para confirmar los cambios y sobrescribir el archivo de notas.[/list]
 
 [size=150][b][color=#008000]Controles:[/color][/b][/size]
 [spoiler][imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr][/spoiler]
-[list=1][*]Explorador de notas: Nos muestra la estructura de notas y sus ibid.
-Haciendo clic sobre cualquier ibid o nota nos lleva a ella.
-[*]Avanza o retrocede a la siguiente nota, saltándose las notas ibid.
-[*]Avanza o retrocede a la siguiente nota ibid, saltándose las notas base.
+[list=1][*]Explorador de notas: Nos muestra la estructura de notas y sus ibíd. Haciendo clic sobre cualquier ibíd. o nota nos lleva a ella.
+[*]Agranda o disminuye el tamaño del texto.
+[*]Avanza o retrocede a la siguiente nota, saltándose las notas ibíd.
+[*]Avanza o retrocede a la siguiente nota ibíd., saltándose las notas base.
 [*]Muestra la nota ibíd. y permite editar el texto.
 [*]Convierte la nota base a nota ibíd.
 [*]Convierte la nota ibíd a nota base.
-[*]Muestra la cantidad de notas ibid sin ajuste o revisión (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.[/list]
+[*]Muestra la cantidad de notas ibíd. sin ajustar (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
 [spoiler][imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr][/spoiler]
-[list=8][*]Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
+[*]Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 [*]Restaura todos los cambios a la nota original (la leída del archivo).
 [*]Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
 [*]Abre la ventana de configuración. Allí podemos:
-[list][*]Ajustar la REGEX (avanzado)
-[*]Cambiar el tag de la nota ibid («<i xml:lang="la">Ibid</i>)
-[*]Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).[/list][*]Ajusta automáticamente la nota ibid actual en base a la configuración.
-[*]Ajusta automáticamente en base a la configuración actual todas las notas ibíd y guarda esos cambios.
-[*]Modifica la nota. Si la nota ibid tiene cambios con respecto a la nota ibid original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón.
-Además, mientras no se pulse el botón «Aceptar» (8), la modificación no se verá reflejada en el epub.
+   - Ajustar la REGEX (avanzado).
+   - Cambiar el tag de la nota ibíd. (\<i xml:lang="la">Ibid\</i>).
+   - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).
+[*]Ajusta automáticamente la nota ibíd. actual en base a la configuración.
+[*]Ajusta automáticamente en base a la configuración actual todas las notas ibíd. y guarda esos cambios.
+[*]Reemplaza la nota. Si la nota ibíd. tiene cambios con respecto a la nota ibíd. original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón. Además, mientras no se pulse el botón «Aceptar» (16), la modificación no se verá reflejada en el epub.
 [*]Escribe todos las modificaciones en el epub.
 [*]Descarta todos los cambios y deja el epub sin modificar.[/list]
