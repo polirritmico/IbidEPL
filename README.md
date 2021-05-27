@@ -6,7 +6,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Requisitos:** _Sigil >0.9.8_
 
-* **Instalación:** Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
+* **Instalación:** Igual a cualquier plugin de Sigil, menú Preferencias → Complementos → Añadir complemento. Allí se selecciona el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
 
 * **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre los elementos de la interfaz sin pulsar clic.
 
@@ -63,6 +63,7 @@ Además, mientras no se pulse el botón «Aceptar» (16), la modificación no se
 
 ---------------------------------------------
 
-Bueno, espero sea de utilidad y ayude al proceso de maquetación de un libro en formato epub.
+Bueno, espero sea de utilidad y ayude al proceso de maquetación del epub.
+
 Saludos. :thumbsup:
 
