@@ -137,8 +137,8 @@ class Window(QtWidgets.QDialog):
         self.current_note = note
         self.NoteIdEntry.setText(note.id)
         self.NoteEntry.setText(note.number)
-        self.NoteCurrent.setText(note.current_label + " de " +
-                str(self.book.base_note_count))
+        self.NoteCurrent.setText(
+            note.current_label + " de " + str(self.book.base_note_count))
         self.NoteHrefEntry.setText(note.href)
         if self.tag_html:
             self.NoteText.setText(note.text)

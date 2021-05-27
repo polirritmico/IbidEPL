@@ -24,9 +24,9 @@ def highlight(qtextedit, separator):
     qtextedit.setTextCursor(cursor)
 
     # Definimos el color
-    fmt = QTextCharFormat()
-    fmt.setForeground(QColor("black"))
-    fmt.setBackground(QColor("darkCyan"))
+    text_format = QTextCharFormat()
+    text_format.setForeground(QColor("black"))
+    text_format.setBackground(QColor("darkCyan"))
 
     # RegEx
     expression = QRegExp(separator)
@@ -40,6 +40,6 @@ def highlight(qtextedit, separator):
         cursor.setPosition(index)
         cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor,
                             len(separator))
-        cursor.mergeCharFormat(fmt)
+        cursor.mergeCharFormat(text_format)
         pos = index + expression.matchedLength()
         index = expression.indexIn(qtextedit.toPlainText(), pos)
