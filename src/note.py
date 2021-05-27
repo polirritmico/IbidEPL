@@ -14,7 +14,7 @@ REGEX_IBID = r'(?i)(ib[íi]d(em)?)[;\., (</i>)]'
 class Note:
     def __init__(self, note_id, note_number, note_text, note_href, note_index):
         # Data
-        self.id_tag = note_id
+        self.id = note_id
         self.number = note_number
         # text sin strip por comportamiento extraño de la REGEX
         self.text = note_text
@@ -49,7 +49,7 @@ class Note:
 
     def toXHTML(self) -> str:
         note_top = '  <div class="nota">\n    <p id="'
-        note_mid = self.id_tag + '"><sup>[' + self.number + ']</sup> ' + \
+        note_mid = self.id + '"><sup>[' + self.number + ']</sup> ' + \
             self.text + ' <a href="' + self.href + '">&lt;&lt;</a></p>\n'
         note_btm = '  </div>\n\n'
 

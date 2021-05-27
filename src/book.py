@@ -63,7 +63,7 @@ class Book:
         self.first_seems_ibid = self.notes_index[0].is_ibid
         self.notes_index[0].is_ibid = False
 
-    def setParentsAndChilds(self):
+    def updateParentsAndChilds(self):
         parent = None
         for note in self.notes_index:
             note.childs.clear()
@@ -111,7 +111,7 @@ class Book:
                 prev_note = current_note
 
     def updateNotesLabels(self):
-        # Debe usarse setParentsAndChilds primero
+        # Debe usarse updateParentsAndChilds primero
         self.ibid_note_count = 0
         self.base_note_count = 0
         for note in self.notes_index:
@@ -138,7 +138,7 @@ class Book:
             return
 
         note.is_ibid = False
-        self.setParentsAndChilds()
+        self.updateParentsAndChilds()
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
 
@@ -147,7 +147,7 @@ class Book:
             return
         note.is_ibid = True
 
-        self.setParentsAndChilds()
+        self.updateParentsAndChilds()
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
 

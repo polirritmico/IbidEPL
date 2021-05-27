@@ -92,7 +92,7 @@ class TestProcess(unittest.TestCase):
                                  book.notes_index[0].href)
                 self.assertEqual(0, book.notes_index[0].index)
             elif book.filename == "testFiles/test_02.xhtml":
-                self.assertEqual("nt6", book.notes_index[5].id_tag)
+                self.assertEqual("nt6", book.notes_index[5].id)
                 self.assertEqual("6", book.notes_index[5].number)
                 self.assertEqual("iBid.,. y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.",
                                  book.notes_index[5].original_text)
@@ -100,7 +100,7 @@ class TestProcess(unittest.TestCase):
                                  book.notes_index[5].href)
                 self.assertEqual(5, book.notes_index[5].index)
             elif book.filename == "testFiles/test_03.xhtml":
-                self.assertEqual("nt55", book.notes_index[54].id_tag)
+                self.assertEqual("nt55", book.notes_index[54].id)
                 self.assertEqual("55", book.notes_index[54].number)
                 self.assertEqual("Dolores Ibárruri y otros, <i>Guerra y revolución en España 1936-1939</i>, pp. 33-34.",
                                  book.notes_index[54].original_text)
@@ -108,14 +108,14 @@ class TestProcess(unittest.TestCase):
                                  book.notes_index[54].href)
                 self.assertEqual(54, book.notes_index[54].index)
             elif book.filename == "testFiles/test_04.xhtml":
-                self.assertEqual("nt12", book.notes_index[11].id_tag)
+                self.assertEqual("nt12", book.notes_index[11].id)
                 self.assertEqual("12", book.notes_index[11].number)
                 self.assertEqual("Ibid.", book.notes_index[11].original_text)
                 self.assertEqual("5.xhtml#rf12",
                                  book.notes_index[11].href)
                 self.assertEqual(11, book.notes_index[11].index)
             elif book.filename == "testFiles/test_05.xhtml":
-                self.assertEqual("nt64", book.notes_index[63].id_tag)
+                self.assertEqual("nt64", book.notes_index[63].id)
                 self.assertEqual("64", book.notes_index[63].number)
                 self.assertEqual('Kossert, <cite xml:lang="de">Ostpreussen: Geschichte und Mythos</cite>, pág. 212. Con la idea de mantener la producción agrícola frente a la competitividad de los países recién fundados de la Europa oriental, los gobiernos prusianos y del Reich instauraron programas conocidos como Osthilfe (Programa de Ayuda al Este) y el Ostpreußen-Hilfe (Programa de Ayuda a Prusia Oriental) durante los años veinte. Por lo que tocaba a la estimulación de la economía, aquellos programas resultaron en general y relativamente poco efectivos. Sin embargo, sirvieron para fortalecer la posición de la aristocracia terrateniente. Véase Hans Mommsen, <cite xml:lang="en">The Rise and Fall of Weimar Democracy</cite> (Chapel Hill, 1996); págs. <span class="nosep">229, 286-287;</span> y Peukert, <cite xml:lang="en">The Weimar Republic</cite>, pág. 121.',
                                  book.notes_index[63].original_text)
@@ -123,7 +123,7 @@ class TestProcess(unittest.TestCase):
                                  book.notes_index[63].href)
                 self.assertEqual(63, book.notes_index[63].index)
             elif book.filename == "testFiles/test_06.xhtml":
-                self.assertEqual("nt7", book.notes_index[6].id_tag)
+                self.assertEqual("nt7", book.notes_index[6].id)
                 self.assertEqual("7", book.notes_index[6].number)
                 self.assertEqual('La frase citada es del general de división Erich Marcks: véase su «Aus dem Operationsentwurf des Generalmajors Marcks für die Aggression gegen die Sowjetunion, 5. August 1940», en Erhard Moritz (ed.), <cite xml:lang="de">Fall Barbarossa: Dokumente zur Vorbereitung der fachistischen Wehrmacht auf die Aggression gegen die Sowjetunion (1940/41)</cite> (Berlín, 1970), Document&nbsp;31, pág. 122. Para otros estudios clave, véase «Operationsstudie des Gruppenleiterse Heer in der Abteilung Landesverteidigung im OKW für die Aggression gegen die Sowjetunion (Loßberg-Studie), 15. September 1940», en ibíd., Document&nbsp;32, págs. 126-134; Stahel, <cite xml:lang="de">Operation Barbarossa</cite>, págs. 55-60; y Klink, «Die Landkriegführung», págs <span class="nosep">285-287.</span>',
                                  book.notes_index[6].original_text)
@@ -214,7 +214,7 @@ class TestProcess(unittest.TestCase):
             book.updateNotesLabels()
             for note in book.notes_index:
                 self.assertNotEqual("", note.current_label, "\nError en libro: " +
-                                    book.filename + "\nNota: " + str(note.id_tag))
+                                    book.filename + "\nNota: " + str(note.id))
 
     def test_count_total_ibid(self):
         for book in self.compendium:
@@ -282,7 +282,7 @@ class TestNoteOperations(unittest.TestCase):
             regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
             out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
             self.assertEqual(
-                expected, out, "\nError nota: " + book.notes_index[index].id_tag)
+                expected, out, "\nError nota: " + book.notes_index[index].id)
 
     def test_ibid_to_note(self):
         for book in self.compendium:
@@ -320,7 +320,7 @@ class TestNoteOperations(unittest.TestCase):
                 self.assertTrue(False, "No open file: " + book.filename)
 
             book.ibidToNote(note)
-            msg = "Error en nota " + note.id_tag + " del libro " + book.filename
+            msg = "Error en nota " + note.id + " del libro " + book.filename
 
             self.assertIsNone(note.parent, msg)
             self.assertEqual(note.prev_note, prev_note, msg)
@@ -357,7 +357,7 @@ class TestNoteOperations(unittest.TestCase):
                 self.assertTrue(False, "No open file: " + book.filename)
 
             book.noteToIbid(note)
-            msg = "Error en nota " + note.id_tag + " del libro " + book.filename
+            msg = "Error en nota " + note.id + " del libro " + book.filename
 
             self.assertIsNotNone(note.parent, msg)
             self.assertEqual(note.prev_note, prev_note, msg)
@@ -428,7 +428,7 @@ class TestNoteOperations(unittest.TestCase):
                 self.assertTrue(False, "No open file: " + book.filename)
 
             test_outcome = book.getNextIbid(current_note, current_ibid)
-            msg = "\nBook: " + book.filename + "\nNote: " + current_note.id_tag
+            msg = "\nBook: " + book.filename + "\nNote: " + current_note.id
             self.assertEqual(test_outcome, expected, msg)
 
 

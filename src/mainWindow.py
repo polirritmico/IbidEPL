@@ -16,7 +16,7 @@ try:
     from PyQt5.QtGui import QColor, QIcon, QPalette
 except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
-        e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 o PyQt5.")
+        e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 y PyQt5.")
     sys.exit()
 
 
@@ -106,7 +106,7 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.clear()
         # Cabeceras QTreeWidget: Id, Número, Texto, Index (int)
         for note in self.notes_index:
-            entry = [note.id_tag, note.number, note.text, str(note.index)]
+            entry = [note.id, note.number, note.text, str(note.index)]
             note.browserEntry = QTreeWidgetItem(entry)
             if note.is_ibid:
                 parentEntry.addChild(note.browserEntry)
@@ -135,7 +135,7 @@ class Window(QtWidgets.QDialog):
 
     def changeToNote(self, note):
         self.current_note = note
-        self.NoteIdEntry.setText(note.id_tag)
+        self.NoteIdEntry.setText(note.id)
         self.NoteEntry.setText(note.number)
         self.NoteCurrent.setText(note.current_label + " de " +
                 str(self.book.base_note_count))
@@ -158,10 +158,11 @@ class Window(QtWidgets.QDialog):
             self.IbidText.setPlainText("Sin ibid.")
             self.IbidOriginalText.setPlainText("Sin ibid.")
             self.IbidHrefEntry.setText("")
+            self.IbidHrefEntry.setEnabled(False)
             return
 
         self.current_ibid = note
-        self.IbidIdEntry.setText(note.id_tag)
+        self.IbidIdEntry.setText(note.id)
         self.IbidEntry.setText(note.number)
         ibid_current = note.current_label + \
             " de " + str(self.book.ibid_note_count)
@@ -251,7 +252,7 @@ class Window(QtWidgets.QDialog):
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
 
-        self.announce('Nota \"' + str(current.id_tag) + '\" cambiada a ibíd.')
+        self.announce('Nota \"' + str(current.id) + '\" cambiada a ibíd.')
 
     def ibidToNoteButton_pressed(self):
         current = self.current_ibid
@@ -264,7 +265,7 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
-        self.announce("Ibíd. \"" + str(current.id_tag) + "\" cambiado a nota.")
+        self.announce("Ibíd. \"" + str(current.id) + "\" cambiado a nota.")
 
     def increaseFontSizeButton_pressed(self):
         self.NoteText.zoomIn(1)
@@ -284,7 +285,7 @@ class Window(QtWidgets.QDialog):
             self.current_ibid.browserEntry.setText(
                 2, self.current_ibid.restoreOriginalText())
             self.changeToIbid(self.current_ibid)
-            self.announce("Restaurado ibid. " + self.current_ibid.id_tag)
+            self.announce("Restaurado ibid. " + self.current_ibid.id)
         else:
             self.announce("La nota ibíd. no ha sido alterada.")
 
@@ -339,7 +340,7 @@ class Window(QtWidgets.QDialog):
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
         self.IbidText.setStyleSheet("")
 
-        self.announce("Modificada la nota ibíd. " + self.current_ibid.id_tag)
+        self.announce("Modificada la nota ibíd. " + self.current_ibid.id)
 
     def acceptButton_pressed(self):
         global overwrite

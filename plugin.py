@@ -78,7 +78,7 @@ def run(bk):
         print("ERROR: El archivo seleccionado no parece ser un archivo de notas.")
         return -1
 
-    book.setParentsAndChilds()
+    book.updateParentsAndChilds()
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
 
@@ -116,7 +116,7 @@ def main():
     book.parseNotes()
 
     book.autocheckIbidNotes()
-    book.setParentsAndChilds()
+    book.updateParentsAndChilds()
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
 
