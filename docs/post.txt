@@ -1,5 +1,5 @@
 [size=150][b][color=#008000]IbidEPL[/color][/b][/size]
-[imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr]
+[imgr=974x694]http://i.imgur.com/rQROdet.png[/imgr]
 
 [size=150][b][color=#008000]Descripción:[/color][/b][/size]
 Una pequeña herramienta para ajustar las notas ibíd.
@@ -20,7 +20,7 @@ Una pequeña herramienta para ajustar las notas ibíd.
 [size=150][color=#BF4000]Pequeño instructivo en el post de abajo.[/color][/size]
 ---------------------------------------------
 
-Bueno, espero sea de utilidad y nos ayude al proceso de maquetación.
+Bueno, espero sea de utilidad y ayude al proceso de maquetación.
 Saludos  :mrgreen:
 
 
@@ -41,7 +41,7 @@ Si son muchas notas se puede utilizar el botón [i]Procesar y modificar todo[/i]
 [*]Pulsamos [b]Aceptar[/b] para confirmar los cambios y sobrescribir el archivo de notas.[/list]
 
 [size=150][b][color=#008000]Controles:[/color][/b][/size]
-[spoiler][imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr][/spoiler]
+[spoiler][imgr=974x694]http://i.imgur.com/wHgiaex.png[/imgr][/spoiler]
 [list=1][*]Explorador de notas: Nos muestra la estructura de notas y sus ibíd. Haciendo clic sobre cualquier ibíd. o nota nos lleva a ella.
 [*]Agranda o disminuye el tamaño del texto.
 [*]Avanza o retrocede a la siguiente nota, saltándose las notas ibíd.
@@ -50,7 +50,7 @@ Si son muchas notas se puede utilizar el botón [i]Procesar y modificar todo[/i]
 [*]Convierte la nota base a nota ibíd.
 [*]Convierte la nota ibíd a nota base.
 [*]Muestra la cantidad de notas ibíd. sin ajustar (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
-[spoiler][imgr=974x694]http://i.imgur.com/tcwJ6wT.png[/imgr][/spoiler]
+[spoiler][imgr=974x694]http://i.imgur.com/CNwT2vx.png[/imgr][/spoiler]
 [*]Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 [*]Restaura todos los cambios a la nota original (la leída del archivo).
 [*]Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
