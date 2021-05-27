@@ -71,9 +71,8 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
-    book.autocheckIbidNotes()
-
     try:
+        book.autocheckIbidNotes()
         _test = book.notes_index[0]
     except IndexError:
         print("ERROR: El archivo seleccionado no parece ser un archivo de notas.")
