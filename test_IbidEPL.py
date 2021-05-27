@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright © 2021 Titivillus
+# www.epublibre.org
+# Distributed under the terms of the GNU General Public License v2
+
 import unittest
 import os
 from src.book import Book
