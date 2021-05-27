@@ -30,7 +30,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="handleWidth">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QFrame" name="FrameLeft">
       <property name="sizePolicy">
