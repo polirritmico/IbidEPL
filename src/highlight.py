@@ -38,8 +38,8 @@ def highlight(qtextedit, separator):
     index = expression.indexIn(qtextedit.toPlainText(), pos)
     while index >= 0:
         cursor.setPosition(index)
-        cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor,
-                            len(separator))
+        cursor.movePosition(
+            QTextCursor.Right, QTextCursor.KeepAnchor, len(separator))
         cursor.mergeCharFormat(text_format)
         pos = index + expression.matchedLength()
         index = expression.indexIn(qtextedit.toPlainText(), pos)
