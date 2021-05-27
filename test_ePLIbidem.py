@@ -60,7 +60,7 @@ class TestProcess(unittest.TestCase):
             book.readHTML(html)
             book.parseNotes()
             book.autocheckIbidNotes()
-            book.setParentsAndChilds()
+            book.updateParentsAndChilds()
             book.updateNextAndPrevNotes()
 
             self.compendium.append(book)
@@ -250,7 +250,7 @@ class TestNoteOperations(unittest.TestCase):
             
             book.parseNotes()
             book.autocheckIbidNotes()
-            book.setParentsAndChilds()
+            book.updateParentsAndChilds()
             book.updateNextAndPrevNotes()
             book.updateNotesLabels()
             self.compendium.append(book)
