@@ -100,7 +100,7 @@ class Window(QtWidgets.QDialog):
 
         if self.book.first_seems_ibid:
             QtWidgets.QMessageBox.warning(
-                self, 'Advertencia', 'La primera nota parece ser ibid')
+                self, 'Advertencia', 'La primera nota parece ser ibíd.')
 
     def populateNoteBrowser(self):
         self.NoteBrowser.clear()
