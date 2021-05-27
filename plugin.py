@@ -3,19 +3,19 @@
 
 #########################################################################
 #
-# IbidEpl v0.4
+# ePLIbidem v0.4
 # Una ayuda para manejar notas ibid.
 #
 # Copyright (C) 2021 Titivillus
 # www.epublibre.org
 #
-# This file is part of IbidEPL.
+# This file is part of ePLIbidem.
 #
-# IbidEPL is free software: you can redistribute it and/or modify
+# ePLIbidem is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published
 # by the Free Software Foundation version 2 of the License.
 #
-# IbidEPL is distributed in the hope that it will be useful,
+# ePLIbidem is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -31,18 +31,17 @@
 # nota siguiente y la anterior. Las notas ibíd. solo referencian a notas
 # ibíd. y las notas base solo a notas base. Para referencia a todas las
 # notas está la lista notes_index.
-# 
+#
 # Además, las notas tienen una referencia parent que apunta a None en las
 # notas que no son ibíd. y a la nota base en las ibíd.
 # Book contiene funciones para manipular la estructura de las notas (nota
 # a ibíd. o viceversa) y Note funciones para cambiar su propia data.
-# 
+#
 # Para probar el código se ha separado su dependencia a Sigil creando la
 # clase CopyBK que imita los métodos y variables que el plugin necesita de
 # bookcontainer. A futuro se podría implementar una versión standalone
 # implementando la clase e integrando una librería para seleccionar,
 # extraer y modificar archivos del epub.
-
 
 import sys
 import os

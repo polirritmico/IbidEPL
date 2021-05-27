@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-<name>IbidEPL</name>
+<name>ePLIbidem</name>
 <type>edit</type>
 <author>ePubLibre</author>
 <description>Ayuda para ajustar notas ibíd.</description>
