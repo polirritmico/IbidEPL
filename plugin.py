@@ -34,8 +34,9 @@
 #
 # Además, las notas tienen una referencia parent que apunta a None en las
 # notas que no son ibíd. y a la nota base en las ibíd.
-# Book contiene funciones para manipular la estructura de las notas (nota
-# a ibíd. o viceversa) y Note funciones para cambiar su propia data.
+# Book contiene funciones para manipular la estructura de las notas (por 
+# ejemplo nota a ibíd. o viceversa) y Note funciones para cambiar su
+# propia data.
 #
 # Para probar el código se ha separado su dependencia a Sigil creando la
 # clase CopyBK que imita los métodos y variables que el plugin necesita de
