@@ -285,31 +285,6 @@ class TestNoteOperations(unittest.TestCase):
                 expected, out, "\nError nota: " + book.notes_index[index].id)
 
     def test_case_pepito(self):
-        nota_base = Note("nt171",
-                         "18",
-                         'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 65.',
-                         "../Text/Capitulo_08.xhtml#rf171",
-                         35)
-
-        nota_ibid = Note("nt172", "19", "<i>Ibid.</i>, p. 64.", 36)
-
-        nota_ibid.is_ibid = True
-        nota_ibid.parent = nota_base
-        nota_base.childs.append(nota_ibid)
-
-        book = Book("test_pepito")
-        book.notes_index.append(nota_base)
-        book.notes_index.append(nota_ibid)
-        book.ibid_note_count = 1
-        book.base_note_count = 1
-
-        regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
-        ibid_tag = ""
-        separator = ""
-
-        print(nota_ibid.processIbid(regex, ibid_tag, separator))
-
-    def test_case_pepito(self):
             nota_base = Note("nt171",
                              "18",
                              'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 65.',
