@@ -19,6 +19,10 @@ except Exception as e:
     sys.exit()
 
 
+#REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:<\/i>)?(?:[;\., ]*)?'
+REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:[;\., ])(?:</i>)?(?:[;\., ]*)?'
+
+
 class ConfigWindow(QtWidgets.QDialog):
     def __init__(self, dark_theme, path, bk):
         super(ConfigWindow, self).__init__()
@@ -45,8 +49,7 @@ class ConfigWindow(QtWidgets.QDialog):
 
         # Preferences
         self.regex_search_list = ["Default", "Personalizada"]
-        self.regex_search_entries = [r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?',
-                                     r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?']
+        self.regex_search_entries = [REGEX_SPLIT, REGEX_SPLIT]
 
         self.ibid_label_list = [
             "<i>Ibid</i>",
