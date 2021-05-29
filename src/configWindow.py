@@ -49,16 +49,25 @@ class ConfigWindow(QtWidgets.QDialog):
                                      r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?']
 
         self.ibid_label_list = [
-                "<i>Ibid</i>", "<i>Ibidem</i>",
-                "Ibid (redonda)", "Ibidem (redonda)",
-                "Ibíd (con tilde)", "Ibídem (con tilde)",
-                "Personalizada"]
+            "<i>Ibid</i>",
+            "<i>Ibidem</i>",
+            "Ibid (redonda)",
+            "Ibidem (redonda)",
+            "Ibíd (con tilde)",
+            "Ibídem (con tilde)",
+            "Nada",
+            "Personalizada"
+        ]
         self.ibid_label_entries = [
-                '<i xml:lang="la">Ibid</i>.',
-                '<i xml:lang="la">Ibidem</i>.',
-                '<span xml:lang="la">Ibid</span>.', '<span xml:lang="la">Ibidem</span>',
-                'Ibíd.', 'Ibídem.',
-                '<i xml:lang="la">Ibid</i>.']
+            '<i xml:lang="la">Ibid</i>.',
+            '<i xml:lang="la">Ibidem</i>.',
+            '<span xml:lang="la">Ibid</span>.',
+            '<span xml:lang="la">Ibidem</span>',
+            'Ibíd.',
+            'Ibídem.',
+            '',
+            '<i xml:lang="la">Ibid</i>.'
+        ]
 
         self.separator_label_list = ["Default", "Nada", "Personalizado"]
         self.separator_label_entries = ["TEXTO_ADICIONAL:", "", "SEPARADOR"]
