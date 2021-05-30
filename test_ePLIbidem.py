@@ -9,6 +9,7 @@ import unittest
 import os
 from src.book import Book
 from src.note import Note
+from src.configWindow import REGEX_SPLIT
 
 
 class TestInputs(unittest.TestCase):
@@ -261,7 +262,7 @@ class TestNoteOperations(unittest.TestCase):
                 expected = 'Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR 1.1'
                 index = 1
             elif book.filename == "testFiles/test_02.xhtml":
-                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escrme, escrme 2021-2012. caçitulo 234.'
+                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.'
                 index = 5
                 # print(expected)
             elif book.filename == "testFiles/test_03.xhtml":
@@ -279,10 +280,20 @@ class TestNoteOperations(unittest.TestCase):
             else:
                 self.assertTrue(False, "No open file: " + book.filename)
 
-            regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+            regex = REGEX_SPLIT
             out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
             self.assertEqual(
-                expected, out, "\nError nota: " + book.notes_index[index].id)
+                expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
+
+    def test_case_process_ibidem2(self):
+            for book in self.compendium:
+                if book.filename == "testFiles/test_04.xhtml":
+                    expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1150.'
+                    index = 2
+                    regex = REGEX_SPLIT
+                    out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
+                    self.assertEqual(
+                        expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
 
     def test_case_pepito(self):
             nota_base = Note("nt171",
@@ -304,7 +315,7 @@ class TestNoteOperations(unittest.TestCase):
             libro.ibid_note_count = 1
             libro.base_note_count = 1
 
-            regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+            regex = REGEX_SPLIT
             ibid_tag = ""
             separator = ""
             
@@ -419,7 +430,7 @@ class TestNoteOperations(unittest.TestCase):
             self.assertEqual(note.toXHTML(), out)
 
     def test_book_to_xhtml(self):
-        regex = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?'
+        regex = REGEX_SPLIT
         for book in self.compendium:
             if book.filename == "testFiles/test_01.xhtml":
                 book.notes_index[1].processIbid(regex, "Ibíd:", "SEPARADOR:")
