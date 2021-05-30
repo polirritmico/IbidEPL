@@ -47,8 +47,47 @@ class TestInputs(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 self.assertEqual(390, len(list(filter(None, book.html_body))))
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
+    def test_get_extra_data_from_html(self):
+        for book in self.compendium:
+            if book.filename != "testFiles/notas.xhtml":
+                continue
+            book.parseNotes()
+            expected = [
+                # '<p class="item">I. «Colonización» y «Colonias»</p>',
+                '<p class="item">II. «Colonialismo» e «Imperios coloniales»</p>',
+                '<p class="item">III. Épocas del colonialismo</p>',
+                '<p class="item">IV. Conquista, resistencia y colaboración</p>',
+                '<p class="item">V. El estado colonial</p>',
+                '<p class="item">VI. Formas económicas coloniales</p>',
+                '<p class="item">VII. Sociedades coloniales"</p>',
+                '<p class="item">VIII. Colonialismo y cultura indígena</p>',
+                '<p class="item">IX. Pensamiento colonialista y cultura colonial</p>'
+            ]
+            test_text = book.getExtraTextFromBody()
+            self.assertEqual(8, len(test_text))
+            for case in range(len(expected)):
+                self.assertEqual(test_text[case].data, expected[case])
+
+    def test_check_extra_Data_position(self):
+        for book in self.compendium:
+            if book.filename != "testFiles/notas.xhtml":
+                continue
+            book.parseNotes()
+            expected = [
+                book.notes_index[2],
+                book.notes_index[5],
+                book.notes_index[8],
+                book.notes_index[11],
+                book.notes_index[14],
+                book.notes_index[16],
+                book.notes_index[19],
+                book.notes_index[22],
+            ]
+            test_text = book.getExtraTextFromBody()
+            for case in range(len(expected)):
+                self.assertEqual(test_text[case].note_ref, expected[case])
 
 class TestProcess(unittest.TestCase):
     def setUp(self):
@@ -81,7 +120,7 @@ class TestProcess(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 self.assertEqual(130, len(book.notes_index))
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
     def test_case_notes_parse_data(self):
         for book in self.compendium:
@@ -132,7 +171,7 @@ class TestProcess(unittest.TestCase):
                                  book.notes_index[6].href)
                 self.assertEqual(6, book.notes_index[6].index)
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
     def test_first_seems_ibid_check(self):
         for book in self.compendium:
@@ -149,7 +188,7 @@ class TestProcess(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 self.assertFalse(book.first_seems_ibid)
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
     def test_parents_of_first_note_are_None(self):
         for book in self.compendium:
@@ -186,7 +225,7 @@ class TestProcess(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 self.assertEqual(119, count)
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
     def test_autocheck_ibid_notes_method(self):
         for book in self.compendium:
@@ -208,7 +247,7 @@ class TestProcess(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 self.assertEqual(11, ibid_count)
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
     def test_set_notes_labels(self):
         for book in self.compendium:
@@ -234,7 +273,7 @@ class TestProcess(unittest.TestCase):
             elif book.filename == "testFiles/test_06.xhtml":
                 expected = 11
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             self.assertEqual(expected, book.ibid_note_count)
 
@@ -278,7 +317,7 @@ class TestNoteOperations(unittest.TestCase):
                 expected = 'Ibíd: Hartmann, <cite xml:lang="de">Wehrmacht im Ostkrieg</cite>, pág. 39. SEPARADOR pág. 55.'
                 index = 33
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             regex = REGEX_SPLIT
             out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
@@ -357,7 +396,7 @@ class TestNoteOperations(unittest.TestCase):
                 next_note = book.notes_index[34]
                 childs = 1
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             book.ibidToNote(note)
             msg = "Error en nota " + note.id + " del libro " + book.filename
@@ -394,7 +433,7 @@ class TestNoteOperations(unittest.TestCase):
                 prev_note = book.notes_index[33]
                 next_note = book.notes_index[70]
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             book.noteToIbid(note)
             msg = "Error en nota " + note.id + " del libro " + book.filename
@@ -425,7 +464,7 @@ class TestNoteOperations(unittest.TestCase):
                 note = book.notes_index[67]
                 out = '  <div class="nota">\n    <p id="nt68"><sup>[68]</sup> Kay, <cite xml:lang="en">Exploitation, Resettlement, Mass Murder</cite>, pág. 61. <a href="../Text/Capitulo02.xhtml#rf68">&lt;&lt;</a></p>\n  </div>\n\n'
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             self.assertEqual(note.toXHTML(), out)
 
@@ -465,7 +504,7 @@ class TestNoteOperations(unittest.TestCase):
                 current_ibid = book.notes_index[112]
                 expected = None
             else:
-                self.assertTrue(False, "No open file: " + book.filename)
+                continue
 
             test_outcome = book.getNextIbid(current_note, current_ibid)
             msg = "\nBook: " + book.filename + "\nNote: " + current_note.id
