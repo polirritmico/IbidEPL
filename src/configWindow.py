@@ -19,8 +19,8 @@ except Exception as e:
     sys.exit()
 
 
-#REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:<\/i>)?(?:[;\., ]*)?'
-REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:[;\., ])(?:</i>)?(?:[;\., ]*)?'
+# Utilizada en note.processIbid() para dividir llamada ibíd del agregado.
+REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[ií]d(?:em)?)[ .,;:<](?:<)?(?:/.*?>)?(?:[ .,;:])*'
 
 
 class ConfigWindow(QtWidgets.QDialog):
