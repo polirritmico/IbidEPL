@@ -71,6 +71,7 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+    book.getExtraTextFromBody()
     try:
         book.autocheckIbidNotes()
         _test = book.notes_index[0]
@@ -105,7 +106,7 @@ def run(bk):
 def main():
     # print("Error: Ejecutar desde Sigil.\n")
     # return -1
-    filename = "testFiles/test_04.xhtml"
+    filename = "testFiles/notas.xhtml"
 
     file = open(filename, "r")
     html = file.read()
@@ -114,6 +115,7 @@ def main():
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+    book.getExtraTextFromBody()
 
     book.autocheckIbidNotes()
     book.updateParentsAndChilds()
@@ -127,7 +129,7 @@ def main():
     overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
 
     if overwrite_xhtml:
-        file = open("outTest_04.xhtml", "w")
+        file = open("outTest.xhtml", "w")
         file.write(book.bookToXHTML())
         file.close()
         print("Archivo escrito correctamente.")
