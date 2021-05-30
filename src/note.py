@@ -77,7 +77,7 @@ class Note:
         if ibid_tag != "":
             ibid_tag += " "
 
-        splited_note = re.split(regex, self.text)
+        splited_note = re.split(regex, self.text, 2)
         splited_note = list(filter(None, splited_note))
 
         has_added_text = True if len(splited_note) > 0 else False
