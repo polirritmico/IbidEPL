@@ -64,8 +64,7 @@ class Book:
         data_count = 0
         prev_note = None
         
-        for line_count in range(len(self.html_body)):
-            line = self.html_body[line_count]
+        for line in self.html_body:
             if line.find("<p id") != -1:
                 prev_note = self.notes_index[data_count]
                 data_count += 1
@@ -77,18 +76,6 @@ class Book:
                 self.extra_entries.append(data)
 
         return self.extra_entries
-
-
-        # count = -1
-        # prev_note = None
-        # for line in self.html_body:
-        #     if line.find("<p id") != -1:
-        #         count += 1
-        #     if re.search(REGEX_EXTRA, line) is not None:
-        #         prev_note = self.notes_index[count]
-        #         data = ExtraEntry(str.strip(line), prev_note)
-        #         self.extra_entries.append(data)
-        # return self.extra_entries
 
     def autocheckIbidNotes(self):
         for note in self.notes_index:
