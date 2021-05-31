@@ -14,6 +14,7 @@ from .extraEntry import ExtraEntry
 REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;&lt;</a></p>'
 REGEX_EXTRA = r'<[ph](?! id=\")(?:.*?)>'
 
+
 class Book:
     def __init__(self, name):
         self.filename = name
@@ -59,7 +60,7 @@ class Book:
                 notes_raw.append(line.lstrip())
         return notes_raw
 
-    def getExtraTextFromBody(self) -> list:
+    def getExtraTextFromHtml(self) -> list:
         count = -1
         for line in self.html_body:
             if line.find("<p id") != -1:

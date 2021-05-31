@@ -65,7 +65,7 @@ class TestInputs(unittest.TestCase):
                 '<p class="item">VIII. Colonialismo y cultura indígena</p>',
                 '<p class="item">IX. Pensamiento colonialista y cultura colonial</p>'
             ]
-            test_text = book.getExtraTextFromBody()
+            test_text = book.getExtraTextFromHtml()
             self.assertEqual(8, len(test_text))
             for case in range(len(expected)):
                 self.assertEqual(test_text[case].entry, expected[case])
@@ -85,7 +85,7 @@ class TestInputs(unittest.TestCase):
                 book.notes_index[19],
                 book.notes_index[22],
             ]
-            test_text = book.getExtraTextFromBody()
+            test_text = book.getExtraTextFromHtml()
             for case in range(len(expected)):
                 self.assertEqual(test_text[case].note_ref, expected[case])
 
