@@ -71,7 +71,7 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
-    book.getExtraTextFromBody()
+    book.getExtraTextFromHtml()
     try:
         book.autocheckIbidNotes()
         _test = book.notes_index[0]
@@ -115,7 +115,7 @@ def main():
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
-    book.getExtraTextFromBody()
+    book.getExtraTextFromHtml()
 
     book.autocheckIbidNotes()
     book.updateParentsAndChilds()
