@@ -68,7 +68,7 @@ class TestInputs(unittest.TestCase):
             test_text = book.getExtraTextFromBody()
             self.assertEqual(8, len(test_text))
             for case in range(len(expected)):
-                self.assertEqual(test_text[case].data, expected[case])
+                self.assertEqual(test_text[case].entry, expected[case])
 
     def test_check_extra_Data_position(self):
         for book in self.compendium:
