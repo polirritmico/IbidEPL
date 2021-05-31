@@ -63,7 +63,6 @@ class Book:
     def getExtraTextFromHtml(self) -> list:
         data_count = 0
         prev_note = None
-        
         for line in self.html_body:
             if line.find("<p id") != -1:
                 prev_note = self.notes_index[data_count]
