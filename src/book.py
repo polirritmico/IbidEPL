@@ -7,10 +7,12 @@
 
 import re
 from .note import Note
+from .extraEntry import ExtraEntry
 
 
 # RegExs para dividir data de las notas (id, llamada, texto y href)
 REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;&lt;</a></p>'
+REGEX_EXTRA = r'<[ph](?! id=\")(?:.*?)>'
 
 
 class Book:
@@ -19,6 +21,7 @@ class Book:
 
         self.html_head = []
         self.html_body = []
+        self.extra_entries = []
         self.notes_index = []
 
         self.first_seems_ibid = False
@@ -56,6 +59,16 @@ class Book:
             if line.find("<p id") != -1:
                 notes_raw.append(line.lstrip())
         return notes_raw
+
+    def getExtraTextFromHtml(self) -> list:
+        count = -1
+        for line in self.html_body:
+            if line.find("<p id") != -1:
+                count += 1
+            if re.search(REGEX_EXTRA, line) is not None:
+                data = ExtraEntry(str.strip(line), self.notes_index[count])
+                self.extra_entries.append(data)
+        return self.extra_entries
 
     def autocheckIbidNotes(self):
         for note in self.notes_index:
@@ -174,10 +187,13 @@ class Book:
         return None
 
     def bookToXHTML(self) -> str:
+        count = 0
         head = "\n".join(self.html_head)
         body = "\n"
         for note in self.notes_index:
             body = body + note.toXHTML()
+            if len(self.extra_entries) > 0:
+                body = body + self.extra_entries[count].insertExtraEntry(note)
         footer = "</body>\n</html>"
 
         return head + body + footer

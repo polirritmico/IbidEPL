@@ -19,6 +19,10 @@ except Exception as e:
     sys.exit()
 
 
+# Utilizada en note.processIbid() para dividir llamada ibíd del agregado.
+REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[ií]d(?:em)?)[ .,;:<](?:<)?(?:/.*?>)?(?:[ .,;:])*'
+
+
 class ConfigWindow(QtWidgets.QDialog):
     def __init__(self, dark_theme, path, bk):
         super(ConfigWindow, self).__init__()
@@ -45,20 +49,28 @@ class ConfigWindow(QtWidgets.QDialog):
 
         # Preferences
         self.regex_search_list = ["Default", "Personalizada"]
-        self.regex_search_entries = [r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?',
-                                     r'(?i)(?:<*.?>)?(?:ib[íi]d(?:em)?)(?:</i>)?(?:[;\., ]*)?']
+        self.regex_search_entries = [REGEX_SPLIT, REGEX_SPLIT]
 
         self.ibid_label_list = [
-                "<i>Ibid</i>", "<i>Ibidem</i>",
-                "Ibid (redonda)", "Ibidem (redonda)",
-                "Ibíd (con tilde)", "Ibídem (con tilde)",
-                "Personalizada"]
+            "<i>Ibid</i>",
+            "<i>Ibidem</i>",
+            "Ibid (redonda)",
+            "Ibidem (redonda)",
+            "Ibíd (con tilde)",
+            "Ibídem (con tilde)",
+            "Nada",
+            "Personalizada"
+        ]
         self.ibid_label_entries = [
-                '<i xml:lang="la">Ibid</i>.',
-                '<i xml:lang="la">Ibidem</i>.',
-                '<span xml:lang="la">Ibid</span>.', '<span xml:lang="la">Ibidem</span>',
-                'Ibíd.', 'Ibídem.',
-                '<i xml:lang="la">Ibid</i>.']
+            '<i xml:lang="la">Ibid</i>.',
+            '<i xml:lang="la">Ibidem</i>.',
+            '<span xml:lang="la">Ibid</span>.',
+            '<span xml:lang="la">Ibidem</span>',
+            'Ibíd.',
+            'Ibídem.',
+            '',
+            '<i xml:lang="la">Ibid</i>.'
+        ]
 
         self.separator_label_list = ["Default", "Nada", "Personalizado"]
         self.separator_label_entries = ["TEXTO_ADICIONAL:", "", "SEPARADOR"]

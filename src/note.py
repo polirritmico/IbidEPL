@@ -74,7 +74,10 @@ class Note:
             self.text = self.original_text
         self.processed = True
 
-        splited_note = re.split(regex, self.text)
+        if ibid_tag != "":
+            ibid_tag += " "
+
+        splited_note = re.split(regex, self.text, 2)
         splited_note = list(filter(None, splited_note))
 
         has_added_text = True if len(splited_note) > 0 else False
@@ -82,10 +85,10 @@ class Note:
             added_text = ""
             for line in splited_note:
                 added_text = added_text + line
-            self.text = ibid_tag + " " + self.parent.text + " " + \
+            self.text = ibid_tag + self.parent.text + " " + \
                 separator + " " + added_text
         else:
-            self.text = ibid_tag + " " + self.parent.text
+            self.text = ibid_tag + self.parent.text
 
         return self.text
 

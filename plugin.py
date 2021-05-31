@@ -3,7 +3,7 @@
 
 #########################################################################
 #
-# ePLIbidem v0.4
+# ePLIbidem v0.5
 # Una ayuda para manejar notas ibid.
 #
 # Copyright (C) 2021 Titivillus
@@ -71,6 +71,7 @@ def run(bk):
     book = Book(filename)
     book.readHTML(html)
     book.parseNotes()
+    book.getExtraTextFromHtml()
     try:
         book.autocheckIbidNotes()
         _test = book.notes_index[0]
