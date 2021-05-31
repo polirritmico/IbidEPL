@@ -57,6 +57,7 @@ class TestInputs(unittest.TestCase):
             expected = [
                 # '<p class="item">I. «Colonización» y «Colonias»</p>',
                 '<p class="item">II. «Colonialismo» e «Imperios coloniales»</p>',
+                '<p>Caso más complicado</p>',
                 '<p class="item">III. Épocas del colonialismo</p>',
                 '<p class="item">IV. Conquista, resistencia y colaboración</p>',
                 '<p class="item">V. El estado colonial</p>',
@@ -66,7 +67,7 @@ class TestInputs(unittest.TestCase):
                 '<p class="item">IX. Pensamiento colonialista y cultura colonial</p>'
             ]
             test_text = book.getExtraTextFromHtml()
-            self.assertEqual(8, len(test_text))
+            self.assertEqual(9, len(test_text))
             for case in range(len(expected)):
                 self.assertEqual(test_text[case].entry, expected[case])
 
@@ -76,6 +77,7 @@ class TestInputs(unittest.TestCase):
                 continue
             book.parseNotes()
             expected = [
+                book.notes_index[2],
                 book.notes_index[2],
                 book.notes_index[5],
                 book.notes_index[8],
@@ -443,6 +445,39 @@ class TestNoteOperations(unittest.TestCase):
             self.assertEqual(note.next_note, next_note, msg)
             self.assertEqual(len(note.childs), 0, msg)
 
+    def test_get_next_ibid(self):
+        for book in self.compendium:
+            if book.filename == "testFiles/test_01.xhtml":
+                current_note = book.notes_index[0]
+                current_ibid = book.notes_index[1]
+                expected = None
+            elif book.filename == "testFiles/test_02.xhtml":
+                current_note = book.notes_index[0]
+                current_ibid = None
+                expected = book.notes_index[2]
+            elif book.filename == "testFiles/test_03.xhtml":
+                current_note = book.notes_index[67]
+                current_ibid = book.notes_index[70]
+                expected = None
+            elif book.filename == "testFiles/test_04.xhtml":
+                current_note = book.notes_index[62]
+                current_ibid = None
+                expected = book.notes_index[65]
+            elif book.filename == "testFiles/test_05.xhtml":
+                current_note = book.notes_index[59]
+                current_ibid = book.notes_index[60]
+                expected = book.notes_index[78]
+            elif book.filename == "testFiles/test_06.xhtml":
+                current_note = book.notes_index[111]
+                current_ibid = book.notes_index[112]
+                expected = None
+            else:
+                continue
+
+            test_outcome = book.getNextIbid(current_note, current_ibid)
+            msg = "\nBook: " + book.filename + "\nNote: " + current_note.id
+            self.assertEqual(test_outcome, expected, msg)
+
     def test_note_to_xhtml(self):
         for book in self.compendium:
             if book.filename == "testFiles/test_01.xhtml":
@@ -477,38 +512,8 @@ class TestNoteOperations(unittest.TestCase):
                 xhtml = book.bookToXHTML()
                 self.assertEqual(xhtml, expected_xhtml)
 
-    def test_get_next_ibid(self):
-        for book in self.compendium:
-            if book.filename == "testFiles/test_01.xhtml":
-                current_note = book.notes_index[0]
-                current_ibid = book.notes_index[1]
-                expected = None
-            elif book.filename == "testFiles/test_02.xhtml":
-                current_note = book.notes_index[0]
-                current_ibid = None
-                expected = book.notes_index[2]
-            elif book.filename == "testFiles/test_03.xhtml":
-                current_note = book.notes_index[67]
-                current_ibid = book.notes_index[70]
-                expected = None
-            elif book.filename == "testFiles/test_04.xhtml":
-                current_note = book.notes_index[62]
-                current_ibid = None
-                expected = book.notes_index[65]
-            elif book.filename == "testFiles/test_05.xhtml":
-                current_note = book.notes_index[59]
-                current_ibid = book.notes_index[60]
-                expected = book.notes_index[78]
-            elif book.filename == "testFiles/test_06.xhtml":
-                current_note = book.notes_index[111]
-                current_ibid = book.notes_index[112]
-                expected = None
-            else:
-                continue
-
-            test_outcome = book.getNextIbid(current_note, current_ibid)
-            msg = "\nBook: " + book.filename + "\nNote: " + current_note.id
-            self.assertEqual(test_outcome, expected, msg)
+    def test_book_with_extra_data_to_xhtml(Self):
+        pass
 
 
 class TestQT5(unittest.TestCase):
