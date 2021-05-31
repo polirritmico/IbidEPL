@@ -191,7 +191,8 @@ class Book:
         body = "\n"
         for note in self.notes_index:
             body = body + note.toXHTML()
-            body = body + self.extra_entries[count].insertExtraEntry(note)
+            if len(self.extra_entries) > 0:
+                body = body + self.extra_entries[count].insertExtraEntry(note)
         footer = "</body>\n</html>"
 
         return head + body + footer
