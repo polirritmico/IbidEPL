@@ -77,6 +77,8 @@ class Note:
         if ibid_tag != "":
             ibid_tag += " "
 
+        separator = " " + separator + " " if separator != "" else " "
+
         splited_note = re.split(regex, self.text, 2)
         splited_note = list(filter(None, splited_note))
 
@@ -85,8 +87,7 @@ class Note:
             added_text = ""
             for line in splited_note:
                 added_text = added_text + line
-            self.text = ibid_tag + self.parent.text + " " + \
-                separator + " " + added_text
+            self.text = ibid_tag + self.parent.text + separator + added_text
         else:
             self.text = ibid_tag + self.parent.text
 

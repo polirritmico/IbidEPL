@@ -61,13 +61,17 @@ class Book:
         return notes_raw
 
     def getExtraTextFromHtml(self) -> list:
-        count = -1
+        reference_note = Note
+        index = 0
         for line in self.html_body:
             if line.find("<p id") != -1:
-                count += 1
+                reference_note = self.notes_index[index]
+                index += 1
+                continue
             if re.search(REGEX_EXTRA, line) is not None:
-                data = ExtraEntry(str.strip(line), self.notes_index[count])
-                self.extra_entries.append(data)
+                entry = ExtraEntry(str.strip(line), reference_note)
+                self.extra_entries.append(entry)
+
         return self.extra_entries
 
     def autocheckIbidNotes(self):
@@ -187,13 +191,19 @@ class Book:
         return None
 
     def bookToXHTML(self) -> str:
-        count = 0
+        has_extra = True if len(self.extra_entries) > 0 else False
+        prev_data = None
+
         head = "\n".join(self.html_head)
         body = "\n"
         for note in self.notes_index:
             body = body + note.toXHTML()
-            if len(self.extra_entries) > 0:
-                body = body + self.extra_entries[count].insertExtraEntry(note)
-        footer = "</body>\n</html>"
+            if not has_extra:
+                continue
+            for line in self.extra_entries:
+                if note == line.note_ref:
+                    body = body + line.getEntry()
+        body = body.rstrip()
+        footer = "\n</body>\n</html>"
 
         return head + body + footer

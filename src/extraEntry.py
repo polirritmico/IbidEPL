@@ -10,7 +10,5 @@ class ExtraEntry:
         self.entry = _entry
         self.note_ref = _note_ref
 
-    def insertExtraEntry(self, current_note) -> str:
-        if current_note == self.note_ref:
-            return "  " + self.entry + "\n\n"
-        return ""
+    def getEntry(self) -> str:
+        return "  " + self.entry + "\n\n"
