@@ -162,8 +162,8 @@ class Book:
     def noteToIbid(self, note):
         if note.is_ibid:
             return
-        note.is_ibid = True
 
+        note.is_ibid = True
         self.updateParentsAndChilds()
         self.updateNotesLabels()
         self.updateNextAndPrevNotes()
@@ -180,7 +180,7 @@ class Book:
         return None
 
     def getPrevIbid(self, current_note, current_ibid):
-        if current_ibid != None:
+        if current_ibid is not None:
             return current_ibid.prev_note
 
         index = current_note.index
