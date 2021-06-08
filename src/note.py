@@ -81,15 +81,30 @@ class Note:
 
         splited_note = re.split(regex, self.text, 2)
         splited_note = list(filter(None, splited_note))
-
         has_added_text = True if len(splited_note) > 0 else False
+
+
+
+        RGX = r'(?i)(pp?[aá]?(?:gs|g)?(?:ina)?s?(?:\.)?(?: |(?:&nbsp;))\d*(?:-?\d*)\.)'
+        # Now check te parent note
+        parent_text_original = self.parent.text
+        parent_text = re.split(RGX, parent_text_original)
+        parent_text = list(filter(None, parent_text))
+        if has_added_text and len(parent_text) == 2:
+            parent_text = parent_text[0].strip()
+            separator = " "
+        else:
+            parent_text = parent_text_original
+
+
+
         if has_added_text:
             added_text = ""
             for line in splited_note:
                 added_text = added_text + line
-            self.text = ibid_tag + self.parent.text + separator + added_text
+            self.text = ibid_tag + parent_text + separator + added_text
         else:
-            self.text = ibid_tag + self.parent.text
+            self.text = ibid_tag + parent_text
 
         return self.text
 
