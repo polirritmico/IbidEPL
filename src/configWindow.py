@@ -101,6 +101,7 @@ class ConfigWindow(QtWidgets.QDialog):
 
         # Load Prefs
         self.prefs = self.bk.getPrefs()
+        self.checkNewVersion()
 
         # Set Defaults
         self.prefs.defaults["RegEx_combobox"] = "0"
@@ -129,6 +130,13 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator)
 
         self.saveCancelValues()
+
+    def checkNewVersion(self):
+        from plugin import version
+        if "version" not in self.prefs or self.prefs["version"] != version:
+            self.prefs.clear()
+            self.prefs["version"] = version
+            self.bk.savePrefs(self.prefs)
 
     def saveCancelValues(self):
         # Seteamos los valores a restaurar para el botón cancelar
