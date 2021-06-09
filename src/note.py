@@ -6,9 +6,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 import re
-
-# Regex para encontrar ibids
-REGEX_IBID = r'(?i)(ib[íi]d(em)?)[;\., (</i>)]'
+from src.regex import REGEX_IBID, REGEX_PAGE_INFO_SPLIT
 
 
 class Note:
@@ -69,7 +67,7 @@ class Note:
     def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
-        # Si no restauramos al original se repite el mismo string
+        # Si no restauramos al original se duplicará el mismo string
         if self.processed:
             self.text = self.original_text
         self.processed = True
@@ -83,20 +81,15 @@ class Note:
         splited_note = list(filter(None, splited_note))
         has_added_text = True if len(splited_note) > 0 else False
 
-
-
-        RGX = r'(?i)(pp?[aá]?(?:gs|g)?(?:ina)?s?(?:\.)?(?: |(?:&nbsp;))\d*(?:-?\d*)\.)'
-        # Now check te parent note
-        parent_text_original = self.parent.text
-        parent_text = re.split(RGX, parent_text_original)
+        # Chequeamos si la nota parent tiene info de pág.
+        parent_text = re.split(REGEX_PAGE_INFO_SPLIT, self.parent.text)
         parent_text = list(filter(None, parent_text))
+        
         if has_added_text and len(parent_text) == 2:
             parent_text = parent_text[0].strip()
             separator = " "
         else:
-            parent_text = parent_text_original
-
-
+            parent_text = self.parent.text
 
         if has_added_text:
             added_text = ""
