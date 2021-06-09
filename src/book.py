@@ -6,13 +6,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 import re
-from .note import Note
-from .extraEntry import ExtraEntry
-
-
-# RegExs para dividir data de las notas (id, llamada, texto y href)
-REGEX_SPLIT_NOTE = r'<p id="(.*?)"><sup>\[(.*?)\]</sup>(.*?)<a href="(.*?)">&lt;&lt;</a></p>'
-REGEX_EXTRA = r'<[ph](?! id=\")(?:.*?)>'
+from src.note import Note
+from src.extraEntry import ExtraEntry
+from src.regex import REGEX_SPLIT_NOTE, REGEX_GET_EXTRA_ENTRIES
 
 
 class Book:
@@ -68,7 +64,7 @@ class Book:
                 reference_note = self.notes_index[index]
                 index += 1
                 continue
-            if re.search(REGEX_EXTRA, line) is not None:
+            if re.search(REGEX_GET_EXTRA_ENTRIES, line) is not None:
                 entry = ExtraEntry(str.strip(line), reference_note)
                 self.extra_entries.append(entry)
 

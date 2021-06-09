@@ -9,8 +9,7 @@ import unittest
 import os
 from src.book import Book
 from src.note import Note
-from src.configWindow import REGEX_SPLIT
-from hashlib import sha512
+from src.regex import REGEX_SPLIT_IBID
 
 
 class TestInputs(unittest.TestCase):
@@ -297,45 +296,6 @@ class TestNoteOperations(unittest.TestCase):
             book.updateNotesLabels()
             self.compendium.append(book)
 
-    def test_case_process_ibidem(self):
-        for book in self.compendium:
-            if book.filename == "testFiles/test_01.xhtml":
-                expected = 'Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR 1.1'
-                index = 1
-            elif book.filename == "testFiles/test_02.xhtml":
-                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.'
-                index = 5
-                # print(expected)
-            elif book.filename == "testFiles/test_03.xhtml":
-                expected = 'Ibíd: Sobre el establecimiento de los primeros Regulares, véase Carlos Martínez de Campos, <i>España bélica. El siglo <small>XX</small>. Marruecos</i>, p. 156.'
-                index = 23
-            elif book.filename == "testFiles/test_04.xhtml":
-                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1100.'
-                index = 11
-            elif book.filename == "testFiles/test_05.xhtml":
-                expected = 'Ibíd: Moeller, <cite xml:lang="en">German Peasants and Agrarian Policy, <span class="nosep">1914-1924,</span></cite> pág. 4. El resto del análisis se basa en esta fuente, salvo que se indique lo contrario. SEPARADOR pág. 123.'
-                index = 120
-            elif book.filename == "testFiles/test_06.xhtml":
-                expected = 'Ibíd: Hartmann, <cite xml:lang="de">Wehrmacht im Ostkrieg</cite>, pág. 55.'
-                index = 33
-            else:
-                continue
-
-            regex = REGEX_SPLIT
-            out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
-            self.assertEqual(
-                expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
-
-    def test_case_process_ibidem2(self):
-        for book in self.compendium:
-            if book.filename == "testFiles/test_04.xhtml":
-                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1150.'
-                index = 2
-                regex = REGEX_SPLIT
-                out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
-                self.assertEqual(
-                        expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
-
     def test_case_pepito(self):
         nota_base = Note("nt171",
                          "18",
@@ -356,7 +316,7 @@ class TestNoteOperations(unittest.TestCase):
         libro.ibid_note_count = 1
         libro.base_note_count = 1
 
-        regex = REGEX_SPLIT
+        regex = REGEX_SPLIT_IBID
         ibid_tag = ""
         separator = ""
         
@@ -395,7 +355,7 @@ class TestNoteOperations(unittest.TestCase):
         libro.notes_index.append(nota_ibid_3)
         libro.base_note_count = 1
         libro.ibid_note_count = 3
-        regex = REGEX_SPLIT
+        regex = REGEX_SPLIT_IBID
         ibid_tag = "Ibid."
         separator = "SEP"
 
@@ -409,6 +369,86 @@ class TestNoteOperations(unittest.TestCase):
         self.assertEqual(expected_1, output_1)
         self.assertEqual(expected_2, output_2)
         self.assertEqual(expected_3, output_3)
+
+    def test_case_multiple_pages_on_parent(self):
+        nota_base = Note("nt5", "5",
+                         'Otro libro pág. 1. y la nota base del ibid en pág. 10.',
+                         "../Text/Capitulo_01.xhtml#rf5", 4)
+
+        nota_ibid = Note("nt6", "6", '<i xml:lang="la">Ibid.</i>, p. 64.',
+                         "../Text/Capitulo_02.xhtml#rf6", 5)
+        
+        nota_base_2 = Note("nt7", "7",
+                           'J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312.',
+                           "../Text/Capitulo_01.xhtml#rf7", 6)
+        nota_ibid_2 = Note("nt8", "8", "Ibíd. pp.&nbsp;135-139.",
+                           "../Text/Capitulo_02.xhtml#rf8", 7)
+
+        nota_ibid.is_ibid = True
+        nota_ibid_2.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_ibid_2.parent = nota_base_2
+        nota_base.childs.append(nota_ibid)
+        nota_base_2.childs.append(nota_ibid_2)
+
+        libro = Book("test_multiple_pages_on_parent")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.notes_index.append(nota_base_2)
+        libro.notes_index.append(nota_ibid_2)
+        libro.ibid_note_count = 2
+        libro.base_note_count = 2
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = "Ibíd."
+        separator = "SEP"
+        
+        expected = 'Ibíd. Otro libro pág. 1. y la nota base del ibid en pág. 10. SEP p. 64.'
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+        expected_2 = 'Ibíd. J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. SEP pp.&nbsp;135-139.'
+        output_2 = nota_ibid_2.processIbid(regex, ibid_tag, separator)
+        
+        self.assertEqual(expected, output)
+        self.assertEqual(expected_2, output_2)
+
+    def test_case_process_ibidem(self):
+        for book in self.compendium:
+            if book.filename == "testFiles/test_01.xhtml":
+                expected = 'Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR 1.1'
+                index = 1
+            elif book.filename == "testFiles/test_02.xhtml":
+                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.'
+                index = 5
+                # print(expected)
+            elif book.filename == "testFiles/test_03.xhtml":
+                expected = 'Ibíd: Sobre el establecimiento de los primeros Regulares, véase Carlos Martínez de Campos, <i>España bélica. El siglo <small>XX</small>. Marruecos</i>, p. 156.'
+                index = 23
+            elif book.filename == "testFiles/test_04.xhtml":
+                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1100.'
+                index = 11
+            elif book.filename == "testFiles/test_05.xhtml":
+                expected = 'Ibíd: Moeller, <cite xml:lang="en">German Peasants and Agrarian Policy, <span class="nosep">1914-1924,</span></cite> pág. 4. El resto del análisis se basa en esta fuente, salvo que se indique lo contrario. SEPARADOR pág. 123.'
+                index = 120
+            elif book.filename == "testFiles/test_06.xhtml":
+                expected = 'Ibíd: Hartmann, <cite xml:lang="de">Wehrmacht im Ostkrieg</cite>, pág. 55.'
+                index = 33
+            else:
+                continue
+
+            regex = REGEX_SPLIT_IBID
+            out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
+            self.assertEqual(
+                expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
+
+    def test_case_process_ibidem2(self):
+        for book in self.compendium:
+            if book.filename == "testFiles/test_04.xhtml":
+                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1150.'
+                index = 2
+                regex = REGEX_SPLIT_IBID
+                out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
+                self.assertEqual(
+                        expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
 
     def test_ibid_to_note(self):
         for book in self.compendium:
@@ -549,7 +589,7 @@ class TestNoteOperations(unittest.TestCase):
             self.assertEqual(note.toXHTML(), out)
 
     def test_book_to_xhtml(self):
-        regex = REGEX_SPLIT
+        regex = REGEX_SPLIT_IBID
         for book in self.compendium:
             if book.filename == "testFiles/test_01.xhtml":
                 book.notes_index[1].processIbid(regex, "Ibíd:", "SEPARADOR:")
@@ -558,12 +598,12 @@ class TestNoteOperations(unittest.TestCase):
                 self.assertEqual(xhtml, expected_xhtml)
 
     def test_book_with_extra_data_to_xhtml(self):
-        expected_string = """<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">\n<head>\n  <title>Notas</title>\n  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>\n  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>\n</head>\n\n<body>\n  <h1>Notas</h1>\n\n  <p class="item">I. «Colonización» y «Colonias»</p>\n\n  <div class="nota">\n    <p id="nt1"><sup>[1]</sup> Para un repaso de los principales debates al respecto, véase D.&nbsp;Rothermund, «The Self-Consciousness of Post-Imperial Nations: A Cross-national Comparison», en <cite>India Quarterly</cite> 67 (2011), pp. 1-18. <a href="../Text/Capitulo_01.xhtml#rf1">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt2"><sup>[2]</sup> Véase O. Brunner, W. Conze y R.&nbsp;Koselleck (eds.), <cite>Geschichtliche Grundbegriffe. Historisches Lexikon zur politisch-sozialen Sprache in Deutschland</cite>, 7 vols., Stuttgart, <span class="nosep">1972-1992,</span> y en particular el artículo sobre «Imperialismo» de J. Fisch <i>et al.</i> (Vol. 3, 1982, pp. 171-236). <a href="../Text/Capitulo_01.xhtml#rf2">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt3"><sup>[3]</sup> M. I. Finley, <cite>Colonies: An Attempt at a Typology</cite>, en <cite>Transactions of the Royal Historical Society</cite>, 5.ª serie, 26 (1976), pp.&nbsp;167-188. <a href="../Text/Capitulo_01.xhtml#rf3">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">II. «Colonialismo» e «Imperios coloniales»</p>\n\n  <p>Caso más complicado</p>\n\n  <div class="nota">\n    <p id="nt16"><sup>[1]</sup> Ph. D. Curtin, «The Black Experience of Colonialism and Imperialism», en S.&nbsp;<span class="nosep">W. Mintz</span> (ed.), <cite>Slavery, Colonialism, and Racism</cite>, Nueva York, 1974, p. 23. <a href="../Text/Capitulo_02.xhtml#rf16">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt17"><sup>[2]</sup> Véase M. Winter, <cite>Egyptian Society under Ottoman Rule <span class="nosep">1517-1798</span></cite>, Londres, 1992, p.&nbsp;30. <a href="../Text/Capitulo_02.xhtml#rf17">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt18"><sup>[3]</sup> E. W. Said, <cite>Kultur und Imperialismus. Einbildungskraft und Politik im Zeitalter der Macht</cite>, Fráncfort, 1994, p.&nbsp;44 [ed. cast.: <cite>Cultura e imperialismo</cite>, Barcelona, Debate, 2018]. <a href="../Text/Capitulo_02.xhtml#rf18">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">III. Épocas del colonialismo</p>\n\n  <div class="nota">\n    <p id="nt25"><sup>[1]</sup> Véase, en general, W. Reinhard, <cite>Geschichte der europäischen Expansion</cite>, 4 vols., Stuttgart, <span class="nosep">1983-1990,</span> así como Kleine Geschichte des Kolonialismus, Stuttgart, 2008. <a href="../Text/Capitulo_03.xhtml#rf25">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt26"><sup>[2]</sup> A. Girault, <cite>Principes de colonisation et de législation coloniale</cite>, vol. 1, París, 1921, p.&nbsp;17. <a href="../Text/Capitulo_03.xhtml#rf26">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt27"><sup>[3]</sup> Véase por ejemplo los títulos de Osterhammel y Petersson, y Wendt en la «Bibliografía», así como G.&nbsp;<span class="nosep">B. Magee</span> y A. S. Thompson, <cite>Empire and Globalisation: Networks of People, Goods and Capital in the British World, c. <span class="nosep">1850-1914</span></cite>, Cambridge, 2010. <a href="../Text/Capitulo_03.xhtml#rf27">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IV. Conquista, resistencia y colaboración</p>\n\n  <div class="nota">\n    <p id="nt60"><sup>[1]</sup> D. W. Meinig, The Shaping of America: A Geographical Perspective on 500&nbsp;Years of History, vol. 1, New Haven, 1986, p. 65. <a href="../Text/Capitulo_04.xhtml#rf60">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt61"><sup>[2]</sup> Véase J. H. Elliott, «The Seizure of Overseas Territories by the European Powers», en H.&nbsp;Pohl (ed.), <cite>The European Discovery of the World and its Economic Effects on Pre-Industrial Society, <span class="nosep">1500-1800</span></cite>, Stuttgart, 1990, pp. 51-54. <a href="../Text/Capitulo_04.xhtml#rf61">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt62"><sup>[3]</sup> J. Iliffe, <cite>A Modern History of Tanganyika</cite>, Cambridge, 1979, p.&nbsp;117. <a href="../Text/Capitulo_04.xhtml#rf62">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">V. El estado colonial</p>\n\n  <div class="nota">\n    <p id="nt83"><sup>[1]</sup> Véase M. H. Fisher, <cite>Indirect Rule in India: Residents and the Residency System <span class="nosep">1764-1858</span></cite>, Delhi, 1991. <a href="../Text/Capitulo_05.xhtml#rf83">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt84"><sup>[2]</sup> Véase J. M. Gullick, <cite>Rulers and Residents: Influence and Power in the Malay States <span class="nosep">1870-1920</span></cite>, Singapur, 1992. <a href="../Text/Capitulo_05.xhtml#rf84">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt85"><sup>[3]</sup> <cite>Report of the Indian Statutory Commission</cite>, <i>op. cit.</i>, p.&nbsp;112. <a href="../Text/Capitulo_05.xhtml#rf85">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VI. Formas económicas coloniales</p>\n\n  <div class="nota">\n    <p id="nt107"><sup>[1]</sup> Véase A. G. Hopkins, <cite>An Economic History of West Africa</cite>, Londres, 1973, p.&nbsp;126. <a href="../Text/Capitulo_06.xhtml#rf107">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt108"><sup>[2]</sup> Véase el repaso general de C. Coquery-Vidrovitch, «Les conditions de la dépendance: Histoire du sous-développement», en C. Coquery-Vidrovitch y A.&nbsp;Forest (eds.), <cite>Décolonisations et nouvelles dépendances</cite>, Lille, 1986, pp. 25-48. <a href="../Text/Capitulo_06.xhtml#rf108">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VII. Sociedades coloniales"</p>\n\n  <div class="nota">\n    <p id="nt125"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Stoler,</span> «Rethinking Colonial Categories: European Communities and the Boundaries of Rule», en <cite>Comparative Studies in Society and History</cite> 31 (1989), pp. 134-161, y un estudio sobre una familia escocesa activa a escala global: E. Rothschild, <cite>The Inner Life of Empires: An Eighteenthcentury History</cite>, Princeton, 2011. <a href="../Text/Capitulo_07.xhtml#rf125">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt126"><sup>[2]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. <a href="../Text/Capitulo_07.xhtml#rf126">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt127"><sup>[3]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp.&nbsp;135-139. <a href="../Text/Capitulo_07.xhtml#rf127">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VIII. Colonialismo y cultura indígena</p>\n\n  <div class="nota">\n    <p id="nt154"><sup>[1]</sup> V. S. Naipaul, <cite>The Overcrowded Barracoon and Other Articles</cite>, Londres, 1972, p.&nbsp;37. <a href="../Text/Capitulo_08.xhtml#rf154">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt155"><sup>[2]</sup> N. Wachtel, <cite>The Vision of the Vanquished: The Spanish Conquest of Peru through Indian Eyes, <span class="nosep">1530-1570</span></cite>, Hassocs, Sussex, 1977, p.&nbsp;85. <a href="../Text/Capitulo_08.xhtml#rf155">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt156"><sup>[3]</sup> Véase D. Lombard, <cite>Le carrefour javanais: Essai <span class="nosep">d’histoire</span> globale</cite>, vol. 1, París, 1990, pp.&nbsp;79-81. <a href="../Text/Capitulo_08.xhtml#rf156">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IX. Pensamiento colonialista y cultura colonial</p>\n\n  <div class="nota">\n    <p id="nt173"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Conklin,</span> <cite>A Mission to Civilize: The Republican Idea of Empire in France and West Africa, <span class="nosep">1895-1930</span></cite>, Stanford, 1997. <a href="../Text/Capitulo_09.xhtml#rf173">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt174"><sup>[2]</sup> Véase A. Memmi, <cite>Portrait du colonisé</cite>, nueva edición París, 1973, p.&nbsp;49. <a href="../Text/Capitulo_09.xhtml#rf174">&lt;&lt;</a></p>\n  </div>\n</body>\n</html>"""
+        expected_string = """<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">\n<head>\n  <title>Notas</title>\n  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>\n  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>\n</head>\n\n<body>\n  <h1>Notas</h1>\n\n  <p class="item">I. «Colonización» y «Colonias»</p>\n\n  <div class="nota">\n    <p id="nt1"><sup>[1]</sup> Para un repaso de los principales debates al respecto, véase D.&nbsp;Rothermund, «The Self-Consciousness of Post-Imperial Nations: A Cross-national Comparison», en <cite>India Quarterly</cite> 67 (2011), pp. 1-18. <a href="../Text/Capitulo_01.xhtml#rf1">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt2"><sup>[2]</sup> Véase O. Brunner, W. Conze y R.&nbsp;Koselleck (eds.), <cite>Geschichtliche Grundbegriffe. Historisches Lexikon zur politisch-sozialen Sprache in Deutschland</cite>, 7 vols., Stuttgart, <span class="nosep">1972-1992,</span> y en particular el artículo sobre «Imperialismo» de J. Fisch <i>et al.</i> (Vol. 3, 1982, pp. 171-236). <a href="../Text/Capitulo_01.xhtml#rf2">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt3"><sup>[3]</sup> M. I. Finley, <cite>Colonies: An Attempt at a Typology</cite>, en <cite>Transactions of the Royal Historical Society</cite>, 5.ª serie, 26 (1976), pp.&nbsp;167-188. <a href="../Text/Capitulo_01.xhtml#rf3">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">II. «Colonialismo» e «Imperios coloniales»</p>\n\n  <p>Caso más complicado</p>\n\n  <div class="nota">\n    <p id="nt16"><sup>[1]</sup> Ph. D. Curtin, «The Black Experience of Colonialism and Imperialism», en S.&nbsp;<span class="nosep">W. Mintz</span> (ed.), <cite>Slavery, Colonialism, and Racism</cite>, Nueva York, 1974, p. 23. <a href="../Text/Capitulo_02.xhtml#rf16">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt17"><sup>[2]</sup> Véase M. Winter, <cite>Egyptian Society under Ottoman Rule <span class="nosep">1517-1798</span></cite>, Londres, 1992, p.&nbsp;30. <a href="../Text/Capitulo_02.xhtml#rf17">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt18"><sup>[3]</sup> E. W. Said, <cite>Kultur und Imperialismus. Einbildungskraft und Politik im Zeitalter der Macht</cite>, Fráncfort, 1994, p.&nbsp;44 [ed. cast.: <cite>Cultura e imperialismo</cite>, Barcelona, Debate, 2018]. <a href="../Text/Capitulo_02.xhtml#rf18">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">III. Épocas del colonialismo</p>\n\n  <div class="nota">\n    <p id="nt25"><sup>[1]</sup> Véase, en general, W. Reinhard, <cite>Geschichte der europäischen Expansion</cite>, 4 vols., Stuttgart, <span class="nosep">1983-1990,</span> así como Kleine Geschichte des Kolonialismus, Stuttgart, 2008. <a href="../Text/Capitulo_03.xhtml#rf25">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt26"><sup>[2]</sup> A. Girault, <cite>Principes de colonisation et de législation coloniale</cite>, vol. 1, París, 1921, p.&nbsp;17. <a href="../Text/Capitulo_03.xhtml#rf26">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt27"><sup>[3]</sup> Véase por ejemplo los títulos de Osterhammel y Petersson, y Wendt en la «Bibliografía», así como G.&nbsp;<span class="nosep">B. Magee</span> y A. S. Thompson, <cite>Empire and Globalisation: Networks of People, Goods and Capital in the British World, c. <span class="nosep">1850-1914</span></cite>, Cambridge, 2010. <a href="../Text/Capitulo_03.xhtml#rf27">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IV. Conquista, resistencia y colaboración</p>\n\n  <div class="nota">\n    <p id="nt60"><sup>[1]</sup> D. W. Meinig, The Shaping of America: A Geographical Perspective on 500&nbsp;Years of History, vol. 1, New Haven, 1986, p. 65. <a href="../Text/Capitulo_04.xhtml#rf60">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt61"><sup>[2]</sup> Véase J. H. Elliott, «The Seizure of Overseas Territories by the European Powers», en H.&nbsp;Pohl (ed.), <cite>The European Discovery of the World and its Economic Effects on Pre-Industrial Society, <span class="nosep">1500-1800</span></cite>, Stuttgart, 1990, pp. 51-54. <a href="../Text/Capitulo_04.xhtml#rf61">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt62"><sup>[3]</sup> J. Iliffe, <cite>A Modern History of Tanganyika</cite>, Cambridge, 1979, p.&nbsp;117. <a href="../Text/Capitulo_04.xhtml#rf62">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">V. El estado colonial</p>\n\n  <div class="nota">\n    <p id="nt83"><sup>[1]</sup> Véase M. H. Fisher, <cite>Indirect Rule in India: Residents and the Residency System <span class="nosep">1764-1858</span></cite>, Delhi, 1991. <a href="../Text/Capitulo_05.xhtml#rf83">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt84"><sup>[2]</sup> Véase J. M. Gullick, <cite>Rulers and Residents: Influence and Power in the Malay States <span class="nosep">1870-1920</span></cite>, Singapur, 1992. <a href="../Text/Capitulo_05.xhtml#rf84">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt85"><sup>[3]</sup> <cite>Report of the Indian Statutory Commission</cite>, <i>op. cit.</i>, p.&nbsp;112. <a href="../Text/Capitulo_05.xhtml#rf85">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VI. Formas económicas coloniales</p>\n\n  <div class="nota">\n    <p id="nt107"><sup>[1]</sup> Véase A. G. Hopkins, <cite>An Economic History of West Africa</cite>, Londres, 1973, p.&nbsp;126. <a href="../Text/Capitulo_06.xhtml#rf107">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt108"><sup>[2]</sup> Véase el repaso general de C. Coquery-Vidrovitch, «Les conditions de la dépendance: Histoire du sous-développement», en C. Coquery-Vidrovitch y A.&nbsp;Forest (eds.), <cite>Décolonisations et nouvelles dépendances</cite>, Lille, 1986, pp. 25-48. <a href="../Text/Capitulo_06.xhtml#rf108">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VII. Sociedades coloniales"</p>\n\n  <div class="nota">\n    <p id="nt125"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Stoler,</span> «Rethinking Colonial Categories: European Communities and the Boundaries of Rule», en <cite>Comparative Studies in Society and History</cite> 31 (1989), pp. 134-161, y un estudio sobre una familia escocesa activa a escala global: E. Rothschild, <cite>The Inner Life of Empires: An Eighteenthcentury History</cite>, Princeton, 2011. <a href="../Text/Capitulo_07.xhtml#rf125">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt126"><sup>[2]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. <a href="../Text/Capitulo_07.xhtml#rf126">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt127"><sup>[3]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. pp.&nbsp;135-139. <a href="../Text/Capitulo_07.xhtml#rf127">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VIII. Colonialismo y cultura indígena</p>\n\n  <div class="nota">\n    <p id="nt154"><sup>[1]</sup> V. S. Naipaul, <cite>The Overcrowded Barracoon and Other Articles</cite>, Londres, 1972, p.&nbsp;37. <a href="../Text/Capitulo_08.xhtml#rf154">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt155"><sup>[2]</sup> N. Wachtel, <cite>The Vision of the Vanquished: The Spanish Conquest of Peru through Indian Eyes, <span class="nosep">1530-1570</span></cite>, Hassocs, Sussex, 1977, p.&nbsp;85. <a href="../Text/Capitulo_08.xhtml#rf155">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt156"><sup>[3]</sup> Véase D. Lombard, <cite>Le carrefour javanais: Essai <span class="nosep">d’histoire</span> globale</cite>, vol. 1, París, 1990, pp.&nbsp;79-81. <a href="../Text/Capitulo_08.xhtml#rf156">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IX. Pensamiento colonialista y cultura colonial</p>\n\n  <div class="nota">\n    <p id="nt173"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Conklin,</span> <cite>A Mission to Civilize: The Republican Idea of Empire in France and West Africa, <span class="nosep">1895-1930</span></cite>, Stanford, 1997. <a href="../Text/Capitulo_09.xhtml#rf173">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt174"><sup>[2]</sup> Véase A. Memmi, <cite>Portrait du colonisé</cite>, nueva edición París, 1973, p.&nbsp;49. <a href="../Text/Capitulo_09.xhtml#rf174">&lt;&lt;</a></p>\n  </div>\n</body>\n</html>"""
         # expected = sha512(expected_string.encode("utf-8"))
         for book in self.compendium:
             if book.filename == "testFiles/notas.xhtml":
                 book.getExtraTextFromHtml()
-                book.notes_index[19].processIbid(REGEX_SPLIT, "", "")
+                book.notes_index[19].processIbid(REGEX_SPLIT_IBID, "", "")
                 result_string = book.bookToXHTML()
                 # result = sha512(result_string.encode("utf-8"))
                 
