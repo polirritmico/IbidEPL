@@ -1,13 +1,15 @@
 # Registro de cambios
 
 ## ePLIbidem 0.6
-Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad y mejora implementaciones internas del código.
+Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad al procesar las notas y contiene mejoras internas del código.
 
 ### Cambios:
-* Ajusta automáticamente los casos no ambigüos de notas base con páginas y las reemplaza por las páginas señaladas en el ibíd. Por ejemplo teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`.
+* Ajusta automáticamente los casos no ambigüos de notas base con números de páginas y las reemplaza por las páginas señaladas en el ibíd. Por ejemplo teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`.
+* Detecta cuando se actualiza el plugin y restablece automáticamente a la configuración por defecto para evitar errores.
+* Muestra la versión en la barra de título de la ventana.
 
 ### Corrección de errores:
-* Fix typo en regex para casos con tags del tipo `<i xml:lang="la">`.
+* Corrige un pequeño error de tipeo en la regex que afectaba casos con tags del tipo `<i xml:lang="la">`.
 
 _____________________________
 

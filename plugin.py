@@ -49,11 +49,13 @@ import os
 import src.mainWindow
 from src.book import Book
 
+version = "0.6"
+
 
 def run(bk):
     if bk.launcher_version() < 20170115:
-        print("Este plugin requiere Sigil >0.9.8 \
-        \n\nHaga clic en Aceptar para cerrar.")
+        print("Este plugin requiere Sigil >0.9.8\n\n\
+               Haga clic en Aceptar para cerrar.")
         return -1
 
     selected_files = []
@@ -83,7 +85,7 @@ def run(bk):
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
 
-    print("Archivo \"" + filename + "\" indexado exitosamente.")
+    print("Archivo \"{}\" indexado exitosamente.".format(filename))
     print("Abriendo interfaz QT...")
 
     dark_theme = False
@@ -104,6 +106,7 @@ def run(bk):
 
 
 def main():
+<<<<<<< HEAD
     print("Error: Ejecutar desde Sigil.\n")
     return -1
     # filename = "testFiles/test_04.xhtml"
@@ -135,6 +138,40 @@ def main():
     # else:
     #     print("No se han escrito cambios.")
     # return 0
+=======
+    # print("Error: Ejecutar desde Sigil.\n")
+    # return -1
+    filename = "testFiles/notas.xhtml"
+
+    file = open(filename, "r")
+    html = file.read()
+    file.close()
+
+    book = Book(filename)
+    book.readHTML(html)
+    book.parseNotes()
+    book.getExtraTextFromHtml()
+
+    book.autocheckIbidNotes()
+    book.updateParentsAndChilds()
+    book.updateNextAndPrevNotes()
+    book.updateNotesLabels()
+
+    print("Archivo \"{}\" indexado exitosamente.".format(filename))
+    print("Abriendo interfaz QT...")
+    dark_theme = True
+    path = "src/"
+    overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
+
+    if overwrite_xhtml:
+        file = open("outTest.xhtml", "w")
+        file.write(book.bookToXHTML())
+        file.close()
+        print("Archivo escrito correctamente.")
+    else:
+        print("No se han escrito cambios.")
+    return 0
+>>>>>>> develop
 
 
 if __name__ == "__main__":

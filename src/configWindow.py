@@ -72,8 +72,8 @@ class ConfigWindow(QtWidgets.QDialog):
         self.separator_label_list = ["Default", "Nada", "Personalizado"]
         self.separator_label_entries = ["TEXTO_ADICIONAL:", "", "SEPARADOR"]
 
-        self.demo_nota = "Esto es una nota de texto; ibíd., texto posterior: menciona págs. 116-119"
-        self.demo_base_note = "Esta es la nota base, pág. 75"
+        self.demo_note = "Nota de texto ibíd. Con texto posterior pp. 116-119"
+        self.demo_base_note = "Nota base, en pág. 75. Revisar pág 20-22."
 
         self.cancel_regex = ""
         self.cancel_ibid_label = ""
@@ -97,10 +97,12 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorComboBox.currentIndexChanged.connect(self.separatorComboBox_newValue)
 
         # Texts
-        self.OriginalNote.setText(self.demo_nota)
+        self.OriginalNote.setText("Nota Base:\n{}\n\nNota ibíd.:\n{}".
+                                  format(self.demo_base_note, self.demo_note))
 
         # Load Prefs
         self.prefs = self.bk.getPrefs()
+        self.checkNewVersion()
 
         # Set Defaults
         self.prefs.defaults["RegEx_combobox"] = "0"
@@ -129,6 +131,13 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator)
 
         self.saveCancelValues()
+
+    def checkNewVersion(self):
+        from plugin import version
+        if "version" not in self.prefs or self.prefs["version"] != version:
+            self.prefs.clear()
+            self.prefs["version"] = version
+            self.bk.savePrefs(self.prefs)
 
     def saveCancelValues(self):
         # Seteamos los valores a restaurar para el botón cancelar
@@ -166,7 +175,7 @@ class ConfigWindow(QtWidgets.QDialog):
     def testButton_pressed(self):
         # Preparamos los objetos para la prueba
         parent = Note("nt1", "1", self.demo_base_note, "href", 1)
-        child = Note("nt2", "2", self.demo_nota, "href", 2)
+        child = Note("nt2", "2", self.demo_note, "href", 2)
         child.parent = parent
         child.is_ibid = True
 
