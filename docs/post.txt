@@ -1,16 +1,19 @@
-[size=150][b][color=#008000]IbidEPL[/color][/b][/size]
-[imgr=974x694]http://i.imgur.com/rQROdet.png[/imgr]
+[imgr=974x694]http://i.imgur.com/SahWBS9.png[/imgr]
 
 [size=150][b][color=#008000]Descripción:[/color][/b][/size]
 Una pequeña herramienta para ajustar las notas ibíd.
 
-[b][color=#BF8000]Requisitos[/color]:[/b] Sigil >0.9.8
-[b][color=#BF8000]Instalación[/color]:[/b] Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
+[b][color=#BF8000]Requisitos:[/color][/b] Sigil >0.9.8
+[b][color=#BF8000]Instalación:[/color][/b] Igual a cualquier plugin de Sigil, van al menú: Preferencias → Complementos → Añadir complemento. Allí seleccionan el zip con el plugin y pulsan Abrir. Opcionalmente pueden agregarlo a la barra de accesos rápidos.
 [b][color=#BF8000]Ejecución:[/color][/b] Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre los elementos de la interfaz sin pulsar clic.
-[b][color=#BF8000]Link de descarga:[/color][/b] [url=https://mega.nz/file/jB0TmaiK#CpQclwjboUlc9DT2irU3McT_o6iznjXF-zOpskX0FsU]versión 0.4[/url]
+[b][color=#BF8000]Link de descarga:[/color][/b] [url=https://mega.nz/file/TNEQxBrK#tnj40sqK6apU0Bw_l51IbcG-osBZnEcELH09nAl4piY]versión 0.6[/url]
+
+[b][color=#BF8000]Cambios en la versión:[/color][/b]
+[b]v0.5[/b]: Esta versión mejora el análisis de las notas, limpia el formato de salida y corrige comportamientos para casos específicos.
+[url=https://epublibre.org/foro/viewtopic.php?f=29&t=50979&p=465166#p465166]Más info aquí[/url].
 
 [b][color=#BF8000]Atajos de teclado:[/color][/b]
-[list][*]Ctrl + AvPág: Abre nota ibid siguiente.
+[list][*][b]Ctrl + AvPág[/b]: Abre nota ibid siguiente.
 [*][b]Ctrl + RePág[/b]: Abre nota ibid anterior.
 [*][b]Ctrl + Retroceso[/b] (Backspace): Procesar Ibid.
 [*][b]Ctrl + Enter[/b]: Reemplazar nota ibid.
@@ -21,9 +24,9 @@ Una pequeña herramienta para ajustar las notas ibíd.
 ---------------------------------------------
 
 Bueno, espero sea de utilidad y ayude al proceso de maquetación.
+Cualquier comentario, ayuda o sugerencia, acá en el mismo hilo.
 Saludos  :mrgreen:
-
-
+---------------------------------------------
 
 [size=150][b][color=#008000]Funcionamiento:[/color][/b][/size]
 Por defecto el plugin agrega la etiqueta [b]<i xml:lang="la">Ibíd\</i>[/b] y el Separador [b]TEXTO_ADICIONAL:[/b] (Ambas se pueden ajustar en la ventana de Opciones). El separador pretende ser solo una ayuda visual para diferenciar la nota original del ibíd. (e incluso para hacer búsquedas desde Sigil).
@@ -40,26 +43,27 @@ Si son muchas notas se puede utilizar el botón [i]Procesar y modificar todo[/i]
 [*]Repetimos 2 y 3 hasta terminar con todas las notas ibíd.
 [*]Pulsamos [b]Aceptar[/b] para confirmar los cambios y sobrescribir el archivo de notas.[/list]
 
-[size=150][b][color=#008000]Controles:[/color][/b][/size]
-[spoiler][imgr=974x694]http://i.imgur.com/wHgiaex.png[/imgr][/spoiler]
+[size=150][b][color=#008000]Interfaz:[/color][/b][/size]
+[imgr=974x694]http://i.imgur.com/eTrNdPu.png[/imgr]
+
 [list=1][*]Explorador de notas: Nos muestra la estructura de notas y sus ibíd. Haciendo clic sobre cualquier ibíd. o nota nos lleva a ella.
-[*]Agranda o disminuye el tamaño del texto.
 [*]Avanza o retrocede a la siguiente nota, saltándose las notas ibíd.
 [*]Avanza o retrocede a la siguiente nota ibíd., saltándose las notas base.
+[*]Agranda o disminuye el tamaño del texto.
 [*]Muestra la nota ibíd. y permite editar el texto.
 [*]Convierte la nota base a nota ibíd.
 [*]Convierte la nota ibíd a nota base.
 [*]Muestra la cantidad de notas ibíd. sin ajustar (en caso de haber procesado automáticamente todas las notas), y nos muestra las distintas notificaciones del plugin.
-[spoiler][imgr=974x694]http://i.imgur.com/CNwT2vx.png[/imgr][/spoiler]
+[spoiler][imgr=974x694]http://i.imgur.com/jaOR7pu.png[/imgr][/spoiler]
 [*]Aplica al texto los tag html (sólo para visualización). En este modo no se puede editar el texto. Cualquier cambio realizado en el texto sin modificar se descarta.
 [*]Restaura todos los cambios a la nota original (la leída del archivo).
 [*]Divide el recuadro del ibid actual y muestra la nota original arriba y la edición abajo. Útil para hacer una revisión de la edición.
+[*]Reemplaza la nota. Si la nota ibíd. tiene cambios con respecto a la nota ibíd. original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón. Además, mientras no se pulse el botón «Aceptar» (16), la modificación no se verá reflejada en el epub.
 [*]Abre la ventana de configuración. Allí podemos:
    - Ajustar la REGEX (avanzado).
    - Cambiar el tag de la nota ibíd. (\<i xml:lang="la">Ibid\</i>).
    - Cambiar el texto del separador (Por defecto «TEXTO_ADICIONAL:»).
 [*]Ajusta automáticamente la nota ibíd. actual en base a la configuración.
 [*]Ajusta automáticamente en base a la configuración actual todas las notas ibíd. y guarda esos cambios.
-[*]Reemplaza la nota. Si la nota ibíd. tiene cambios con respecto a la nota ibíd. original, resaltará el cuadro del texto recordándonos que la nota tiene cambios que se perderán si es que no pulsamos este botón. Además, mientras no se pulse el botón «Aceptar» (16), la modificación no se verá reflejada en el epub.
 [*]Escribe todos las modificaciones en el epub.
 [*]Descarta todos los cambios y deja el epub sin modificar.[/list]

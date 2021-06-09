@@ -10,6 +10,7 @@ Esta versión implementa el reemplazo automático de las páginas en casos sin a
 
 ### Corrección de errores:
 * Corrige un pequeño error de tipeo en la regex que afectaba casos con tags del tipo `<i xml:lang="la">`.
+* Guarda valores numéricos como int en lugar de strings.
 
 _____________________________
 
