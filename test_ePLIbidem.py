@@ -255,8 +255,9 @@ class TestNotesControl(unittest.TestCase):
         for book in self.compendium:
             book.updateNotesLabels()
             for note in book.notes_index:
-                self.assertNotEqual("", note.current_label, "\nError en libro: " +
-                                    book.filename + "\nNota: " + str(note.id))
+                self.assertNotEqual("", note.current_label,
+                                    "\nError en el libro: {}\nNota: {}".format(
+                                        book.filename, note.id))
 
     def test_count_total_ibid(self):
         for book in self.compendium:
@@ -438,7 +439,8 @@ class TestNoteOperations(unittest.TestCase):
             regex = REGEX_SPLIT_IBID
             out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
             self.assertEqual(
-                expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
+                expected, out, "\nError nota: {} en archivo {}".format(
+                    book.notes_index[index].id, book.filename))
 
     def test_case_process_ibidem2(self):
         for book in self.compendium:
@@ -447,8 +449,7 @@ class TestNoteOperations(unittest.TestCase):
                 index = 2
                 regex = REGEX_SPLIT_IBID
                 out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
-                self.assertEqual(
-                        expected, out, "\nError nota: " + book.notes_index[index].id + " en archivo " + book.filename)
+                self.assertEqual(expected, out, "\nError nota: {} en archivo {}".format(book.notes_index[index].id, book.filename))
 
     def test_ibid_to_note(self):
         for book in self.compendium:
@@ -486,7 +487,7 @@ class TestNoteOperations(unittest.TestCase):
                 continue
 
             book.ibidToNote(note)
-            msg = "Error en nota " + note.id + " del libro " + book.filename
+            msg = "Error en nota {} del libro {}".format(note.id, book.filename)
 
             self.assertIsNone(note.parent, msg)
             self.assertEqual(note.prev_note, prev_note, msg)
@@ -523,7 +524,7 @@ class TestNoteOperations(unittest.TestCase):
                 continue
 
             book.noteToIbid(note)
-            msg = "Error en nota " + note.id + " del libro " + book.filename
+            msg = "Error en nota {} del libro {}".format(note.id, book.filename)
 
             self.assertIsNotNone(note.parent, msg)
             self.assertEqual(note.prev_note, prev_note, msg)
@@ -560,7 +561,7 @@ class TestNoteOperations(unittest.TestCase):
                 continue
 
             test_outcome = book.getNextIbid(current_note, current_ibid)
-            msg = "\nBook: " + book.filename + "\nNote: " + current_note.id
+            msg = "\nBook: {}\nNote: {}".format(book.filename,current_note.id)
             self.assertEqual(test_outcome, expected, msg)
 
     def test_note_to_xhtml(self):
@@ -609,10 +610,6 @@ class TestNoteOperations(unittest.TestCase):
                 
                 self.assertEqual(expected_string, result_string)
                 # self.assertEqual(expected, result)
-
-# class TestQT5(unittest.TestCase):
-#     def setUp(self):
-#         pass
 
 
 if __name__ == '__main__':

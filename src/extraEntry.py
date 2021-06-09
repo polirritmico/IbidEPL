@@ -11,4 +11,4 @@ class ExtraEntry:
         self.note_ref = _note_ref
 
     def getEntry(self) -> str:
-        return "  " + self.entry + "\n\n"
+        return "  {}\n\n".format(self.entry)

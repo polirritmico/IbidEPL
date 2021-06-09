@@ -47,8 +47,8 @@ class Note:
 
     def toXHTML(self) -> str:
         note_top = '  <div class="nota">\n    <p id="'
-        note_mid = self.id + '"><sup>[' + self.number + ']</sup> ' + \
-            self.text + ' <a href="' + self.href + '">&lt;&lt;</a></p>\n'
+        note_mid = '{}"><sup>[{}]</sup> {} <a href="{}">&lt;&lt;</a></p>\n'\
+                   .format(self.id, self.number, self.text, self.href)
         note_btm = '  </div>\n\n'
 
         return note_top + note_mid + note_btm
@@ -67,7 +67,8 @@ class Note:
     def processIbid(self, regex, ibid_tag, separator) -> str:
         if not self.is_ibid:
             return self.text
-        # Si no restauramos al original se duplicará el mismo string
+
+        # Restauramos el texto original para evitar repeticiones recursivas.
         if self.processed:
             self.text = self.original_text
         self.processed = True
@@ -75,7 +76,7 @@ class Note:
         if ibid_tag != "":
             ibid_tag += " "
 
-        separator = " " + separator + " " if separator != "" else " "
+        separator = (" " + separator + " ") if separator != "" else " "
 
         splited_note = re.split(regex, self.text, 2)
         splited_note = list(filter(None, splited_note))

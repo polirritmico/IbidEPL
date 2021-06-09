@@ -54,8 +54,8 @@ version = "0.6"
 
 def run(bk):
     if bk.launcher_version() < 20170115:
-        print("Este plugin requiere Sigil >0.9.8 \
-        \n\nHaga clic en Aceptar para cerrar.")
+        print("Este plugin requiere Sigil >0.9.8\n\n\
+               Haga clic en Aceptar para cerrar.")
         return -1
 
     selected_files = []
@@ -85,7 +85,7 @@ def run(bk):
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
 
-    print("Archivo \"" + filename + "\" indexado exitosamente.")
+    print("Archivo \"{}\" indexado exitosamente.".format(filename))
     print("Abriendo interfaz QT...")
 
     dark_theme = False
@@ -124,7 +124,7 @@ def main():
     book.updateNextAndPrevNotes()
     book.updateNotesLabels()
 
-    print("Archivo \"" + filename + "\" indexado exitosamente.")
+    print("Archivo \"{}\" indexado exitosamente.".format(filename))
     print("Abriendo interfaz QT...")
     dark_theme = True
     path = "src/"

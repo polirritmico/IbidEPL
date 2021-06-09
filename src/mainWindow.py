@@ -96,8 +96,8 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
         # Run
-        self.announce(str(len(self.notes_index)) +
-                " notas leídas desde " + self.book.filename)
+        self.announce("{} notas leídas desde {}.".format(
+                      len(self.notes_index), self.book.filename))
         self.show()
 
         if self.book.first_seems_ibid:
@@ -139,8 +139,8 @@ class Window(QtWidgets.QDialog):
         self.current_note = note
         self.NoteIdEntry.setText(note.id)
         self.NoteEntry.setText(note.number)
-        self.NoteCurrent.setText(
-            note.current_label + " de " + str(self.book.base_note_count))
+        self.NoteCurrent.setText("{} de {}".format(
+            note.current_label, self.book.base_note_count))
         self.NoteHrefEntry.setText(note.href)
         if self.tag_html:
             self.NoteText.setText(note.text)
@@ -166,9 +166,8 @@ class Window(QtWidgets.QDialog):
         self.current_ibid = note
         self.IbidIdEntry.setText(note.id)
         self.IbidEntry.setText(note.number)
-        ibid_current = note.current_label + \
-            " de " + str(self.book.ibid_note_count)
-        self.IbidCurrent.setText(ibid_current)
+        self.IbidCurrent.setText("{} de {}".format(
+            note.current_label, self.book.ibid_note_count))
         self.IbidOriginalText.setPlainText(note.original_text)
         self.IbidHrefEntry.setText(note.href)
 
@@ -253,8 +252,7 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
-
-        self.announce('Nota \"' + str(current.id) + '\" cambiada a ibíd.')
+        self.announce('Nota \"{}\" cambiada a ibíd.'.format(current.id))
 
     def ibidToNoteButton_pressed(self):
         current = self.current_ibid
@@ -267,7 +265,7 @@ class Window(QtWidgets.QDialog):
 
         self.populateNoteBrowser()
         self.NoteBrowser.setCurrentItem(current.browserEntry)
-        self.announce("Ibíd. \"" + str(current.id) + "\" cambiado a nota.")
+        self.announce('Ibíd. \"{}\" cambiado a nota.'.format(current.id))
 
     def increaseFontSizeButton_pressed(self):
         self.NoteText.zoomIn(1)
@@ -287,7 +285,7 @@ class Window(QtWidgets.QDialog):
             self.current_ibid.browserEntry.setText(
                 2, self.current_ibid.restoreOriginalText())
             self.changeToIbid(self.current_ibid)
-            self.announce("Restaurado ibid. " + self.current_ibid.id)
+            self.announce("Restaurado ibíd. {}.".format(self.current_ibid.id))
         else:
             self.announce("La nota ibíd. no ha sido alterada.")
 
@@ -321,7 +319,7 @@ class Window(QtWidgets.QDialog):
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
         self.IbidUndoButton.setEnabled(True)
 
-        self.announce("Ibid procesado sin guardar")
+        self.announce("Ibid procesado sin guardar.")
 
     def processAllIbidsButton_pressed(self):
         proc_count = self.book.processAllIbids(
@@ -333,7 +331,7 @@ class Window(QtWidgets.QDialog):
         self.changeToIbid(self.notes_index[0].getChild())
         self.NoteBrowser.setCurrentItem(self.current_note.browserEntry)
 
-        self.announce("Se han modificado " + proc_count + " notas")
+        self.announce("Se han modificado {} notas.".format(proc_count))
 
     def ibidReplaceButton_pressed(self):
         if self.current_ibid is None:
@@ -342,7 +340,7 @@ class Window(QtWidgets.QDialog):
         self.current_ibid.browserEntry.setText(2, self.current_ibid.text)
         self.IbidText.setStyleSheet("")
 
-        self.announce("Modificada la nota ibíd. " + self.current_ibid.id)
+        self.announce("Modificada la nota ibíd. {}.".format(self.current_ibid.id))
 
     def acceptButton_pressed(self):
         global overwrite
