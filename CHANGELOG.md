@@ -1,7 +1,7 @@
 # Registro de cambios
 
 ## ePLIbidem 0.6
-Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad al procesar las notas y contiene mejoras internas del código.
+Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad al procesar las notas, además de mejoras internas del código.
 
 ### Cambios:
 * Ajusta automáticamente los casos no ambigüos de notas base con números de páginas y las reemplaza por las páginas señaladas en el ibíd. Por ejemplo teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`.
