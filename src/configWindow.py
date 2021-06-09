@@ -105,11 +105,11 @@ class ConfigWindow(QtWidgets.QDialog):
         self.checkNewVersion()
 
         # Set Defaults
-        self.prefs.defaults["RegEx_combobox"] = "0"
+        self.prefs.defaults["RegEx_combobox"] = 0
         self.prefs.defaults["RegEx"] = self.regex_search_entries[0]
-        self.prefs.defaults["Ibid_combobox"] = "0"
+        self.prefs.defaults["Ibid_combobox"] = 0
         self.prefs.defaults["Ibid"] = self.ibid_label_entries[0]
-        self.prefs.defaults["Separator_combobox"] = "0"
+        self.prefs.defaults["Separator_combobox"] = 0
         self.prefs.defaults["Separator"] = self.separator_label_entries[0]
 
         # Load Values
@@ -118,9 +118,9 @@ class ConfigWindow(QtWidgets.QDialog):
         self.separator = self.prefs["Separator"]
 
         # Set Currents
-        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
-        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
-        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
+        self.RegexComboBox.setCurrentIndex(self.prefs["RegEx_combobox"])
+        self.IbidLabelComboBox.setCurrentIndex(self.prefs["Ibid_combobox"])
+        self.SeparatorComboBox.setCurrentIndex(self.prefs["Separator_combobox"])
 
         self.regexComboBox_newValue(self.RegexComboBox.currentIndex())
         self.ibidLabelComboBox_newValue(self.IbidLabelComboBox.currentIndex())
@@ -213,17 +213,17 @@ class ConfigWindow(QtWidgets.QDialog):
         self.prefs["Separator"] = self.prefs.defaults["Separator"]
         
         # Restauramos los valores
-        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
-        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
-        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
+        self.RegexComboBox.setCurrentIndex(self.prefs["RegEx_combobox"])
+        self.IbidLabelComboBox.setCurrentIndex(self.prefs["Ibid_combobox"])
+        self.SeparatorComboBox.setCurrentIndex(self.prefs["Separator_combobox"])
         self.regex = self.prefs["RegEx"]
         self.ibid_label = self.prefs["Ibid"]
         self.separator = self.prefs["Separator"]
         
         # Actualizamos
-        self.RegexComboBox.setCurrentIndex(int(self.prefs["RegEx_combobox"]))
-        self.IbidLabelComboBox.setCurrentIndex(int(self.prefs["Ibid_combobox"]))
-        self.SeparatorComboBox.setCurrentIndex(int(self.prefs["Separator_combobox"]))
+        self.RegexComboBox.setCurrentIndex(self.prefs["RegEx_combobox"])
+        self.IbidLabelComboBox.setCurrentIndex(self.prefs["Ibid_combobox"])
+        self.SeparatorComboBox.setCurrentIndex(self.prefs["Separator_combobox"])
         
         self.regexComboBox_newValue(self.RegexComboBox.currentIndex())
         self.ibidLabelComboBox_newValue(self.IbidLabelComboBox.currentIndex())
