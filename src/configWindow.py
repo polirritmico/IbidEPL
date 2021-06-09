@@ -7,6 +7,7 @@
 
 from src.note import Note
 from src.highlight import highlight
+from src.regex import REGEX_SPLIT_IBID
 from collections import OrderedDict
 try:
     from PyQt5 import uic, QtWidgets
@@ -17,10 +18,6 @@ except Exception as e:
     print("Error en linea {}: ".format(sys.exc_info()[-1].tb_lineno), type(
         e).__name__, e, "\n\nEste plugin requiere Sigil >0.9.8 y PyQt5.")
     sys.exit()
-
-
-# Utilizada en note.processIbid() para dividir llamada ibíd del agregado.
-REGEX_SPLIT = r'(?i)(?:<*.?>)?(?:ib[ií]d(?:em)?)[ .,;:<](?:<)?(?:/.*?>)?(?:[ .,;:])*'
 
 
 class ConfigWindow(QtWidgets.QDialog):
@@ -49,7 +46,7 @@ class ConfigWindow(QtWidgets.QDialog):
 
         # Preferences
         self.regex_search_list = ["Default", "Personalizada"]
-        self.regex_search_entries = [REGEX_SPLIT, REGEX_SPLIT]
+        self.regex_search_entries = [REGEX_SPLIT_IBID, REGEX_SPLIT_IBID]
 
         self.ibid_label_list = [
             "<i>Ibid</i>",
