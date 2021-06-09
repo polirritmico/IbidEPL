@@ -49,6 +49,8 @@ import os
 import src.mainWindow
 from src.book import Book
 
+version = "0.6"
+
 
 def run(bk):
     if bk.launcher_version() < 20170115:
