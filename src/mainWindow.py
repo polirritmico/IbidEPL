@@ -25,6 +25,8 @@ class Window(QtWidgets.QDialog):
         super(Window, self).__init__()
         uic.loadUi(path + "mainWindow.ui", self)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
+        from plugin import version
+        self.setWindowTitle("ePLIbidem v{}".format(version))
 
         # Set icons
         if dark_mode:
