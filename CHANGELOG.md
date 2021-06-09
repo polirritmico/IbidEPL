@@ -4,7 +4,7 @@
 Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad al procesar las notas, además de mejoras internas del código.
 
 ### Cambios:
-* Ajusta automáticamente los casos no ambigüos de notas base con números de páginas y las reemplaza por las páginas señaladas en el ibíd. sin agregar el separador. Por ejemplo teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`.
+* Ajusta automáticamente los casos no ambiguos de notas base con números de páginas y las reemplaza por las páginas señaladas en el ibíd. sin agregar el separador. Por ejemplo, teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`. En cambio en casos ambiguos, si la nota base fuera `Nota p. 5. Capítulo p. 6`, la salida sería `Nota p. 5. Capítulo p. 6 SEPARADOR: p. 6`.
 * Detecta cuando se actualiza el plugin y restablece automáticamente a la configuración por defecto para evitar errores.
 * Muestra la versión en la barra de título de la ventana.
 
