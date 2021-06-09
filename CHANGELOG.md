@@ -4,10 +4,10 @@
 Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad y mejora implementaciones internas del código.
 
 ### Cambios:
-* Ajusta automáticamente los casos no ambigüos de notas base con páginas y las reemplaza por las páginas señaladas en el ibíd. Por ejemplo teniendo las notas "Nota p. 5" e "Ibíd. p. 6", la salida del procesamiento automático será "Ibíd. Nota p.6".
+* Ajusta automáticamente los casos no ambigüos de notas base con páginas y las reemplaza por las páginas señaladas en el ibíd. Por ejemplo teniendo las notas `Nota p. 5` e `Ibíd. p. 6`, la salida del procesamiento automático será `Ibíd. Nota p.6`.
 
 ### Corrección de errores:
-* Fix typo en regex para casos con tags que incluyan xml:lang="".
+* Fix typo en regex para casos con tags del tipo `<i xml:lang="la">`.
 
 _____________________________
 
