@@ -67,7 +67,7 @@ Anteponer ?: al principio de un paréntesis descarta su contenido</string>
       <item>
        <widget class="QLabel" name="OriginalNoteLabel">
         <property name="text">
-         <string>Ibid original:</string>
+         <string>Caso de prueba:</string>
         </property>
        </widget>
       </item>
@@ -168,7 +168,7 @@ Anteponer ?: al principio de un paréntesis descarta su contenido</string>
       <item>
        <widget class="QLabel" name="ProccesedLabel">
         <property name="text">
-         <string>Ibid procesado:</string>
+         <string>Ibíd. procesado:</string>
         </property>
        </widget>
       </item>
