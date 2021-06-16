@@ -3,7 +3,7 @@
 
 #########################################################################
 #
-# ePLIbidem v0.5
+# ePLIbidem v0.6
 # Una ayuda para manejar notas ibid.
 #
 # Copyright (C) 2021 Titivillus
