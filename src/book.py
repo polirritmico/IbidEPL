@@ -7,7 +7,6 @@
 
 import re
 from src.note import Note
-from src.extraEntry import ExtraEntry
 from src.regex import REGEX_SPLIT_NOTE, REGEX_GET_EXTRA_ENTRIES
 
 
@@ -203,3 +202,12 @@ class Book:
         footer = "\n</body>\n</html>"
 
         return head + body + footer
+
+
+class ExtraEntry:
+    def __init__(self, _entry, _note_ref):
+        self.entry = _entry
+        self.note_ref = _note_ref
+
+    def getEntry(self) -> str:
+        return "  {}\n\n".format(self.entry)
