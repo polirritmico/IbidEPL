@@ -25,10 +25,7 @@ class ConfigWindow(QtWidgets.QDialog):
         super(ConfigWindow, self).__init__()
         uic.loadUi(path + "configWindow.ui", self)
 
-        if bk is None:
-            self.bk = CopyBK()
-        else:
-            self.bk = bk
+        self.bk = CopyBK() if bk is None else bk
 
         # Set Icons
         if dark_theme:
