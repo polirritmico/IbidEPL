@@ -39,8 +39,8 @@
 # propia data.
 #
 # Para probar el código se ha separado su dependencia a Sigil creando la
-# clase CopyBK que imita los métodos y variables que el plugin necesita de
-# bookcontainer. A futuro se podría implementar una versión standalone
+# clase CopyBK que imita los métodos y variables que el plugin necesita
+# de bookcontainer. A futuro se podría implementar una versión standalone
 # implementando la clase e integrando una librería para seleccionar,
 # extraer y modificar archivos del epub.
 
