@@ -201,7 +201,8 @@
              <item>
               <widget class="QToolButton" name="FontIncreaseSizeButton">
                <property name="toolTip">
-                <string>Aumenta el tamaño del texto.</string>
+                <string>Aumenta el tamaño del texto.
+Ctrl + +</string>
                </property>
                <property name="text">
                 <string>+</string>
@@ -218,7 +219,8 @@
              <item>
               <widget class="QToolButton" name="FontDecreaseSizeButton">
                <property name="toolTip">
-                <string>Disminuye el tamaño del texto.</string>
+                <string>Disminuye el tamaño del texto.
+Ctrl + -</string>
                </property>
                <property name="text">
                 <string>-</string>
@@ -488,7 +490,8 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Retrocede a la nota ibíd. anterior.</string>
+                <string>Retrocede a la nota ibíd. anterior.
+Ctrl + RePág</string>
                </property>
                <property name="text">
                 <string>Anterior</string>
@@ -508,7 +511,8 @@
                 <enum>Qt::NoFocus</enum>
                </property>
                <property name="toolTip">
-                <string>Avanza a la siguiente nota ibíd.</string>
+                <string>Avanza a la siguiente nota ibíd.
+Ctrl + AvPág</string>
                </property>
                <property name="text">
                 <string>Siguiente</string>
@@ -610,7 +614,8 @@
                </property>
                <property name="toolTip">
                 <string>Aplica la RegEx y las opciones seleccionadas a la nota.
-Los cambios serán descartados si no se pulsa el botón Reemplazar.</string>
+Los cambios serán descartados si no se pulsa el botón Reemplazar.
+Ctrl + Retroceso</string>
                </property>
                <property name="text">
                 <string>Procesar Ibíd</string>
@@ -640,7 +645,8 @@ Los cambios serán descartados si no se pulsa el botón Reemplazar.</string>
                </property>
                <property name="toolTip">
                 <string>Reemplaza el texto de la nota.
-Si no se reemplaza los cambios en la nota se descartarán.</string>
+Si no se reemplaza los cambios en la nota se descartarán.
+Ctrl + Enter</string>
                </property>
                <property name="text">
                 <string>Reemplazar</string>
