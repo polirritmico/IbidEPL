@@ -1,5 +1,13 @@
 ## Registro de cambios
 
+## ePLIbidem 0.7
+
+
+* Muestra atajos de teclado en la ayuda emergente.
+* 
+
+_____________________________
+
 ## ePLIbidem 0.6
 Esta versión implementa el reemplazo automático de las páginas en casos sin ambigüedad al procesar las notas, además de mejoras internas del código.
 
