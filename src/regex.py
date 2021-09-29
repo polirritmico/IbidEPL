@@ -25,3 +25,7 @@ REGEX_IBID = r'(?i)(ib[íi]d(em)?)[;\., (</i>)]'
 
 # Regex para analizar notas base (detecta si tienen info de pág. al final)
 REGEX_PAGE_INFO_SPLIT = r'(?i) (pp?[aá]?(?:gs|g)?(?:ina)?s?(?:\.)?(?: |(?:&nbsp;))\d+(?:-?\d*))(?:\.)?'
+
+# Regex para casos "págs. x a y."
+REGEX_RANGE_INI = r'(?i)p[aá]g(?:s)?(?:\.)? (?:\d+)'
+REGEX_RANGE_END = r'(?i)(?: )?[ya,-](?: )?(?:\d+)\.$'
