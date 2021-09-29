@@ -90,7 +90,7 @@ class Note:
         if has_added_text and len(parent_text) == 2:
             parent_text = parent_text[0].strip()
             separator = " "
-        # Casos tipo: TEXTO págs. x a y.
+        # Casos con "TEXTO_NOTA_BASE págs. x a y."
         elif has_added_text and len(parent_text) == 3 and \
                 re.search(REGEX_RANGE_INI, parent_text[1]) is not None and \
                 re.search(REGEX_RANGE_END, parent_text[2]) is not None:
