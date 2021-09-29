@@ -3,7 +3,7 @@
 
 #########################################################################
 #
-# ePLIbidem v0.6
+# ePLIbidem v0.7
 # Una ayuda para manejar notas ibid.
 #
 # Copyright (C) 2021 Titivillus
@@ -49,7 +49,7 @@ import os
 import src.mainWindow
 from src.book import Book
 
-version = "0.6"
+version = "0.7"
 
 
 def run(bk):
