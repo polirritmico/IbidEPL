@@ -6,7 +6,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 import re
-from src.regex import REGEX_IBID, REGEX_PAGE_INFO_SPLIT
+from src.regex import REGEX_IBID, REGEX_PAGE_INFO_SPLIT, \
+                      REGEX_RANGE_INI, REGEX_RANGE_END
 
 
 class Note:
@@ -85,10 +86,15 @@ class Note:
         # Chequeamos si la nota parent tiene info de pág.
         parent_text = re.split(REGEX_PAGE_INFO_SPLIT, self.parent.text)
         parent_text = list(filter(None, parent_text))
-        
+
         if has_added_text and len(parent_text) == 2:
             parent_text = parent_text[0].strip()
             separator = " "
+        # Casos tipo: TEXTO págs. x a y.
+        elif has_added_text and len(parent_text) == 3 and \
+                re.search(REGEX_RANGE_INI, parent_text[1]) is not None and \
+                re.search(REGEX_RANGE_END, parent_text[2]) is not None:
+            parent_text = str(parent_text[0])
         else:
             parent_text = self.parent.text
 
