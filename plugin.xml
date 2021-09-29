@@ -6,7 +6,7 @@
 <description>Ayuda para ajustar notas ibíd.</description>
 <engine>python3.4</engine>
 <engine>python2.7</engine>
-<version>0.6.0</version>
+<version>0.7.0</version>
 <oslist>osx,unx,win</oslist>
 <autostart>True</autostart>
 <autoclose>True</autoclose>
