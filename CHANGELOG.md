@@ -1,7 +1,7 @@
 ## Registro de cambios
 
 ## ePLIbidem 0.7
-Esta versión añade el manejo automático para nuevos casos y pequeños ajustes a la interfaz.
+Esta versión añade el manejo automático para nuevos casos y pequeños ajustes a la interfaz, además de cambios internos del código.
 
 ### Cambios:
 * Muestra atajos de teclado en la ayuda emergente.
@@ -9,6 +9,7 @@ Esta versión añade el manejo automático para nuevos casos y pequeños ajustes
 * Ajuste automático en más casos tipo (con variantes):
     - `TEXTO_NOTA_BASE, págs. A y B.` e `Ibídem, págs. C y D.`
     - `TEXTO_NOTA_BASE, págs. X, Y.` e `Ibídem, pág. Z.`
+* Ajuste y limpieza de código en tests de casos.
 _____________________________
 
 ## ePLIbidem 0.6
