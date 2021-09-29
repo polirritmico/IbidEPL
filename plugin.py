@@ -106,38 +106,38 @@ def run(bk):
 
 
 def main():
-    # print("Error: Ejecutar desde Sigil.\n")
-    # return -1
-    filename = "testFiles/notas.xhtml"
+    print("Error: Ejecutar desde Sigil.\n")
+    return -1
+    # filename = "testFiles/notas.xhtml"
 
-    file = open(filename, "r")
-    html = file.read()
-    file.close()
+    # file = open(filename, "r")
+    # html = file.read()
+    # file.close()
 
-    book = Book(filename)
-    book.readHTML(html)
-    book.parseNotes()
-    book.getExtraTextFromHtml()
+    # book = Book(filename)
+    # book.readHTML(html)
+    # book.parseNotes()
+    # book.getExtraTextFromHtml()
 
-    book.autocheckIbidNotes()
-    book.updateParentsAndChilds()
-    book.updateNextAndPrevNotes()
-    book.updateNotesLabels()
+    # book.autocheckIbidNotes()
+    # book.updateParentsAndChilds()
+    # book.updateNextAndPrevNotes()
+    # book.updateNotesLabels()
 
-    print("Archivo \"{}\" indexado exitosamente.".format(filename))
-    print("Abriendo interfaz QT...")
-    dark_theme = True
-    path = "src/"
-    overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
+    # print("Archivo \"{}\" indexado exitosamente.".format(filename))
+    # print("Abriendo interfaz QT...")
+    # dark_theme = True
+    # path = "src/"
+    # overwrite_xhtml = src.mainWindow.start(book, dark_theme, path, None)
 
-    if overwrite_xhtml:
-        file = open("outTest.xhtml", "w")
-        file.write(book.bookToXHTML())
-        file.close()
-        print("Archivo escrito correctamente.")
-    else:
-        print("No se han escrito cambios.")
-    return 0
+    # if overwrite_xhtml:
+    #     file = open("outTest.xhtml", "w")
+    #     file.write(book.bookToXHTML())
+    #     file.close()
+    #     print("Archivo escrito correctamente.")
+    # else:
+    #     print("No se han escrito cambios.")
+    # return 0
 
 
 if __name__ == "__main__":
