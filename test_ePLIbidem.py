@@ -91,6 +91,9 @@ class TestInputs(unittest.TestCase):
             for case in range(len(expected)):
                 self.assertEqual(test_text[case].note_ref, expected[case])
 
+    def test_multiple_xhtml_loaded(self):
+        self.assertEqual(1, 1)
+
 class TestNotesControl(unittest.TestCase):
     def setUp(self):
         self.compendium = []
@@ -297,160 +300,6 @@ class TestNoteOperations(unittest.TestCase):
             book.updateNotesLabels()
             self.compendium.append(book)
 
-    def test_case_pepito(self):
-        nota_base = Note("nt171",
-                         "18",
-                         'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 65.',
-                         "../Text/Capitulo_08.xhtml#rf171",
-                         35)
-
-        nota_ibid = Note("nt172", "19", "<i>Ibid.</i>, p. 64.", 
-                         "../Text/Capitulo_08.xhtml#rf172" ,36)
-
-        nota_ibid.is_ibid = True
-        nota_ibid.parent = nota_base
-        nota_base.childs.append(nota_ibid)
-
-        libro = Book("test_pepito")
-        libro.notes_index.append(nota_base)
-        libro.notes_index.append(nota_ibid)
-        libro.ibid_note_count = 1
-        libro.base_note_count = 1
-
-        regex = REGEX_SPLIT_IBID
-        ibid_tag = ""
-        separator = ""
-        
-        expected = 'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 64.'
-        output = nota_ibid.processIbid(regex, ibid_tag, separator)
-
-        self.assertEqual(expected, output)
-
-    def test_case_leeloo(self):
-        nota_base = Note("nt1",
-                         "1",
-                         'Henry Miller, Sexus. Nueva York, Grove Press, 1965, pág. 180.',
-                         "../Text/Capitulo_01.xhtml#rf1",
-                         0)
-        nota_ibid_1 = Note("nt2", "2", "Ibíd., p. 178.", 
-                         "../Text/Capitulo_08.xhtml#rf2", 1)
-        nota_ibid_2 = Note("nt3", "3", "Ibíd.,", 
-                         "../Text/Capitulo_08.xhtml#rf3", 2)
-        nota_ibid_3 = Note("nt4", "4", "Ibíd., p. 179.", 
-                         "../Text/Capitulo_08.xhtml#rf4", 3)
-
-        nota_ibid_1.is_ibid = True
-        nota_ibid_2.is_ibid = True
-        nota_ibid_3.is_ibid = True
-        nota_ibid_1.parent = nota_base
-        nota_ibid_2.parent = nota_base
-        nota_ibid_3.parent = nota_base
-        nota_base.childs.append(nota_ibid_1)
-        nota_base.childs.append(nota_ibid_2)
-        nota_base.childs.append(nota_ibid_3)
-
-        libro = Book("test_leeloo")
-        libro.notes_index.append(nota_base)
-        libro.notes_index.append(nota_ibid_1)
-        libro.notes_index.append(nota_ibid_2)
-        libro.notes_index.append(nota_ibid_3)
-        libro.base_note_count = 1
-        libro.ibid_note_count = 3
-        regex = REGEX_SPLIT_IBID
-        ibid_tag = "Ibid."
-        separator = "SEP"
-
-        expected_1 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, p. 178.'
-        expected_2 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, pág. 180.'
-        expected_3 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, p. 179.'
-        output_1 = nota_ibid_1.processIbid(regex, ibid_tag, separator)
-        output_2 = nota_ibid_2.processIbid(regex, ibid_tag, separator)
-        output_3 = nota_ibid_3.processIbid(regex, ibid_tag, separator)
-
-        self.assertEqual(expected_1, output_1)
-        self.assertEqual(expected_2, output_2)
-        self.assertEqual(expected_3, output_3)
-
-    def test_case_multiple_pages_on_parent(self):
-        nota_base = Note("nt5", "5",
-                         'Otro libro pág. 1. y la nota base del ibid en pág. 10.',
-                         "../Text/Capitulo_01.xhtml#rf5", 4)
-
-        nota_ibid = Note("nt6", "6", '<i xml:lang="la">Ibid.</i>, p. 64.',
-                         "../Text/Capitulo_02.xhtml#rf6", 5)
-        
-        nota_base_2 = Note("nt7", "7",
-                           'J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312.',
-                           "../Text/Capitulo_01.xhtml#rf7", 6)
-        nota_ibid_2 = Note("nt8", "8", "Ibíd. pp.&nbsp;135-139.",
-                           "../Text/Capitulo_02.xhtml#rf8", 7)
-
-        nota_ibid.is_ibid = True
-        nota_ibid_2.is_ibid = True
-        nota_ibid.parent = nota_base
-        nota_ibid_2.parent = nota_base_2
-        nota_base.childs.append(nota_ibid)
-        nota_base_2.childs.append(nota_ibid_2)
-
-        libro = Book("test_multiple_pages_on_parent")
-        libro.notes_index.append(nota_base)
-        libro.notes_index.append(nota_ibid)
-        libro.notes_index.append(nota_base_2)
-        libro.notes_index.append(nota_ibid_2)
-        libro.ibid_note_count = 2
-        libro.base_note_count = 2
-
-        regex = REGEX_SPLIT_IBID
-        ibid_tag = "Ibíd."
-        separator = "SEP"
-        
-        expected = 'Ibíd. Otro libro pág. 1. y la nota base del ibid en pág. 10. SEP p. 64.'
-        output = nota_ibid.processIbid(regex, ibid_tag, separator)
-        expected_2 = 'Ibíd. J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. SEP pp.&nbsp;135-139.'
-        output_2 = nota_ibid_2.processIbid(regex, ibid_tag, separator)
-        
-        self.assertEqual(expected, output)
-        self.assertEqual(expected_2, output_2)
-
-    def test_case_process_ibidem(self):
-        for book in self.compendium:
-            if book.filename == "testFiles/test_01.xhtml":
-                expected = 'Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR 1.1'
-                index = 1
-            elif book.filename == "testFiles/test_02.xhtml":
-                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.'
-                index = 5
-                # print(expected)
-            elif book.filename == "testFiles/test_03.xhtml":
-                expected = 'Ibíd: Sobre el establecimiento de los primeros Regulares, véase Carlos Martínez de Campos, <i>España bélica. El siglo <small>XX</small>. Marruecos</i>, p. 156.'
-                index = 23
-            elif book.filename == "testFiles/test_04.xhtml":
-                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1100.'
-                index = 11
-            elif book.filename == "testFiles/test_05.xhtml":
-                expected = 'Ibíd: Moeller, <cite xml:lang="en">German Peasants and Agrarian Policy, <span class="nosep">1914-1924,</span></cite> pág. 4. El resto del análisis se basa en esta fuente, salvo que se indique lo contrario. SEPARADOR pág. 123.'
-                index = 120
-            elif book.filename == "testFiles/test_06.xhtml":
-                expected = 'Ibíd: Hartmann, <cite xml:lang="de">Wehrmacht im Ostkrieg</cite>, pág. 55.'
-                index = 33
-            else:
-                continue
-
-            regex = REGEX_SPLIT_IBID
-            out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
-            self.assertEqual(
-                expected, out, "\nError nota: {} en archivo {}".format(
-                    book.notes_index[index].id, book.filename))
-
-    def test_case_process_ibidem2(self):
-        for book in self.compendium:
-            if book.filename == "testFiles/test_04.xhtml":
-                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1150.'
-                index = 2
-                regex = REGEX_SPLIT_IBID
-                out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
-                self.assertEqual(expected, out, "\nError nota: {} en archivo {}".format(book.notes_index[index].id, book.filename))
-
     def test_ibid_to_note(self):
         for book in self.compendium:
             if book.filename == "testFiles/test_01.xhtml":
@@ -610,6 +459,253 @@ class TestNoteOperations(unittest.TestCase):
                 
                 self.assertEqual(expected_string, result_string)
                 # self.assertEqual(expected, result)
+
+class TestCases(unittest.TestCase):
+    def setUp(self):
+        self.compendium = []
+        for filename in sorted(os.listdir("testFiles/")):
+            file = open(("testFiles/" + filename), "r")
+            html = file.read()
+            file.close()
+            book = Book("testFiles/" + filename)
+            book.readHTML(html)
+            
+            book.parseNotes()
+            book.autocheckIbidNotes()
+            book.updateParentsAndChilds()
+            book.updateNextAndPrevNotes()
+            book.updateNotesLabels()
+            self.compendium.append(book)
+
+    def test_case_pepito(self):
+        nota_base = Note("nt171",
+                         "18",
+                         'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 65.',
+                         "../Text/Capitulo_08.xhtml#rf171",
+                         35)
+
+        nota_ibid = Note("nt172", "19", "<i>Ibid.</i>, p. 64.", 
+                         "../Text/Capitulo_08.xhtml#rf172" ,36)
+
+        nota_ibid.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_base.childs.append(nota_ibid)
+
+        libro = Book("test_pepito")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.ibid_note_count = 1
+        libro.base_note_count = 1
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = ""
+        separator = ""
+        
+        expected = 'S. Rushdie, «“Commonwealth Literature” Does not Exist», en S.&nbsp;Rushdie, <cite>Imaginary Homelands: Essays and Criticism <span class="nosep">1981-1991</span></cite>, Londres, 1992, p. 64.'
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected, output)
+
+    def test_case_leeloo(self):
+        nota_base = Note("nt1",
+                         "1",
+                         'Henry Miller, Sexus. Nueva York, Grove Press, 1965, pág. 180.',
+                         "../Text/Capitulo_01.xhtml#rf1",
+                         0)
+        nota_ibid_1 = Note("nt2", "2", "Ibíd., p. 178.", 
+                         "../Text/Capitulo_08.xhtml#rf2", 1)
+        nota_ibid_2 = Note("nt3", "3", "Ibíd.,", 
+                         "../Text/Capitulo_08.xhtml#rf3", 2)
+        nota_ibid_3 = Note("nt4", "4", "Ibíd., p. 179.", 
+                         "../Text/Capitulo_08.xhtml#rf4", 3)
+
+        nota_ibid_1.is_ibid = True
+        nota_ibid_2.is_ibid = True
+        nota_ibid_3.is_ibid = True
+        nota_ibid_1.parent = nota_base
+        nota_ibid_2.parent = nota_base
+        nota_ibid_3.parent = nota_base
+        nota_base.childs.append(nota_ibid_1)
+        nota_base.childs.append(nota_ibid_2)
+        nota_base.childs.append(nota_ibid_3)
+
+        libro = Book("test_leeloo")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid_1)
+        libro.notes_index.append(nota_ibid_2)
+        libro.notes_index.append(nota_ibid_3)
+        libro.base_note_count = 1
+        libro.ibid_note_count = 3
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = "Ibid."
+        separator = "SEP"
+
+        expected_1 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, p. 178.'
+        expected_2 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, pág. 180.'
+        expected_3 = 'Ibid. Henry Miller, Sexus. Nueva York, Grove Press, 1965, p. 179.'
+        output_1 = nota_ibid_1.processIbid(regex, ibid_tag, separator)
+        output_2 = nota_ibid_2.processIbid(regex, ibid_tag, separator)
+        output_3 = nota_ibid_3.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected_1, output_1)
+        self.assertEqual(expected_2, output_2)
+        self.assertEqual(expected_3, output_3)
+
+    def test_case_multiple_pages_on_parent(self):
+        nota_base = Note("nt5", "5",
+                         'Otro libro pág. 1. y la nota base del ibid en pág. 10.',
+                         "../Text/Capitulo_01.xhtml#rf5", 4)
+
+        nota_ibid = Note("nt6", "6", '<i xml:lang="la">Ibid.</i>, p. 64.',
+                         "../Text/Capitulo_02.xhtml#rf6", 5)
+        
+        nota_base_2 = Note("nt7", "7",
+                           'J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312.',
+                           "../Text/Capitulo_01.xhtml#rf7", 6)
+        nota_ibid_2 = Note("nt8", "8", "Ibíd. pp.&nbsp;135-139.",
+                           "../Text/Capitulo_02.xhtml#rf8", 7)
+
+        nota_ibid.is_ibid = True
+        nota_ibid_2.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_ibid_2.parent = nota_base_2
+        nota_base.childs.append(nota_ibid)
+        nota_base_2.childs.append(nota_ibid_2)
+
+        libro = Book("test_multiple_pages_on_parent")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.notes_index.append(nota_base_2)
+        libro.notes_index.append(nota_ibid_2)
+        libro.ibid_note_count = 2
+        libro.base_note_count = 2
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = "Ibíd."
+        separator = "SEP"
+        
+        expected = 'Ibíd. Otro libro pág. 1. y la nota base del ibid en pág. 10. SEP p. 64.'
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+        expected_2 = 'Ibíd. J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. SEP pp.&nbsp;135-139.'
+        output_2 = nota_ibid_2.processIbid(regex, ibid_tag, separator)
+        
+        self.assertEqual(expected, output)
+        self.assertEqual(expected_2, output_2)
+
+    def test_case_process_ibidem(self):
+        for book in self.compendium:
+            if book.filename == "testFiles/test_01.xhtml":
+                expected = 'Ibíd: Nota 1. <cite>Esta es una cita</cite> SEPARADOR 1.1'
+                index = 1
+            elif book.filename == "testFiles/test_02.xhtml":
+                expected = 'Ibíd: Nulla facilisi. Nulla libero. Vivamus pharetra <em>posuere</em> sapien. <del>Nam consectetuer</del>. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. SEPARADOR y más malformmaciones pág 50-150. Lorem Ipsum. Texto para confundir escribidme, escribídme 2021-2012. caçitulo 234.'
+                index = 5
+                # print(expected)
+            elif book.filename == "testFiles/test_03.xhtml":
+                expected = 'Ibíd: Sobre el establecimiento de los primeros Regulares, véase Carlos Martínez de Campos, <i>España bélica. El siglo <small>XX</small>. Marruecos</i>, p. 156.'
+                index = 23
+            elif book.filename == "testFiles/test_04.xhtml":
+                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1100.'
+                index = 11
+            elif book.filename == "testFiles/test_05.xhtml":
+                expected = 'Ibíd: Moeller, <cite xml:lang="en">German Peasants and Agrarian Policy, <span class="nosep">1914-1924,</span></cite> pág. 4. El resto del análisis se basa en esta fuente, salvo que se indique lo contrario. SEPARADOR pág. 123.'
+                index = 120
+            elif book.filename == "testFiles/test_06.xhtml":
+                expected = 'Ibíd: Hartmann, <cite xml:lang="de">Wehrmacht im Ostkrieg</cite>, pág. 55.'
+                index = 33
+            else:
+                continue
+
+            regex = REGEX_SPLIT_IBID
+            out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
+            self.assertEqual(
+                expected, out, "\nError nota: {} en archivo {}".format(
+                    book.notes_index[index].id, book.filename))
+
+    def test_case_process_ibidem2(self):
+        for book in self.compendium:
+            if book.filename == "testFiles/test_04.xhtml":
+                expected = 'Ibíd: AGA, Sección África, Fondo Marruecos, Caja 81/1150.'
+                index = 2
+                regex = REGEX_SPLIT_IBID
+                out = book.notes_index[index].processIbid(regex, "Ibíd:", "SEPARADOR")
+                self.assertEqual(expected, out, "\nError nota: {} en archivo {}".format(book.notes_index[index].id, book.filename))
+
+    def test_case_case01(self):
+        nota_base = Note("nt1", "1", "En 1963, el propio De&nbsp;Castro tenía un permiso para marcharse de Santiago para continuar sus estudios en la Universidad de Chicago. Se conviritió en presidente en 1965. Valdés, <em>Pinochet's Economists</em>, págs. 140 y 165.", \
+                         "../Text/cap.xhtml#rf1", 1)
+        nota_ibid = Note("nt2", "2", "Ibídem, págs. 6 y 13.", \
+                         "../Text/cap.xhtml#rf2", 2)
+
+        nota_ibid.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_base.childs.append(nota_ibid)
+
+        libro = Book("case_01")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.ibid_note_count = 1
+        libro.base_note_count = 1
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = ""
+        separator = ""
+
+        expected = "En 1963, el propio De&nbsp;Castro tenía un permiso para marcharse de Santiago para continuar sus estudios en la Universidad de Chicago. Se conviritió en presidente en 1965. Valdés, <em>Pinochet's Economists</em>, págs. 6 y 13."
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected, output)
+
+    def test_case_case02(self):
+        nota_base = Note("nt1", "1", "Constable y Valenzuela, <em>A Nation of Enemies, op. cit</em>., págs. 171, 188.", \
+                         "../Text/cap.xhtml#rf1", 1)
+        nota_ibid = Note("nt2", "2", "Ibídem, pág. 147.", \
+                         "../Text/cap.xhtml#rf2", 2)
+
+        nota_ibid.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_base.childs.append(nota_ibid)
+
+        libro = Book("case_01")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.ibid_note_count = 1
+        libro.base_note_count = 1
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = ""
+        separator = ""
+
+        expected = "Constable y Valenzuela, <em>A Nation of Enemies, op. cit</em>., pág. 147."
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected, output)
+
+    def test_case_case03(self):
+        nota_base = Note("nt1", "1", "Wang Hui, <em>China's New Order: Society, Politics, and Economy in Transition</em>, Cambridge (Massachusetts), Harvard University Press, 2003, págs. 45 y 54.", \
+                         "../Text/cap.xhtml#rf1", 1)
+        nota_ibid = Note("nt2", "2", "Ibídem, pág. 54.", \
+                         "../Text/cap.xhtml#rf2", 2)
+
+        nota_ibid.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_base.childs.append(nota_ibid)
+
+        libro = Book("case_01")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.ibid_note_count = 1
+        libro.base_note_count = 1
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = ""
+        separator = ""
+
+        expected = "Wang Hui, <em>China's New Order: Society, Politics, and Economy in Transition</em>, Cambridge (Massachusetts), Harvard University Press, 2003, pág. 54."
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected, output)
+
 
 
 if __name__ == '__main__':
