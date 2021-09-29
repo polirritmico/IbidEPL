@@ -4,6 +4,7 @@
 Descripción general de la actualización
 
 * Muestra atajos de teclado en la ayuda emergente.
+* Muestra id de ibíd. sin ajustar cuando quedan 8 o menos casos.
 * Ajuste automático en más casos:
 - <TEXTO DE NOTA>, págs. x1 y y1. Ibídem, págs. x2 y y2.
 - <TEXTO DE NOTA>, págs. 171, 188. Ibídem, pág. 147.

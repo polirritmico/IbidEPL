@@ -119,6 +119,8 @@ class Window(QtWidgets.QDialog):
         self.NoteBrowser.expandAll()
 
     def announce(self, message):
+        if len(message) > 60: message = message[:60]
+
         self.Messenger.setText(message)
         self.timer = QTimer()
         self.timer.timeout.connect(self.updateMessenger)
@@ -128,12 +130,23 @@ class Window(QtWidgets.QDialog):
             self.timer.start(2000)
 
     def updateMessenger(self):
-        tag_count = "Ibíd. sin ajustar: "
+        tag_count = "Ibíd. sin ajustar:"
+        
         unedited_ibid_count = 0
         for note in self.notes_index:
             if note.is_ibid and not note.edited:
                 unedited_ibid_count += 1
-        self.Messenger.setText(tag_count + str(unedited_ibid_count))
+        message = " " + str(unedited_ibid_count)
+
+        if unedited_ibid_count < 9:
+            unedited_ibids = ""
+            for note in self.notes_index:
+                if note.is_ibid and not note.edited:
+                    unedited_ibids += " " + note.id + ","
+            message = unedited_ibids[:-1]
+        
+        if len(message) > 60: message = message[:60]
+        self.Messenger.setText(tag_count + message)
 
     def changeToNote(self, note):
         self.current_note = note
