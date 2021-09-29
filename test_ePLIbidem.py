@@ -706,6 +706,30 @@ class TestCases(unittest.TestCase):
 
         self.assertEqual(expected, output)
 
+    def test_case_case04(self):
+        nota_base = Note("nt1", "1", "Marais, South Africa, op.cit, pág. 162.", \
+                         "../Text/cap.xhtml#rf1", 1)
+        nota_ibid = Note("nt2", "2", "Ibídem, pág. 170.", \
+                         "../Text/cap.xhtml#rf2", 2)
+
+        nota_ibid.is_ibid = True
+        nota_ibid.parent = nota_base
+        nota_base.childs.append(nota_ibid)
+
+        libro = Book("case_01")
+        libro.notes_index.append(nota_base)
+        libro.notes_index.append(nota_ibid)
+        libro.ibid_note_count = 1
+        libro.base_note_count = 1
+
+        regex = REGEX_SPLIT_IBID
+        ibid_tag = ""
+        separator = ""
+
+        expected = "Marais, South Africa, op.cit, pág. 170."
+        output = nota_ibid.processIbid(regex, ibid_tag, separator)
+
+        self.assertEqual(expected, output)
 
 
 if __name__ == '__main__':
