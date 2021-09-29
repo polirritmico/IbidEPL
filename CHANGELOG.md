@@ -1,13 +1,14 @@
 ## Registro de cambios
 
 ## ePLIbidem 0.7
-Descripción general de la actualización
+Esta versión añade el manejo automático para nuevos casos y pequeños ajustes a la interfaz.
 
+### Cambios:
 * Muestra atajos de teclado en la ayuda emergente.
-* Muestra id de ibíd. sin ajustar cuando quedan 8 o menos casos.
-* Ajuste automático en más casos:
-- <TEXTO DE NOTA>, págs. x1 y y1. Ibídem, págs. x2 y y2.
-- <TEXTO DE NOTA>, págs. 171, 188. Ibídem, pág. 147.
+* Muestra id de los ibíd. sin ajustar cuando quedan 8 o menos por editar.
+* Ajuste automático en más casos tipo (con variantes):
+    - `TEXTO_NOTA_BASE, págs. A y B.` e `Ibídem, págs. C y D.`
+    - `TEXTO_NOTA_BASE, págs. X, Y.` e `Ibídem, pág. Z.`
 _____________________________
 
 ## ePLIbidem 0.6
