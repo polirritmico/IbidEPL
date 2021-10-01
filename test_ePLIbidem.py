@@ -91,8 +91,89 @@ class TestInputs(unittest.TestCase):
             for case in range(len(expected)):
                 self.assertEqual(test_text[case].note_ref, expected[case])
 
-    def test_multiple_xhtml_loaded(self):
-        self.assertEqual(1, 1)
+    def test_multiple_paragraph_notes(self):
+        # TODO: Pasar a xhtml una vez solucionado
+        html = """<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+<head>
+  <title>Notas</title>
+  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+  <h1>Notas</h1>
+
+  <div class="nota">
+    <p id="nt1"><sup>[1]</sup> Los labradores casi podían considerarse como tales en Navarra por aquel tiempo.</p>
+    <p> Párrafo 2. <a href="../Text/04-Capitulo_II.xhtml#rf1">&lt;&lt;</a></p>
+  </div>
+
+  <div class="nota">
+    <p id="nt7"><sup>[7]</sup> Gasto hecho por el conde de la Marca en Caparroso, á su vuelta de la espedicion de Granada en 30 de diciembre de 1480.</p>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            Por tres cuerdas de ubas
+          </td>
+
+          <td>
+            3 sueldos.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Un almud de arbejas
+          </td>
+
+          <td>
+            2 id.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Berzas
+          </td>
+
+          <td>
+            12 dineros.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Cuatro docenas y media de huevos.
+          </td>
+
+          <td>
+            4 sueldos 6 dineros.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Archivo de la cámara de comptos, cajon 174, núm. 28.</p>
+
+    <p>En la obra citada de Yanguas, se encontraran otras cuentas curiosísimas de hospedaje, que prueban la frugalidad de aquellos señores Navarros. <a href="26-Capitulo_IV.xhtml#rf7">&lt;&lt;</a></p>
+  </div>
+</body>
+</html>"""
+        book_test = Book("multiline_note.xhtml")
+        book_test.readHTML(html)
+        book_test.parseNotes()
+        book_test.autocheckIbidNotes()
+        book_test.updateParentsAndChilds()
+        book_test.updateNextAndPrevNotes()
+        book_test.updateNotesLabels()
+
+
 
 class TestNotesControl(unittest.TestCase):
     def setUp(self):
