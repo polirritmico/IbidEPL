@@ -51,20 +51,19 @@ class Book:
         body = self.html_body
         notes_raw = []
         note_buff = ""
-        
-        line = 0
         in_div = False
-        for i in range(len(body)):
-            # find() retorna -1 si no encuentra la búsqueda
-            if not in_div and body[line].find('<div class="nota">') != -1:
-                in_div = True
-            elif in_div and body[line].find('</div>') != -1:
+        for line in body:
+            line = line.lstrip()
+
+            if in_div and line == '</div>':
                 in_div = False
                 notes_raw.append(note_buff)
                 note_buff = ""
-            elif in_div and body[line]:
-                note_buff += body[line].lstrip()
-            line += 1
+            elif in_div: 
+                note_buff += line
+            elif line == '<div class="nota">':
+                in_div = True
+
         return notes_raw
 
     def getExtraTextFromHtml(self) -> list:
@@ -72,17 +71,15 @@ class Book:
         index = 0
         in_div = False
         for line in self.html_body:
+            # find() retorna -1 si no encuentra la búsqueda
             if in_div and line.find('<p id') != -1:
                 reference_note = self.notes_index[index]
                 index += 1
-                continue
-            if in_div and line.find('</div>') != -1:
+            elif in_div and line.find('</div>') != -1:
                 in_div = False
-                continue
-            if not in_div and line.find('<div class="nota">') != -1:
+            elif not in_div and line.find('<div class="nota">') != -1:
                 in_div = True
-                continue
-            if not in_div and line.find('<') != -1:
+            elif not in_div and line.find('<') != -1:
                 entry = ExtraEntry(str.strip(line), reference_note)
                 self.extra_entries.append(entry)
 
