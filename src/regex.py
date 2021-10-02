@@ -10,9 +10,6 @@
 # RegExs para dividir data de las notas (id, llamada, texto y href)
 REGEX_SPLIT_NOTE = r'<p id=\"(.*?)\"><sup>\[(.*?)\]</sup>(.*?)<a href=\"(.*?)\">&lt;&lt;</a></p>'
 
-# RegEx para obtener datos extras dentro de un tag p o h.
-# REGEX_GET_EXTRA_ENTRIES = r'<[ph](?! id=\")(?:.*?)>'
-
 
 # configWindow.py
 # Utilizada en note.processIbid() para dividir llamada ibíd del agregado.
@@ -27,5 +24,5 @@ REGEX_IBID = r'(?i)(ib[íi]d(em)?)[;\., (</i>)]'
 REGEX_PAGE_INFO_SPLIT = r'(?i) (pp?[aá]?(?:gs|g)?(?:ina)?s?(?:\.)?(?: |(?:&nbsp;))\d+(?:-?\d*))(?:\.)?'
 
 # Regex para casos "págs. X a Y.", "pag A y B", "pags X-Y.", etc.
-REGEX_RANGE_INI = r'(?i)p[aá]g(?:s)?(?:\.)? (?:\d+)'
-REGEX_RANGE_END = r'(?i)(?: )?[ya,-](?: )?(?:\d+)\.$'
+REGEX_RANGE_INI = r'(?i)p[aá]g(?:s)?(?:\.)?(?: |(?:&nbsp;))(?:\d+)'
+REGEX_RANGE_END = r'(?i)(?: |(?:&nbsp;))?[ya,-](?: |(?:&nbsp;))?(?:\d+)\.$'
