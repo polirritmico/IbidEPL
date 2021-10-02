@@ -89,6 +89,7 @@ class Window(QtWidgets.QDialog):
         self.notes_index = _book.notes_index
         self.current_note = self.notes_index[0]
         self.tag_html = False
+        self.loadZoom()
 
         self.populateNoteBrowser()
         self.changeToNote(self.current_note)
@@ -281,14 +282,28 @@ class Window(QtWidgets.QDialog):
         self.announce('Ibíd. \"{}\" cambiado a nota.'.format(current.id))
 
     def increaseFontSizeButton_pressed(self):
-        self.NoteText.zoomIn(1)
-        self.IbidOriginalText.zoomIn(1)
-        self.IbidText.zoomIn(1)
+        if self.config_window.changeZoomLevel(1):
+            self.NoteText.zoomIn(1)
+            self.IbidOriginalText.zoomIn(1)
+            self.IbidText.zoomIn(1)
 
     def decreaseFontSizeButton_pressed(self):
-        self.NoteText.zoomOut(1)
-        self.IbidOriginalText.zoomOut(1)
-        self.IbidText.zoomOut(1)
+        if self.config_window.changeZoomLevel(-1):
+            self.NoteText.zoomOut(1)
+            self.IbidOriginalText.zoomOut(1)
+            self.IbidText.zoomOut(1)
+
+    def loadZoom(self):
+        zoom = self.config_window.text_zoom_level
+        for i in range(abs(zoom)):
+            if zoom > 0:
+                self.NoteText.zoomIn(1)
+                self.IbidOriginalText.zoomIn(1)
+                self.IbidText.zoomIn(1)
+            else:
+                self.NoteText.zoomOut(1)
+                self.IbidOriginalText.zoomOut(1)
+                self.IbidText.zoomOut(1)
 
     def undoIbidButton_pressed(self):
         if self.current_ibid is None:

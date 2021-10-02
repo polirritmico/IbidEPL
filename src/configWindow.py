@@ -108,11 +108,13 @@ class ConfigWindow(QtWidgets.QDialog):
         self.prefs.defaults["Ibid"] = self.ibid_label_entries[0]
         self.prefs.defaults["Separator_combobox"] = 0
         self.prefs.defaults["Separator"] = self.separator_label_entries[0]
+        self.prefs.defaults["Text_zoom_size"] = 0
 
         # Load Values
         self.regex = self.prefs["RegEx"]
         self.ibid_label = self.prefs["Ibid"]
         self.separator = self.prefs["Separator"]
+        self.text_zoom_level = self.prefs["Text_zoom_size"]
 
         # Set Currents
         self.RegexComboBox.setCurrentIndex(self.prefs["RegEx_combobox"])
@@ -128,6 +130,15 @@ class ConfigWindow(QtWidgets.QDialog):
         self.SeparatorEntry.setText(self.separator)
 
         self.saveCancelValues()
+
+    def changeZoomLevel(self, zoom) -> bool:
+        new_val = self.text_zoom_level + zoom
+        if new_val > 10 or new_val < -5:
+            return False
+        self.text_zoom_level = new_val
+        self.prefs["Text_zoom_size"] = new_val
+        self.bk.savePrefs(self.prefs)
+        return True
 
     def checkNewVersion(self):
         from plugin import version
