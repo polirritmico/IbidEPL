@@ -10,7 +10,7 @@ Una pequeña herramienta para manejar las notas ibíd.
 
 * **Ejecución:** Primero abrir el xhtml con las notas o seleccionarlo en el Explorador del libro, a continuación abrir el plugin. Para que funcione, el archivo de notas debe seguir el estándar EPL. Se muestran recuadros de ayuda dejando el ratón sobre los elementos de la interfaz sin pulsar clic.
 
-* **Link de descarga:** [versión 0.7](https://github.com/polirritmico/ePLIbidem/releases/tag/0.7)
+* **Link de descarga:** [versión 0.8](https://github.com/polirritmico/ePLIbidem/releases/tag/0.8)
 
 * **Atajos de teclado:** :keyboard::computer_mouse:
     * **Ctrl + AvPág**: Abre nota ibid siguiente.
