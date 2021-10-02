@@ -102,9 +102,9 @@ class TestInputs(unittest.TestCase):
             book.updateNotesLabels()
             book.getExtraTextFromHtml()
 
-            self.assertEqual(3, book.base_note_count)
-            self.assertEqual(0, book.ibid_note_count)
-            self.assertEqual(1, len(book.extra_entries))
+            self.assertEqual(4, book.base_note_count)
+            self.assertEqual(2, book.ibid_note_count)
+            self.assertEqual(2, len(book.extra_entries))
 
 
 class TestNotesControl(unittest.TestCase):
