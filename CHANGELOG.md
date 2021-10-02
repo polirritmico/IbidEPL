@@ -1,4 +1,16 @@
-## Registro de cambios
+# Registro de cambios
+
+## ePLIbidem 0.8
+Esta versión añade el soporte para el manejo interno de notas más complejas.
+
+### Cambios:
+* Añadido soporte para notas multipárrafo (más de un `<p>`).
+* Añadido soporte para notas con tablas y otros elementos (no div) en su interior.
+* Refactorización de métodos de lectura del xhtml.
+
+### Corrección de errores:
+* El plugin ya no arroja un mensaje de error al abrir un archivo de notas xhtml con notas complejas que contengan más de un paragraph. o tablas.
+_____________________________
 
 ## ePLIbidem 0.7
 Esta versión añade el manejo automático para nuevos casos y pequeños ajustes a la interfaz, además de cambios internos del código.
