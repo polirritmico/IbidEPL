@@ -48,13 +48,11 @@ class Book:
             self.notes_index.append(note)
 
     def getNotesFromHtml(self) -> list:
-        body = self.html_body
         notes_raw = []
         note_buff = ""
         in_div = False
-        for line in body:
+        for line in self.html_body:
             line = line.lstrip()
-
             if in_div and line == '</div>':
                 in_div = False
                 notes_raw.append(note_buff)
