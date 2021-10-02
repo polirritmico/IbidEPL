@@ -52,14 +52,14 @@ class Book:
         note_buff = ""
         in_div = False
         for line in self.html_body:
-            line = line.lstrip()
-            if in_div and line == '</div>':
+            line = line.strip()
+            if in_div and "</div>" in line:
                 in_div = False
                 notes_raw.append(note_buff)
                 note_buff = ""
             elif in_div: 
                 note_buff += line
-            elif line == '<div class="nota">':
+            elif '<div class="nota">' in line:
                 in_div = True
 
         return notes_raw
@@ -70,14 +70,14 @@ class Book:
         in_div = False
         for line in self.html_body:
             # find() retorna -1 si no encuentra la búsqueda
-            if in_div and line.find('<p id') != -1:
+            if in_div and "<p id=" in line:
                 reference_note = self.notes_index[index]
                 index += 1
-            elif in_div and line.find('</div>') != -1:
+            elif in_div and "</div>" in line:
                 in_div = False
-            elif not in_div and line.find('<div class="nota">') != -1:
+            elif not in_div and '<div class="nota">' in line:
                 in_div = True
-            elif not in_div and line.find('<') != -1:
+            elif not in_div and "<" in line:
                 entry = ExtraEntry(str.strip(line), reference_note)
                 self.extra_entries.append(entry)
 
