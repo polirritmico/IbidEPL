@@ -7,7 +7,7 @@
 
 import re
 from src.note import Note
-from src.regex import REGEX_SPLIT_NOTE, REGEX_GET_EXTRA_ENTRIES
+from src.regex import REGEX_SPLIT_NOTE
 
 
 class Book:

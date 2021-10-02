@@ -11,7 +11,7 @@
 REGEX_SPLIT_NOTE = r'<p id=\"(.*?)\"><sup>\[(.*?)\]</sup>(.*?)<a href=\"(.*?)\">&lt;&lt;</a></p>'
 
 # RegEx para obtener datos extras dentro de un tag p o h.
-REGEX_GET_EXTRA_ENTRIES = r'<[ph](?! id=\")(?:.*?)>'
+# REGEX_GET_EXTRA_ENTRIES = r'<[ph](?! id=\")(?:.*?)>'
 
 
 # configWindow.py
