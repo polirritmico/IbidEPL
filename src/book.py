@@ -69,7 +69,6 @@ class Book:
         index = 0
         in_div = False
         for line in self.html_body:
-            # find() retorna -1 si no encuentra la búsqueda
             if in_div and "<p id=" in line:
                 reference_note = self.notes_index[index]
                 index += 1
