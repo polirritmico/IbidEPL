@@ -55,7 +55,7 @@ class TestInputs(unittest.TestCase):
                 continue
             book.parseNotes()
             expected = [
-                # '<p class="item">I. «Colonización» y «Colonias»</p>',
+                # (I es parte de Head)
                 '<p class="item">II. «Colonialismo» e «Imperios coloniales»</p>',
                 '<p>Caso más complicado</p>',
                 '<p class="item">III. Épocas del colonialismo</p>',
@@ -68,7 +68,7 @@ class TestInputs(unittest.TestCase):
             ]
             test_text = book.getExtraTextFromHtml()
             self.assertEqual(9, len(test_text))
-            for case in range(len(expected)):
+            for case in range(len(test_text)):
                 self.assertEqual(test_text[case].entry, expected[case])
 
     def test_check_extra_Data_position(self):
@@ -92,86 +92,19 @@ class TestInputs(unittest.TestCase):
                 self.assertEqual(test_text[case].note_ref, expected[case])
 
     def test_multiple_paragraph_notes(self):
-        # TODO: Pasar a xhtml una vez solucionado
-        html = """<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+        for book in self.compendium:
+            if book.filename != "testFiles/notas_parrafos_multi.xhtml":
+                continue
+            book.parseNotes()
+            book.autocheckIbidNotes()
+            book.updateParentsAndChilds()
+            book.updateNextAndPrevNotes()
+            book.updateNotesLabels()
+            book.getExtraTextFromHtml()
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
-<head>
-  <title>Notas</title>
-  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>
-  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>
-</head>
-
-<body>
-  <h1>Notas</h1>
-
-  <div class="nota">
-    <p id="nt1"><sup>[1]</sup> Los labradores casi podían considerarse como tales en Navarra por aquel tiempo.</p>
-    <p> Párrafo 2. <a href="../Text/04-Capitulo_II.xhtml#rf1">&lt;&lt;</a></p>
-  </div>
-
-  <div class="nota">
-    <p id="nt7"><sup>[7]</sup> Gasto hecho por el conde de la Marca en Caparroso, á su vuelta de la espedicion de Granada en 30 de diciembre de 1480.</p>
-
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            Por tres cuerdas de ubas
-          </td>
-
-          <td>
-            3 sueldos.
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            Un almud de arbejas
-          </td>
-
-          <td>
-            2 id.
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            Berzas
-          </td>
-
-          <td>
-            12 dineros.
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            Cuatro docenas y media de huevos.
-          </td>
-
-          <td>
-            4 sueldos 6 dineros.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>Archivo de la cámara de comptos, cajon 174, núm. 28.</p>
-
-    <p>En la obra citada de Yanguas, se encontraran otras cuentas curiosísimas de hospedaje, que prueban la frugalidad de aquellos señores Navarros. <a href="26-Capitulo_IV.xhtml#rf7">&lt;&lt;</a></p>
-  </div>
-</body>
-</html>"""
-        book_test = Book("multiline_note.xhtml")
-        book_test.readHTML(html)
-        book_test.parseNotes()
-        book_test.autocheckIbidNotes()
-        book_test.updateParentsAndChilds()
-        book_test.updateNextAndPrevNotes()
-        book_test.updateNotesLabels()
+            self.assertEqual(3, book.base_note_count)
+            self.assertEqual(0, book.ibid_note_count)
+            self.assertEqual(1, len(book.extra_entries))
 
 
 class TestNotesControl(unittest.TestCase):
@@ -529,7 +462,7 @@ class TestNoteOperations(unittest.TestCase):
                 self.assertEqual(xhtml, expected_xhtml)
 
     def test_book_with_extra_data_to_xhtml(self):
-        expected_string = """<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">\n<head>\n  <title>Notas</title>\n  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>\n  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>\n</head>\n\n<body>\n  <h1>Notas</h1>\n\n  <p class="item">I. «Colonización» y «Colonias»</p>\n\n  <div class="nota">\n    <p id="nt1"><sup>[1]</sup> Para un repaso de los principales debates al respecto, véase D.&nbsp;Rothermund, «The Self-Consciousness of Post-Imperial Nations: A Cross-national Comparison», en <cite>India Quarterly</cite> 67 (2011), pp. 1-18. <a href="../Text/Capitulo_01.xhtml#rf1">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt2"><sup>[2]</sup> Véase O. Brunner, W. Conze y R.&nbsp;Koselleck (eds.), <cite>Geschichtliche Grundbegriffe. Historisches Lexikon zur politisch-sozialen Sprache in Deutschland</cite>, 7 vols., Stuttgart, <span class="nosep">1972-1992,</span> y en particular el artículo sobre «Imperialismo» de J. Fisch <i>et al.</i> (Vol. 3, 1982, pp. 171-236). <a href="../Text/Capitulo_01.xhtml#rf2">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt3"><sup>[3]</sup> M. I. Finley, <cite>Colonies: An Attempt at a Typology</cite>, en <cite>Transactions of the Royal Historical Society</cite>, 5.ª serie, 26 (1976), pp.&nbsp;167-188. <a href="../Text/Capitulo_01.xhtml#rf3">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">II. «Colonialismo» e «Imperios coloniales»</p>\n\n  <p>Caso más complicado</p>\n\n  <div class="nota">\n    <p id="nt16"><sup>[1]</sup> Ph. D. Curtin, «The Black Experience of Colonialism and Imperialism», en S.&nbsp;<span class="nosep">W. Mintz</span> (ed.), <cite>Slavery, Colonialism, and Racism</cite>, Nueva York, 1974, p. 23. <a href="../Text/Capitulo_02.xhtml#rf16">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt17"><sup>[2]</sup> Véase M. Winter, <cite>Egyptian Society under Ottoman Rule <span class="nosep">1517-1798</span></cite>, Londres, 1992, p.&nbsp;30. <a href="../Text/Capitulo_02.xhtml#rf17">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt18"><sup>[3]</sup> E. W. Said, <cite>Kultur und Imperialismus. Einbildungskraft und Politik im Zeitalter der Macht</cite>, Fráncfort, 1994, p.&nbsp;44 [ed. cast.: <cite>Cultura e imperialismo</cite>, Barcelona, Debate, 2018]. <a href="../Text/Capitulo_02.xhtml#rf18">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">III. Épocas del colonialismo</p>\n\n  <div class="nota">\n    <p id="nt25"><sup>[1]</sup> Véase, en general, W. Reinhard, <cite>Geschichte der europäischen Expansion</cite>, 4 vols., Stuttgart, <span class="nosep">1983-1990,</span> así como Kleine Geschichte des Kolonialismus, Stuttgart, 2008. <a href="../Text/Capitulo_03.xhtml#rf25">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt26"><sup>[2]</sup> A. Girault, <cite>Principes de colonisation et de législation coloniale</cite>, vol. 1, París, 1921, p.&nbsp;17. <a href="../Text/Capitulo_03.xhtml#rf26">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt27"><sup>[3]</sup> Véase por ejemplo los títulos de Osterhammel y Petersson, y Wendt en la «Bibliografía», así como G.&nbsp;<span class="nosep">B. Magee</span> y A. S. Thompson, <cite>Empire and Globalisation: Networks of People, Goods and Capital in the British World, c. <span class="nosep">1850-1914</span></cite>, Cambridge, 2010. <a href="../Text/Capitulo_03.xhtml#rf27">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IV. Conquista, resistencia y colaboración</p>\n\n  <div class="nota">\n    <p id="nt60"><sup>[1]</sup> D. W. Meinig, The Shaping of America: A Geographical Perspective on 500&nbsp;Years of History, vol. 1, New Haven, 1986, p. 65. <a href="../Text/Capitulo_04.xhtml#rf60">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt61"><sup>[2]</sup> Véase J. H. Elliott, «The Seizure of Overseas Territories by the European Powers», en H.&nbsp;Pohl (ed.), <cite>The European Discovery of the World and its Economic Effects on Pre-Industrial Society, <span class="nosep">1500-1800</span></cite>, Stuttgart, 1990, pp. 51-54. <a href="../Text/Capitulo_04.xhtml#rf61">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt62"><sup>[3]</sup> J. Iliffe, <cite>A Modern History of Tanganyika</cite>, Cambridge, 1979, p.&nbsp;117. <a href="../Text/Capitulo_04.xhtml#rf62">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">V. El estado colonial</p>\n\n  <div class="nota">\n    <p id="nt83"><sup>[1]</sup> Véase M. H. Fisher, <cite>Indirect Rule in India: Residents and the Residency System <span class="nosep">1764-1858</span></cite>, Delhi, 1991. <a href="../Text/Capitulo_05.xhtml#rf83">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt84"><sup>[2]</sup> Véase J. M. Gullick, <cite>Rulers and Residents: Influence and Power in the Malay States <span class="nosep">1870-1920</span></cite>, Singapur, 1992. <a href="../Text/Capitulo_05.xhtml#rf84">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt85"><sup>[3]</sup> <cite>Report of the Indian Statutory Commission</cite>, <i>op. cit.</i>, p.&nbsp;112. <a href="../Text/Capitulo_05.xhtml#rf85">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VI. Formas económicas coloniales</p>\n\n  <div class="nota">\n    <p id="nt107"><sup>[1]</sup> Véase A. G. Hopkins, <cite>An Economic History of West Africa</cite>, Londres, 1973, p.&nbsp;126. <a href="../Text/Capitulo_06.xhtml#rf107">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt108"><sup>[2]</sup> Véase el repaso general de C. Coquery-Vidrovitch, «Les conditions de la dépendance: Histoire du sous-développement», en C. Coquery-Vidrovitch y A.&nbsp;Forest (eds.), <cite>Décolonisations et nouvelles dépendances</cite>, Lille, 1986, pp. 25-48. <a href="../Text/Capitulo_06.xhtml#rf108">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VII. Sociedades coloniales"</p>\n\n  <div class="nota">\n    <p id="nt125"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Stoler,</span> «Rethinking Colonial Categories: European Communities and the Boundaries of Rule», en <cite>Comparative Studies in Society and History</cite> 31 (1989), pp. 134-161, y un estudio sobre una familia escocesa activa a escala global: E. Rothschild, <cite>The Inner Life of Empires: An Eighteenthcentury History</cite>, Princeton, 2011. <a href="../Text/Capitulo_07.xhtml#rf125">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt126"><sup>[2]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. <a href="../Text/Capitulo_07.xhtml#rf126">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt127"><sup>[3]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. pp.&nbsp;135-139. <a href="../Text/Capitulo_07.xhtml#rf127">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VIII. Colonialismo y cultura indígena</p>\n\n  <div class="nota">\n    <p id="nt154"><sup>[1]</sup> V. S. Naipaul, <cite>The Overcrowded Barracoon and Other Articles</cite>, Londres, 1972, p.&nbsp;37. <a href="../Text/Capitulo_08.xhtml#rf154">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt155"><sup>[2]</sup> N. Wachtel, <cite>The Vision of the Vanquished: The Spanish Conquest of Peru through Indian Eyes, <span class="nosep">1530-1570</span></cite>, Hassocs, Sussex, 1977, p.&nbsp;85. <a href="../Text/Capitulo_08.xhtml#rf155">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt156"><sup>[3]</sup> Véase D. Lombard, <cite>Le carrefour javanais: Essai <span class="nosep">d’histoire</span> globale</cite>, vol. 1, París, 1990, pp.&nbsp;79-81. <a href="../Text/Capitulo_08.xhtml#rf156">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IX. Pensamiento colonialista y cultura colonial</p>\n\n  <div class="nota">\n    <p id="nt173"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Conklin,</span> <cite>A Mission to Civilize: The Republican Idea of Empire in France and West Africa, <span class="nosep">1895-1930</span></cite>, Stanford, 1997. <a href="../Text/Capitulo_09.xhtml#rf173">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt174"><sup>[2]</sup> Véase A. Memmi, <cite>Portrait du colonisé</cite>, nueva edición París, 1973, p.&nbsp;49. <a href="../Text/Capitulo_09.xhtml#rf174">&lt;&lt;</a></p>\n  </div>\n</body>\n</html>"""
+        expected_string = """<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">\n<head>\n  <title>Notas</title>\n  <link href="../Styles/epl.css" rel="stylesheet" type="text/css"/>\n  <link href="../Styles/style.css" rel="stylesheet" type="text/css"/>\n</head>\n\n<body>\n  <h1>Notas</h1>\n\n  <p class="item">I. «Colonización» y «Colonias»</p>\n\n  <div class="nota">\n    <p id="nt1"><sup>[1]</sup> Para un repaso de los principales debates al respecto, véase D.&nbsp;Rothermund, «The Self-Consciousness of Post-Imperial Nations: A Cross-national Comparison», en <cite>India Quarterly</cite> 67 (2011), pp. 1-18. <a href="../Text/Capitulo_01.xhtml#rf1">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt2"><sup>[2]</sup> Véase O. Brunner, W. Conze y R.&nbsp;Koselleck (eds.), <cite>Geschichtliche Grundbegriffe. Historisches Lexikon zur politisch-sozialen Sprache in Deutschland</cite>, 7 vols., Stuttgart, <span class="nosep">1972-1992,</span> y en particular el artículo sobre «Imperialismo» de J. Fisch <i>et al.</i> (Vol. 3, 1982, pp. 171-236). <a href="../Text/Capitulo_01.xhtml#rf2">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt3"><sup>[3]</sup> M. I. Finley, <cite>Colonies: An Attempt at a Typology</cite>, en <cite>Transactions of the Royal Historical Society</cite>, 5.ª serie, 26 (1976), pp.&nbsp;167-188. <a href="../Text/Capitulo_01.xhtml#rf3">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">II. «Colonialismo» e «Imperios coloniales»</p>\n\n  <p>Caso más complicado</p>\n\n  <div class="nota">\n    <p id="nt16"><sup>[1]</sup> Ph. D. Curtin, «The Black Experience of Colonialism and Imperialism», en S.&nbsp;<span class="nosep">W. Mintz</span> (ed.).</p><p><cite>Slavery, Colonialism, and Racism</cite>, Nueva York, 1974, p. 23. <a href="../Text/Capitulo_02.xhtml#rf16">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt17"><sup>[2]</sup> Véase M. Winter, <cite>Egyptian Society under Ottoman Rule <span class="nosep">1517-1798</span></cite>, Londres, 1992, p.&nbsp;30. <a href="../Text/Capitulo_02.xhtml#rf17">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt18"><sup>[3]</sup> E. W. Said, <cite>Kultur und Imperialismus. Einbildungskraft und Politik im Zeitalter der Macht</cite>, Fráncfort, 1994, p.&nbsp;44 [ed. cast.: <cite>Cultura e imperialismo</cite>, Barcelona, Debate, 2018]. <a href="../Text/Capitulo_02.xhtml#rf18">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">III. Épocas del colonialismo</p>\n\n  <div class="nota">\n    <p id="nt25"><sup>[1]</sup> Véase, en general, W. Reinhard, <cite>Geschichte der europäischen Expansion</cite>, 4 vols., Stuttgart, <span class="nosep">1983-1990,</span> así como Kleine Geschichte des Kolonialismus, Stuttgart, 2008. <a href="../Text/Capitulo_03.xhtml#rf25">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt26"><sup>[2]</sup> A. Girault, <cite>Principes de colonisation et de législation coloniale</cite>, vol. 1, París, 1921, p.&nbsp;17. <a href="../Text/Capitulo_03.xhtml#rf26">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt27"><sup>[3]</sup> Véase por ejemplo los títulos de Osterhammel y Petersson, y Wendt en la «Bibliografía», así como G.&nbsp;<span class="nosep">B. Magee</span> y A. S. Thompson, <cite>Empire and Globalisation: Networks of People, Goods and Capital in the British World, c. <span class="nosep">1850-1914</span></cite>, Cambridge, 2010. <a href="../Text/Capitulo_03.xhtml#rf27">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IV. Conquista, resistencia y colaboración</p>\n\n  <div class="nota">\n    <p id="nt60"><sup>[1]</sup> D. W. Meinig, The Shaping of America: A Geographical Perspective on 500&nbsp;Years of History, vol. 1, New Haven, 1986, p. 65. <a href="../Text/Capitulo_04.xhtml#rf60">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt61"><sup>[2]</sup> Véase J. H. Elliott, «The Seizure of Overseas Territories by the European Powers», en H.&nbsp;Pohl (ed.), <cite>The European Discovery of the World and its Economic Effects on Pre-Industrial Society, <span class="nosep">1500-1800</span></cite>, Stuttgart, 1990, pp. 51-54. <a href="../Text/Capitulo_04.xhtml#rf61">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt62"><sup>[3]</sup> J. Iliffe, <cite>A Modern History of Tanganyika</cite>, Cambridge, 1979, p.&nbsp;117. <a href="../Text/Capitulo_04.xhtml#rf62">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">V. El estado colonial</p>\n\n  <div class="nota">\n    <p id="nt83"><sup>[1]</sup> Véase M. H. Fisher, <cite>Indirect Rule in India: Residents and the Residency System <span class="nosep">1764-1858</span></cite>, Delhi, 1991. <a href="../Text/Capitulo_05.xhtml#rf83">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt84"><sup>[2]</sup> Véase J. M. Gullick, <cite>Rulers and Residents: Influence and Power in the Malay States <span class="nosep">1870-1920</span></cite>, Singapur, 1992. <a href="../Text/Capitulo_05.xhtml#rf84">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt85"><sup>[3]</sup> <cite>Report of the Indian Statutory Commission</cite>, <i>op. cit.</i>, p.&nbsp;112. <a href="../Text/Capitulo_05.xhtml#rf85">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VI. Formas económicas coloniales</p>\n\n  <div class="nota">\n    <p id="nt107"><sup>[1]</sup> Véase A. G. Hopkins, <cite>An Economic History of West Africa</cite>, Londres, 1973, p.&nbsp;126. <a href="../Text/Capitulo_06.xhtml#rf107">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt108"><sup>[2]</sup> Véase el repaso general de C. Coquery-Vidrovitch, «Les conditions de la dépendance: Histoire du sous-développement», en C. Coquery-Vidrovitch y A.&nbsp;Forest (eds.), <cite>Décolonisations et nouvelles dépendances</cite>, Lille, 1986, pp. 25-48. <a href="../Text/Capitulo_06.xhtml#rf108">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VII. Sociedades coloniales"</p>\n\n  <div class="nota">\n    <p id="nt125"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Stoler,</span> «Rethinking Colonial Categories: European Communities and the Boundaries of Rule», en <cite>Comparative Studies in Society and History</cite> 31 (1989), pp. 134-161, y un estudio sobre una familia escocesa activa a escala global: E. Rothschild, <cite>The Inner Life of Empires: An Eighteenthcentury History</cite>, Princeton, 2011. <a href="../Text/Capitulo_07.xhtml#rf125">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt126"><sup>[2]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. <a href="../Text/Capitulo_07.xhtml#rf126">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt127"><sup>[3]</sup> J. S. Furnivall, <cite>Netherlands India: A Study of a Plural Economy</cite>, Cambridge, 1944, p.&nbsp;446, y también Colonial Policy and Practice, op. cit., pp. 303-312. pp.&nbsp;135-139. <a href="../Text/Capitulo_07.xhtml#rf127">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">VIII. Colonialismo y cultura indígena</p>\n\n  <div class="nota">\n    <p id="nt154"><sup>[1]</sup> V. S. Naipaul, <cite>The Overcrowded Barracoon and Other Articles</cite>, Londres, 1972, p.&nbsp;37. <a href="../Text/Capitulo_08.xhtml#rf154">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt155"><sup>[2]</sup> N. Wachtel, <cite>The Vision of the Vanquished: The Spanish Conquest of Peru through Indian Eyes, <span class="nosep">1530-1570</span></cite>, Hassocs, Sussex, 1977, p.&nbsp;85. <a href="../Text/Capitulo_08.xhtml#rf155">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt156"><sup>[3]</sup> Véase D. Lombard, <cite>Le carrefour javanais: Essai <span class="nosep">d’histoire</span> globale</cite>, vol. 1, París, 1990, pp.&nbsp;79-81. <a href="../Text/Capitulo_08.xhtml#rf156">&lt;&lt;</a></p>\n  </div>\n\n  <p class="item">IX. Pensamiento colonialista y cultura colonial</p>\n\n  <div class="nota">\n    <p id="nt173"><sup>[1]</sup> Véase, por ejemplo, A.&nbsp;<span class="nosep">L. Conklin,</span> <cite>A Mission to Civilize: The Republican Idea of Empire in France and West Africa, <span class="nosep">1895-1930</span></cite>, Stanford, 1997. <a href="../Text/Capitulo_09.xhtml#rf173">&lt;&lt;</a></p>\n  </div>\n\n  <div class="nota">\n    <p id="nt174"><sup>[2]</sup> Véase A. Memmi, <cite>Portrait du colonisé</cite>, nueva edición París, 1973, p.&nbsp;49. <a href="../Text/Capitulo_09.xhtml#rf174">&lt;&lt;</a></p>\n  </div>\n</body>\n</html>"""
         # expected = sha512(expected_string.encode("utf-8"))
         for book in self.compendium:
             if book.filename == "testFiles/notas.xhtml":
