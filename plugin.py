@@ -49,7 +49,7 @@ import os
 import src.mainWindow
 from src.book import Book
 
-version = "0.7"
+version = "0.8"
 
 
 def run(bk):
@@ -108,7 +108,7 @@ def run(bk):
 def main():
     # print("Error: Ejecutar desde Sigil.\n")
     # return -1
-    filename = "notas_parrafos_multi.xhtml"
+    filename = "testFiles/notas_parrafos_multi.xhtml"
 
     file = open(filename, "r")
     html = file.read()
